@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Interactive Visual Comparison of Multiple Trees</title>
+		<style type="text/css">
+			h1 
+			{
+				font-family: "Verdana";
+				font-size: 2em;
+				color: black;
+				text-align: center;
+			}
+			body 
+			{
+				color:blue;
+			}
+		</style>
+		<script src="modernizr-2.5.3.js"></script>
+		<script type="text/javascript">
+			window.addEventListener('load', eventWindowLoaded, false);
+			
+			function eventWindowLoaded()
+			{
+				canvasApp();
+			}
+			
+			function canvasSupport()
+			{
+				return Modernizr.canvas;
+			}
+			
+			function canvasApp()
+			{
+				if(!canvasSupport())
+				{
+					return;
+				}
+				else
+				{
+					var canvas = document.getElementById("canvas");
+					var context = canvas.getContext("2d");
+				}
+				
+				drawScreen();
+				
+				function drawScreen()
+				{
+					context.fillStyle = '#aaaaaa';
+					context.fillRect(0, 0, 800, 600);
+					context.fillStyle = '#000000';
+					context.font = '20px _sans';
+					context.textBaseline = 'top';
+					context.fillText("Canvas!", 0, 0);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<header>
+			<h1>
+				Interactive Visual Comparison of Multiple Trees
+			</h1>
+		</header>
+		<div style="position: absolute; top: 100px; left: 50px;">
+			<canvas id="canvas" width="800" height="600">
+				One does not simply use HTML5 Canvas with this browser
+			</canvas>
+		</div>
+	</body>
+</html>
