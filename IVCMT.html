@@ -17,43 +17,20 @@
 			}
 		</style>
 		<script src="modernizr-2.5.3.js"></script>
+		<script src="Helper.js"></script>
+		<script src="Tree.js"></script>
+		<script src="Main.js"></script>
 		<script type="text/javascript">
-			window.addEventListener('load', eventWindowLoaded, false);
+			Debugger.log("creating nodes");
+			var node1 = new Vis2Node();
+			node1.name = "node1";
+			var node2 = new Vis2Node();
+			node2.name = "node2";
+			node1.AddChild(node2);
+			Debugger.log("number of children of node1: "+node1.numChildren());
+			Debugger.log("parent of node2: "+node2.parent.name);
 			
-			function eventWindowLoaded()
-			{
-				canvasApp();
-			}
-			
-			function canvasSupport()
-			{
-				return Modernizr.canvas;
-			}
-			
-			function canvasApp()
-			{
-				if(!canvasSupport())
-				{
-					return;
-				}
-				else
-				{
-					var canvas = document.getElementById("canvas");
-					var context = canvas.getContext("2d");
-				}
-				
-				drawScreen();
-				
-				function drawScreen()
-				{
-					context.fillStyle = '#aaaaaa';
-					context.fillRect(0, 0, 800, 600);
-					context.fillStyle = '#000000';
-					context.font = '20px _sans';
-					context.textBaseline = 'top';
-					context.fillText("Canvas!", 0, 0);
-				}
-			}
+		
 		</script>
 	</head>
 	<body>
