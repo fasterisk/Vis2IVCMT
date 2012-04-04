@@ -1,0 +1,6 @@
+Implementation of the paper: Interactive Visual Comparison of Multiple Trees
+by Christian Möllinger and Florian Spechtenhauser
+for the course Visualization 2
+
+Developed in HTML5
+Currently developed for Google Chrome and using its JavaScript console for debugging
