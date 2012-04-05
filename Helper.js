@@ -3,12 +3,17 @@ function canvasSupport()
 	return Modernizr.canvas;
 }
 
-var Debugger = function() {};
-Debugger.log = function (message) 
+var Debugger = function()
 {
-	try {
+};
+Debugger.log = function(message)
+{
+	try
+	{
 		console.log(message);
-	} catch (exception) {
+	}
+	catch (exception)
+	{
 		return;
 	}
 };
