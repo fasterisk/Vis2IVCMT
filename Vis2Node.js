@@ -7,9 +7,6 @@ function Vis2Node()
 	// Name of the node (e.g. "A")
 	this.name;
 
-	// True, if this is a leaf
-	this.isleaf;
-
 	// Parent of the node
 	this.parent;
 
@@ -29,6 +26,7 @@ function Vis2Node()
 	this.AddChild = PushChild;
 	this.AddLeafNodeName = PushLeafNodeName;
 	this.numChildren = GetChildrenCount;
+	this.BuildLeafList = CalcLeafList;
 
 	/*
 	 * Functions
@@ -42,13 +40,6 @@ function Vis2Node()
 		this.children.push(child);
 		child.parent = this;
 		child.edgeweight = weight;
-		if (child.isleaf == true)
-		{
-			Debugger
-					.log("child is leaf, so it is added to parents leaf node list");
-			this.AddLeafNodeName(child.name);
-
-		}
 	}
 
 	// To be called when adding a leafnode - adds its name to all parents
@@ -70,5 +61,22 @@ function Vis2Node()
 	function GetChildrenCount()
 	{
 		return this.children.length;
+	}
+
+	// Builds leaflists for all nodes (only call this starting from a root)
+	function CalcLeafList()
+	{
+		for ( var i = 0; i < this.children.length; i++)
+		{
+			var child = this.children[i];
+			if (child.numChildren() == 0)
+			{
+				child.parent.AddLeafNodeName(child.name);
+			}
+			else
+			{
+				child.BuildLeafList();
+			}
+		}
 	}
 }

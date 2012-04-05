@@ -19,7 +19,6 @@ function ParseString(sSubString)
 	if (bMaybeNode == true)
 	{
 		Debugger.log("is node");
-		rNewNode.isleaf = false;
 
 		var iStartPos = iPosOfFirstBracket;
 		var iBrackets = 0;
@@ -74,7 +73,6 @@ function ParseString(sSubString)
 	else if (bMaybeLeaf == true)
 	{
 		Debugger.log("is leaf");
-		rNewNode.isleaf = true;
 		rNewNode.name = sSubString;
 	}
 
@@ -90,5 +88,8 @@ function ParseFile(sFilename)
 	// example tree structure 1
 	var sTestTreeCompact = '[1;[2;[1;"A"][1;"B"]][2;[1;"C"][1;"D"]][2;[1;"E"][1;"F"]]][3;"G"]';
 
-	return ParseString(sTestTreeCompact);
+	var tree = ParseString(sTestTreeCompact);
+	tree.BuildLeafList();
+
+	return tree;
 }
