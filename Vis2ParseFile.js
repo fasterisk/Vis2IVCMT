@@ -13,8 +13,8 @@ function ParseString(sSubString)
 	var iPosOfFirstHochKomma = sSubString.indexOf('"');
 
 	// determinate if it is maybe a node, or a leaf
-	bMaybeNode = (iPosOfFirstBracket != -1)
-	bMaybeLeaf = (iPosOfFirstHochKomma != -1)
+	bMaybeNode = (iPosOfFirstBracket != -1);
+	bMaybeLeaf = (iPosOfFirstHochKomma != -1);
 
 	if (bMaybeNode == true)
 	{
