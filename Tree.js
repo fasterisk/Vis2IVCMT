@@ -5,6 +5,7 @@ function Vis2Node()
 	this.children = new Array();
 	this.AddChild = PushChild;
 	this.numChildren = GetChildrenCount;
+
 	
 	function PushChild(child)
 	{
