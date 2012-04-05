@@ -23,17 +23,25 @@
 		<script src="Vis2Canvas.js"></script>
 		<script type="text/javascript">
 		<!-- some testing code --/>
-			Debugger.log("creating nodes");
 			var node1 = new Vis2Node();
-			node1.name = "node1";
 			var node2 = new Vis2Node();
+			var node3 = new Vis2Node();
+			node1.name = "node1";
+			node1.isleaf = false;
 			node2.name = "node2";
-			node1.AddChild(node2, 2);
-			Debugger.log("number of children of node1: "+node1.numChildren());
-			Debugger.log("parent of node2: "+node2.parent.name);
+			node2.isleaf = false;
+			node3.name = "node3";
+			node3.isleaf = true;
+			node1.AddChild(node2, 1);
+			node2.AddChild(node3, 1);
+			Debugger.log("lsakdjfsadölkjf "+ node1.leafnodes[0]);
 			
-			ParseFile('test');
 			
+			//Debugger.log(node1.name+": parent: "+node1.parent.name);
+			Debugger.log(node2.name+": parent: "+node2.parent.name);
+			Debugger.log(node3.name+": parent: "+node3.parent.name);
+			
+			var tree = ParseFile('test');
 		
 		</script>
 	</head>

@@ -1,33 +1,72 @@
 function Vis2Node()
 {
-	//Name of the node (e.g. "A")
+	/*
+	 * Members
+	 */
+
+	// Name of the node (e.g. "A")
 	this.name;
-	
-	//Parent of the node
+
+	// True, if this is a leaf
+	this.isleaf;
+
+	// Parent of the node
 	this.parent;
-	
-	//Weight of the edge between parent and this node
+
+	// Weight of the edge between parent and this node
 	this.edgeweight;
-	
-	//Array of the children
+
+	// Array of the children
 	this.children = new Array();
-	
-	//Variable/function to access PushChild function
+
+	// Array that contains all names of leafnodes further down this node
+	this.leafnodes = new Array();
+
+	/*
+	 * Function placeholder for public access
+	 */
+
 	this.AddChild = PushChild;
-	
-	//Variable/function to access GetChildrenCount function
+	this.AddLeafNodeName = PushLeafNodeName;
 	this.numChildren = GetChildrenCount;
 
-	
-	//Adds a child to this node
+	/*
+	 * Functions
+	 */
+
+	// Adds a child to this node
 	function PushChild(child, weight)
 	{
+		Debugger.log("Adding child (" + child.name + ", " + weight + ", "
+				+ (child.isleaf ? "isleaf" : "isnode") + ")");
 		this.children.push(child);
 		child.parent = this;
 		child.edgeweight = weight;
+		if (child.isleaf == true)
+		{
+			Debugger
+					.log("child is leaf, so it is added to parents leaf node list");
+			this.AddLeafNodeName(child.name);
+
+		}
 	}
-	
-	//Returns the number of children of this node
+
+	// To be called when adding a leafnode - adds its name to all parents
+	function PushLeafNodeName(lnname)
+	{
+		Debugger.log("Adding leaf name " + lnname + " to parent");
+		this.leafnodes.push(lnname);
+		if (this.parent != null)
+		{
+			this.parent.AddLeafNodeName(lnname);
+		}
+		else
+		{
+			Debugger.log("parent is null!");
+		}
+	}
+
+	// Returns the number of children of this node
 	function GetChildrenCount()
 	{
 		return this.children.length;

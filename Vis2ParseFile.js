@@ -19,6 +19,7 @@ function ParseString(sSubString)
 	if (bMaybeNode == true)
 	{
 		Debugger.log("is node");
+		rNewNode.isleaf = false;
 
 		var iStartPos = iPosOfFirstBracket;
 		var iBrackets = 0;
@@ -73,7 +74,7 @@ function ParseString(sSubString)
 	else if (bMaybeLeaf == true)
 	{
 		Debugger.log("is leaf");
-
+		rNewNode.isleaf = true;
 		rNewNode.name = sSubString;
 	}
 
