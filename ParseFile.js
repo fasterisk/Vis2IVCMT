@@ -57,12 +57,9 @@ function ParseString(sSubString)
 	
 	// call ParseString recursively for extracted child substring
 	var rNewChildNode = ParseString(sChildSubString);
-      
-	// node has no method to set length of edge, maybe:
-	// rNewNode.AddChild(rNewChildNode, iLengthOfEdge);
 	
 	// add child node to current node
-	rNewNode.AddChild(rNewChildNode);
+	rNewNode.AddChild(rNewChildNode, iLengthOfEdge);
 	
 	// set new starting position
 	iStartPos = i+1;
