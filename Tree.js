@@ -17,6 +17,7 @@ function Vis2Node()
 	
 	//Variable/function to access GetChildrenCount function
 	this.numChildren = GetChildrenCount;
+
 	
 	//Adds a child to this node
 	function PushChild(child, weight)
