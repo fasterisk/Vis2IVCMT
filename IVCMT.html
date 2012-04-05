@@ -17,9 +17,9 @@
 			}
 		</style>
 		<script src="modernizr-2.5.3.js"></script>
-		<script src="Helper.js"></script>
-		<script src="Tree.js"></script>
-		<script src="ParseFile.js"></script>
+		<script src="Vis2Helper.js"></script>
+		<script src="Vis2Node.js"></script>
+		<script src="Vis2ParseFile.js"></script>
 		<script src="Main.js"></script>
 		<script type="text/javascript">
 		<!-- some testing code --/>
@@ -28,7 +28,7 @@
 			node1.name = "node1";
 			var node2 = new Vis2Node();
 			node2.name = "node2";
-			node1.AddChild(node2);
+			node1.AddChild(node2, 2);
 			Debugger.log("number of children of node1: "+node1.numChildren());
 			Debugger.log("parent of node2: "+node2.parent.name);
 			
