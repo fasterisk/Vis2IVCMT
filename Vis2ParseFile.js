@@ -98,7 +98,7 @@ function ParseFile(sFilename)
 	// var sTestTreeCompact2 =
 	// '[5;[5;[5;"A"][5;"B"]][5;"C"]][5;[5;"D"][5;[5;[5;"E"][5;"F"]][5;"G"]]]]';
 
-	var tree = ParseString(sTestTreeCompact);
+	var tree = ParseString(sTestTreeCompact1);
 	tree.BuildLeafList();
 
 	return tree;
