@@ -87,7 +87,8 @@ function ParseFile(sFilename)
 	// javascript / HTML5. Otherwise, it would be huge security problem.
 
 	// example tree structure 1
-	var sTestTreeCompact = '[1;[2;[1;"A"][1;"B"]][2;[1;"C"][1;"D"]][2;[1;"E"][1;"F"]]][3;"G"]';
+	var sTestTreeCompact1 = '[1;[2;[1;"A"][1;"B"]][2;[1;"C"][1;"D"]][2;[1;"E"][1;"F"]]][3;"G"]';
+	var sTestTreeCompact2 = '[1;[2;[1;"A"][1;"B"]][2;[1;"C"][1;"D"]][2;[1;"E"][1;"G"]]][3;"F"]';
 
-	return ParseString(sTestTreeCompact);
+	return ParseString(sTestTreeCompact1);
 }
