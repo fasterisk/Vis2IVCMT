@@ -124,7 +124,9 @@ function Vis2Node()
 	function DrawTree(context, currX, currY)
 	{
 		Debugger.log("drawing node: " + this.id);
-		context.fillRect(currX, currY, 10, 10);
+		var nodeRadius = 5;
+		context.fillRect(currX - nodeRadius, currY - nodeRadius,
+				nodeRadius * 2, nodeRadius * 2);
 		if (!this.isleaf)
 		{
 			context.beginPath();
