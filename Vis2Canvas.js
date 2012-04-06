@@ -6,10 +6,9 @@ function eventWindowLoaded()
 	canvasApp();
 }
 
-			
 function canvasApp()
 {
-	if(!canvasSupport())
+	if (!canvasSupport())
 	{
 		Debugger.log("Canvas is not supported!");
 		return;
@@ -20,16 +19,17 @@ function canvasApp()
 		var context = canvas.getContext("2d");
 	}
 
+	var tree = ParseFile('test');
+	tree.BuildNeededSpace();
+
 	drawScreen();
-				
+
 	function drawScreen()
 	{
 		Debugger.log("Drawing Canvas");
 		context.fillStyle = '#aaaaaa';
 		context.fillRect(0, 0, 800, 600);
 		context.fillStyle = '#000000';
-		context.font = '20px _sans';
-		context.textBaseline = 'top';
-		context.fillText("Canvas!", 0, 0);
+		tree.Draw(context, 400, 10);
 	}
 }

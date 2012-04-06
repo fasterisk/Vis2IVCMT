@@ -39,6 +39,7 @@ function Vis2Node()
 	this.numChildren = GetChildrenCount;
 	this.BuildLeafList = CalcLeafList;
 	this.BuildNeededSpace = CalcNeededSpace;
+	this.Draw = DrawTree;
 
 	/*
 	 * Functions
@@ -118,5 +119,31 @@ function Vis2Node()
 				+ " needs following spaces(LSN, RSN, LLL, RLL): ("
 				+ this.leftSpaceNeeded + ", " + this.rightSpaceNeeded + ", "
 				+ this.leftLineLength + ", " + this.rightLineLength + ")");
+	}
+
+	function DrawTree(context, currX, currY)
+	{
+		Debugger.log("drawing node: " + this.id);
+		context.fillRect(currX, currY, 10, 10);
+		if (!this.isleaf)
+		{
+			context.beginPath();
+			context.moveTo(currX, currY);
+			context.lineTo(currX - this.leftLineLength * 10, currY);
+			context.lineTo(currX - this.leftLineLength * 10, currY
+					+ this.children[0].edgeweight * 10);
+			context.stroke();
+			this.children[0].Draw(context, currX - this.leftLineLength * 10,
+					currY + this.children[0].edgeweight * 10);
+
+			context.beginPath();
+			context.moveTo(currX, currY);
+			context.lineTo(currX + this.rightLineLength * 10, currY);
+			context.lineTo(currX + this.rightLineLength * 10, currY
+					+ this.children[1].edgeweight * 10);
+			context.stroke();
+			this.children[1].Draw(context, currX + this.rightLineLength * 10,
+					currY + this.children[1].edgeweight * 10);
+		}
 	}
 }
