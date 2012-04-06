@@ -132,7 +132,12 @@ function Vis2Node()
 		context.closePath();
 		context.fill();
 
-		if (!this.isleaf)
+		if (this.isleaf)
+		{
+			context.font = "10px sans-serif";
+			context.fillText(this.name, currX - 5, currY + 15);
+		}
+		else
 		{
 			context.beginPath();
 			context.moveTo(currX, currY);
