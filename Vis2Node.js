@@ -115,7 +115,7 @@ function Vis2Node()
 			this.rightLineLength = this.children[1].leftSpaceNeeded;
 		}
 		Debugger.log("NodeID: " + this.id
-				+ " has needs following spaces(LSN, RSN, LLL, RLL): ("
+				+ " needs following spaces(LSN, RSN, LLL, RLL): ("
 				+ this.leftSpaceNeeded + ", " + this.rightSpaceNeeded + ", "
 				+ this.leftLineLength + ", " + this.rightLineLength + ")");
 	}
