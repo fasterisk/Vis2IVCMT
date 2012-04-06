@@ -5,7 +5,7 @@ function ParseString(sSubString)
 	// TODO: handling wrong formated input
 
 	// debug how this method is called
-	Debugger.log("ParseString('" + sSubString + "')");
+	// Debugger.log("ParseString('" + sSubString + "')");
 
 	// create new node
 	var rNewNode = new Vis2Node();
@@ -22,7 +22,7 @@ function ParseString(sSubString)
 
 	if (bMaybeNode == true)
 	{
-		Debugger.log("is node");
+		// Debugger.log("is node");
 		rNewNode.isleaf = false;
 
 		var iStartPos = iPosOfFirstBracket;
@@ -39,16 +39,16 @@ function ParseString(sSubString)
 				iBrackets--;
 
 			// must not happen
-			if (iBrackets < 0)
-				Debugger.log("Eingabeformat ungültig!");
+			assert(iBrackets >= 0,
+					'Too many closing brackets, wrong input string?');
 
 			if (iBrackets == 0)
 			{
 				// get pos of semikolon
 				var iPosOfSemikolon = sSubString.indexOf(';', iStartPos);
 
-				if (iPosOfSemikolon == -1)
-					Debugger.log('Eingabeformat ungültig!');
+				assert(iPosOfSemikolon != -1,
+						'";" expected but not found! Wrong input string?');
 
 				// extract the substring for the child node, without the edge
 				// length information
@@ -62,7 +62,7 @@ function ParseString(sSubString)
 				// convert substring to integer
 				var iLengthOfEdge = parseInt(sLengthOfEdgeString);
 
-				Debugger.log("iLengthOfEdge = " + iLengthOfEdge);
+				// Debugger.log("iLengthOfEdge = " + iLengthOfEdge);
 
 				// call ParseString recursively for extracted child substring
 				var rNewChildNode = ParseString(sChildSubString);
@@ -77,9 +77,11 @@ function ParseString(sSubString)
 	}
 	else if (bMaybeLeaf == true)
 	{
-		Debugger.log("is leaf");
+		// Debugger.log("is leaf");
+
 		rNewNode.isleaf = true;
-		rNewNode.name = sSubString;
+
+		rNewNode.name = sSubString.substr(1, sSubString.length - 2);
 	}
 
 	return rNewNode;
@@ -93,10 +95,10 @@ function ParseFile(sFilename)
 
 	// example tree structure 1
 	var sTestTreeCompact = '[1;[2;[1;"A"][1;"B"]][2;[1;"C"][1;"D"]][2;[1;"E"][1;"F"]]][3;"G"]';
+	// var sTestTreeCompact2 =
+	// '[5;[5;[5;"A"][5;"B"]][5;"C"]][5;[5;"D"][5;[5;[5;"E"][5;"F"]][5;"G"]]]]';
 
-	var sTestTreeCompact2 = '[5;[5;[5;"A"][5;"B"]][5;"C"]][5;[5;"D"][5;[5;[5;"E"][5;"F"]][5;"G"]]]]';
-
-	var tree = ParseString(sTestTreeCompact2);
+	var tree = ParseString(sTestTreeCompact);
 	tree.BuildLeafList();
 
 	return tree;
