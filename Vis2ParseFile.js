@@ -1,3 +1,5 @@
+var currId = 0;
+
 function ParseString(sSubString)
 {
 	// TODO: handling wrong formated input
@@ -7,6 +9,8 @@ function ParseString(sSubString)
 
 	// create new node
 	var rNewNode = new Vis2Node();
+	rNewNode.id = currId;
+	currId++;
 
 	// get positions of first bracket or '"'
 	var iPosOfFirstBracket = sSubString.indexOf("[");
@@ -19,6 +23,7 @@ function ParseString(sSubString)
 	if (bMaybeNode == true)
 	{
 		Debugger.log("is node");
+		rNewNode.isleaf = false;
 
 		var iStartPos = iPosOfFirstBracket;
 		var iBrackets = 0;
@@ -73,6 +78,7 @@ function ParseString(sSubString)
 	else if (bMaybeLeaf == true)
 	{
 		Debugger.log("is leaf");
+		rNewNode.isleaf = true;
 		rNewNode.name = sSubString;
 	}
 
@@ -88,7 +94,9 @@ function ParseFile(sFilename)
 	// example tree structure 1
 	var sTestTreeCompact = '[1;[2;[1;"A"][1;"B"]][2;[1;"C"][1;"D"]][2;[1;"E"][1;"F"]]][3;"G"]';
 
-	var tree = ParseString(sTestTreeCompact);
+	var sTestTreeCompact2 = '[1;[1;[1;"A"][1;"B"]][1;"C"]][1;[1;"D"][1;[1;[1;"E"][1;"F"]][1;"G"]]]]';
+
+	var tree = ParseString(sTestTreeCompact2);
 	tree.BuildLeafList();
 
 	return tree;

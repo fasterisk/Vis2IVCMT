@@ -4,6 +4,9 @@ function Vis2Node()
 	 * Members
 	 */
 
+	// ID
+	this.id;
+
 	// Name of the node (e.g. "A")
 	this.name;
 
@@ -19,6 +22,14 @@ function Vis2Node()
 	// Array that contains all names of leafnodes further down this node
 	this.leafnodes = new Array();
 
+	this.isleaf;
+
+	// Variables needed for coordinates/drawing
+	this.leftSpaceNeeded;
+	this.rightSpaceNeeded;
+	this.leftLineLength;
+	this.rightLineLength;
+
 	/*
 	 * Function placeholder for public access
 	 */
@@ -27,6 +38,7 @@ function Vis2Node()
 	this.AddLeafNodeName = PushLeafNodeName;
 	this.numChildren = GetChildrenCount;
 	this.BuildLeafList = CalcLeafList;
+	this.BuildNeededSpace = CalcNeededSpace;
 
 	/*
 	 * Functions
@@ -78,5 +90,33 @@ function Vis2Node()
 				child.BuildLeafList();
 			}
 		}
+	}
+
+	// Calculates the space needed to draw the tree
+	function CalcNeededSpace()
+	{
+		if (this.isleaf)
+		{
+			this.leftSpaceNeeded = 1;
+			this.rightSpaceNeeded = 1;
+			this.leftLineLength = 0;
+			this.rightLineLength = 0;
+		}
+		else
+		{
+			// children[0] is left child, children[1] is right child
+			this.children[0].BuildNeededSpace();
+			this.children[1].BuildNeededSpace();
+			this.leftSpaceNeeded = this.children[0].leftSpaceNeeded
+					+ this.children[0].rightSpaceNeeded;
+			this.rightSpaceNeeded = this.children[1].leftSpaceNeeded
+					+ this.children[1].rightSpaceNeeded;
+			this.leftLineLength = this.children[0].rightSpaceNeeded;
+			this.rightLineLength = this.children[1].leftSpaceNeeded;
+		}
+		Debugger.log("NodeID: " + this.id
+				+ " has needs following spaces(LSN, RSN, LLL, RLL): ("
+				+ this.leftSpaceNeeded + ", " + this.rightSpaceNeeded + ", "
+				+ this.leftLineLength + ", " + this.rightLineLength + ")");
 	}
 }
