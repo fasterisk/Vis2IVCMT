@@ -125,8 +125,13 @@ function Vis2Node()
 	{
 		Debugger.log("drawing node: " + this.id);
 		var nodeRadius = 5;
-		context.fillRect(currX - nodeRadius, currY - nodeRadius,
-				nodeRadius * 2, nodeRadius * 2);
+
+		// Draw node as a circle
+		context.beginPath();
+		context.arc(currX, currY, nodeRadius, 0, Math.PI * 2, true);
+		context.closePath();
+		context.fill();
+
 		if (!this.isleaf)
 		{
 			context.beginPath();
