@@ -17,7 +17,11 @@
 				color:black;
 			}
 		</style>
+		<!-- external libs -->
 		<script src="modernizr-2.5.3.js"></script>
+		<script src="jscolor/jscolor.js"></script>
+		
+		<!-- internal js files -->
 		<script src="Vis2Helper.js"></script>
 		<script src="Vis2Node.js"></script>
 		<script src="Vis2ParseFile.js"></script>
@@ -57,6 +61,7 @@
 			
 			Debugger.log(Vis2LeafMeasures(ParseString(sTestTreeCompact2), 
 					ParseString(sTestTreeCompact3)));
+			
 		</script>
 	</head>
 	<body>
@@ -73,6 +78,12 @@
 					<option value="elementbased">element-based</option>
 					<option value="edgebased">edge-based</option>
 				</select>
+				<br>
+				Select color 1:
+				<input class="color" id="color1" value="0000ff"/>
+				<br>
+				Select color 2:
+				<input class="color" id="color2" value="ff0000"/>
 			</form>
 			<canvas id="canvas" width="800" height="600">
 				One does not simply use HTML5 Canvas with this browser
