@@ -48,8 +48,8 @@ function Vis2Node()
 	// Adds a child to this node
 	function PushChild(child, weight)
 	{
-		Debugger.log("Adding child (" + child.name + ", " + weight + ", "
-				+ (child.isleaf ? "isleaf" : "isnode") + ")");
+		// Debugger.log("Adding child (" + child.name + ", " + weight + ", "
+		// + (child.isleaf ? "isleaf" : "isnode") + ")");
 		this.children.push(child);
 		child.parent = this;
 		child.edgeweight = weight;
@@ -58,7 +58,7 @@ function Vis2Node()
 	// To be called when adding a leafnode - adds its name to all parents
 	function PushLeafNodeName(lnname)
 	{
-		Debugger.log("Adding leaf name " + lnname + " to parent");
+		// Debugger.log("Adding leaf name " + lnname + " to parent");
 		this.leafnodes.push(lnname);
 		if (this.parent != null)
 		{
@@ -66,7 +66,7 @@ function Vis2Node()
 		}
 		else
 		{
-			Debugger.log("parent is null!");
+			// Debugger.log("parent is null!");
 		}
 	}
 
@@ -115,15 +115,15 @@ function Vis2Node()
 			this.leftLineLength = this.children[0].rightSpaceNeeded;
 			this.rightLineLength = this.children[1].leftSpaceNeeded;
 		}
-		Debugger.log("NodeID: " + this.id
-				+ " needs following spaces(LSN, RSN, LLL, RLL): ("
-				+ this.leftSpaceNeeded + ", " + this.rightSpaceNeeded + ", "
-				+ this.leftLineLength + ", " + this.rightLineLength + ")");
+		// Debugger.log("NodeID: " + this.id
+		// + " needs following spaces(LSN, RSN, LLL, RLL): ("
+		// + this.leftSpaceNeeded + ", " + this.rightSpaceNeeded + ", "
+		// + this.leftLineLength + ", " + this.rightLineLength + ")");
 	}
 
 	function DrawTree(context, currX, currY)
 	{
-		Debugger.log("drawing node: " + this.id);
+		// Debugger.log("drawing node: " + this.id);
 		var nodeRadius = 5;
 
 		// Draw node as a circle
