@@ -3,31 +3,21 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Interactive Visual Comparison of Multiple Trees</title>
-		<style type="text/css">
-			h1 
-			{
-				font-family: "Verdana";
-				font-size: 2em;
-				color: black;
-				text-align: center;
-			}
-			body 
-			{
-				font-family: "Verdana";
-				color:black;
-			}
-		</style>
+		
 		<!-- external libs -->
 		<script src="modernizr-2.5.3.js"></script>
 		<script src="jscolor/jscolor.js"></script>
+		<script src="jquery/jquery-1.7.2.min.js"></script>
+		<script src="splitter/splitter.js"></script>
 		
 		<!-- internal js files -->
 		<script src="Vis2Helper.js"></script>
 		<script src="Vis2Node.js"></script>
 		<script src="Vis2ParseFile.js"></script>
 		<script src="Vis2LeafMeasures.js"></script>
-		<script src="Vis2Views.js"></script>
+		<script src="Vis2ViewManager.js"></script>
 		<script src="Vis2Canvas.js"></script>
+		
 		<script type="text/javascript">
 		<!-- some testing code --/>
 			/*var node1 = new Vis2Node();
@@ -47,30 +37,96 @@
 			//Debugger.log(node1.name+": parent: "+node1.parent.name);
 			Debugger.log(node2.name+": parent: "+node2.parent.name);
 			Debugger.log(node3.name+": parent: "+node3.parent.name);*/
-			
-			
+
+
 			var sTestTreeCompact1 = '[1;[2;[1;"A"][1;"B"]][2;[1;"C"][1;"D"]][2;[1;"E"][1;"F"]]][3;"G"]';
 			var sTestTreeCompact2 = '[1;[2;[1;"A"][1;"B"]][2;[1;"G"][1;"D"]][2;[1;"E"][1;"F"]]][3;"C"]';
 			var sTestTreeCompact3 = '[1;[2;[1;"H"][1;"L"]][2;[1;"A"][1;"B"]][2;[1;"W"][1;"X"]]][3;"Z"]';
-			
+
 			Debugger.log(Vis2LeafMeasures(ParseString(sTestTreeCompact1), 
 							ParseString(sTestTreeCompact2)));
-			
+
 			Debugger.log(Vis2LeafMeasures(ParseString(sTestTreeCompact1), 
 					ParseString(sTestTreeCompact3)));
-			
+
 			Debugger.log(Vis2LeafMeasures(ParseString(sTestTreeCompact2), 
 					ParseString(sTestTreeCompact3)));
-			
+
 		</script>
-	</head>
-	<body>
-		<header>
-			<h1>
-				Interactive Visual Comparison of Multiple Trees
-			</h1>
-		</header>
-		<div style="position: absolute; top: 200px; left: 50px;">
+		
+		<style type="text/css" media="all">
+
+			body {
+				padding: 1em;
+			}
+
+		/*
+ 		 * Splitter container. Set this to the desired width and height
+ 		 * of the combined left and right panes.
+		 */
+		#MySplitter {
+			height: 300px;
+			width: 600px;
+			border: 4px solid #cca;
+			/* No padding allowed */
+		}
+		/*
+		 * Top element of the splitter. Use pixel units for the
+		 * min-height and max-height; the splitter plugin parses them to
+		 * determine the splitter movement limits. Set the height to
+		 * the desired initial height of the element; the plugin changes
+		 * the height of this element dynamically.
+		 */
+		#TopPane {
+			background: #ffe;
+			overflow: auto;
+			/* Initial/min/max height for this pane */
+			height: 100px;
+			min-height: 50px;
+			max-height: 200px;
+			/* No margin or border allowed */
+		}
+		/*
+		 * Bottom element of the splitter; the plugin changes the top
+		 * position and height of this element dynamically.
+		 */
+		#BottomPane {
+			background: #ffd;
+			overflow: auto;
+			/* No margin or border allowed */
+		}
+		/* 
+		 * Splitter bar style; the .active class is added when the
+		 * mouse is over the splitter or the splitter is focused
+		 * via the keyboard taborder or an accessKey. 
+		 */
+		#MySplitter .hsplitbar {
+			height: 6px;
+			background: #cca url(hgrabber.gif) no-repeat center;
+			/* No margin, border, or padding allowed */
+		}
+		#MySplitter .hsplitbar.active, #MySplitter .hsplitbar:hover {
+			background: #e88 url(hgrabber.gif) no-repeat center;
+		}
+	</style>
+	<script type="text/javascript">
+		$().ready(function() {
+			$("#MySplitter").splitter({
+				type: "h", 
+				sizeTop: true,	/* use height set in stylesheet */
+				accessKey: "P"
+			});
+		});
+	</script>
+</head>
+<body>
+	<header>
+		<h1>
+			Interactive Visual Comparison of Multiple Trees
+		</h1>
+	</header>
+	<div id="MySplitter">
+		<div id="TopPane">
 			<form>
 				Select measure:
 				<select id="measure">
@@ -85,9 +141,13 @@
 				Select color 2:
 				<input class="color" id="color2" value="ff0000"/>
 			</form>
+		</div>
+	
+		<div id="BottomPane">
 			<canvas id="canvas" width="800" height="600">
 				One does not simply use HTML5 Canvas with this browser
 			</canvas>
 		</div>
-	</body>
+	</div>
+</body>
 </html>

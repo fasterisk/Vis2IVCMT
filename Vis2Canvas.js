@@ -17,7 +17,7 @@ function canvasApp()
 	var canvas = document.getElementById("canvas");
 	var context = canvas.getContext("2d");
 
-	var views = new Views();
+	var viewmanager = new ViewManager();
 
 	var formElement = document.getElementById("measure");
 	formElement.addEventListener('change', measureChanged, false);
@@ -53,7 +53,7 @@ function canvasApp()
 		context.fillStyle = '#aaaaaa';
 		context.fillRect(0, 0, 800, 600);
 
-		views.DisplayColorMap(context);
+		viewmanager.DisplayColorMap(context);
 
 		context.fillStyle = '#000000';
 		tree1.Draw(context, 200, 10);
@@ -62,27 +62,27 @@ function canvasApp()
 
 		context.textFillColor = "#000000";
 		context.font = "24px sans-serif";
-		context.fillText(views.measure, 400, 300);
+		context.fillText(viewmanager.measure, 400, 300);
 
 	}
 
 	function measureChanged(e)
 	{
 		var target = e.target;
-		views.ChangeMeasure(target.value);
+		viewmanager.ChangeMeasure(target.value);
 		drawScreen();
 	}
 
 	function color1Changed(e)
 	{
 		var target = e.target;
-		views.ChangeColorMap('#' + target.value, views.color9);
+		viewmanager.ChangeColorMap('#' + target.value, views.color9);
 		drawScreen();
 	}
 	function color2Changed(e)
 	{
 		var target = e.target;
-		views.ChangeColorMap(views.color1, '#' + target.value);
+		viewmanager.ChangeColorMap(views.color1, '#' + target.value);
 		drawScreen();
 	}
 }
