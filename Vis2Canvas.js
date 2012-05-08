@@ -68,6 +68,7 @@ function canvasApp()
 
 	function measureChanged(e)
 	{
+		Debugger.log("Measure changed.");
 		var target = e.target;
 		viewmanager.ChangeMeasure(target.value);
 		drawScreen();
@@ -75,14 +76,16 @@ function canvasApp()
 
 	function color1Changed(e)
 	{
+		Debugger.log("Color 1 changed.");
 		var target = e.target;
-		viewmanager.ChangeColorMap('#' + target.value, views.color9);
+		viewmanager.ChangeColorMap('#' + target.value, viewmanager.color9);
 		drawScreen();
 	}
 	function color2Changed(e)
 	{
+		Debugger.log("Color 2 changed.");
 		var target = e.target;
-		viewmanager.ChangeColorMap(views.color1, '#' + target.value);
+		viewmanager.ChangeColorMap(viewmanager.color1, '#' + target.value);
 		drawScreen();
 	}
 }
