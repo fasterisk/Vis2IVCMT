@@ -16,6 +16,7 @@ function eventWindowLoaded()
 	window.leftTopPaneCanvas = new LeftTopPaneCanvas();
 	window.rightPaneCanvas = new RightPaneCanvas();
 	window.leftMiddlePaneCanvas = new LeftMiddlePaneCanvas();
+	window.leftBottomPaneCanvas = new LeftBottomPaneCanvas();
 	
 	formElement = document.getElementById("measure");
 	formElement.addEventListener('change', measureChanged, false);
@@ -37,6 +38,7 @@ function measureChanged(e)
 	window.viewManager.ChangeMeasure(target.value);
 	window.leftTopPaneCanvas.DrawScreen();
 	window.leftMiddlePaneCanvas.DrawScreen();
+	window.leftBottomPaneCanvas.DrawScreen();
 	window.rightPaneCanvas.DrawScreen();
 }
 
@@ -47,6 +49,7 @@ function color1Changed(e)
 	window.viewManager.ChangeColorMap('#' + target.value, window.viewManager.color9);
 	window.leftTopPaneCanvas.DrawScreen();
 	window.leftMiddlePaneCanvas.DrawScreen();
+	window.leftBottomPaneCanvas.DrawScreen();
 	window.rightPaneCanvas.DrawScreen();
 }
 function color2Changed(e)
@@ -56,6 +59,7 @@ function color2Changed(e)
 	window.viewManager.ChangeColorMap(window.viewManager.color1, '#' + target.value);
 	window.leftTopPaneCanvas.DrawScreen();
 	window.leftMiddlePaneCanvas.DrawScreen();
+	window.leftBottomPaneCanvas.DrawScreen();
 	window.rightPaneCanvas.DrawScreen();
 }
 function canvasSizeChanged(e)
@@ -63,5 +67,6 @@ function canvasSizeChanged(e)
 	Debugger.log("Canvas resized");
 	window.leftTopPaneCanvas.DrawScreen();
 	window.leftMiddlePaneCanvas.DrawScreen();
+	window.leftBottomPaneCanvas.DrawScreen();
 	window.rightPaneCanvas.DrawScreen();
 }

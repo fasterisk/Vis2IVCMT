@@ -4,7 +4,7 @@ $().ready(function() {
 	$("#LeftPaneSplitter1").splitter({
 		splitHorizontal: true,
 		//outline: true,
-		sizeTop: 100, minTop: 50, maxTop: 200,
+		sizeTop: 100, minTop: 50,
 		accessKey: "V"
 	});
 	// Second horizontal splitter, nested in bottom pane of first horizontal splitter
