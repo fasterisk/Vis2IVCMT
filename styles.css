@@ -1,0 +1,64 @@
+<style type="text/css" media="all">
+
+	body {
+		padding: 1em;
+	}
+
+	/*
+ 	 * Splitter container. Set this to the desired width and height
+ 	 * of the combined left and right panes.
+	 */
+	#MySplitter {
+		height: 300px;
+		width: 600px;
+		border: 4px solid #cca;
+		/* No padding allowed */
+	}
+	/*
+	 * Top element of the splitter. Use pixel units for the
+	 * min-height and max-height; the splitter plugin parses them to
+	 * determine the splitter movement limits. Set the height to
+	 * the desired initial height of the element; the plugin changes
+	 * the height of this element dynamically.
+	 */
+	#TopPane {
+		background: #ffe;
+		overflow: auto;
+		/* Initial/min/max height for this pane */
+		height: 100px;
+		min-height: 50px;
+		max-height: 200px;
+		/* No margin or border allowed */
+	}
+	/*
+	 * Bottom element of the splitter; the plugin changes the top
+	 * position and height of this element dynamically.
+	 */
+	#BottomPane {
+		background: #ffd;
+		overflow: auto;
+		/* No margin or border allowed */
+	}
+	/* 
+	 * Splitter bar style; the .active class is added when the
+	 * mouse is over the splitter or the splitter is focused
+	 * via the keyboard taborder or an accessKey. 
+	 */
+	.hsplitbar {
+		height: 6px;
+		background: #cca url(hgrabber.gif) no-repeat center;
+		/* No margin, border, or padding allowed */
+	}
+	.hsplitbar.active, .hsplitbar:hover {
+		background: #e88 url(hgrabber.gif) no-repeat center;
+	}
+	
+	.vsplitbar {
+		width: 6px;
+		background: #cca url(hgrabber.gif) no-repeat center;
+		/* No margin, border, or padding allowed */
+	}
+	.vsplitbar.active, .vsplitbar:hover {
+		background: #e88 url(hgrabber.gif) no-repeat center;
+	}
+</style>
