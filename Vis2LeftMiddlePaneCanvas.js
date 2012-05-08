@@ -1,16 +1,16 @@
-function RightPaneCanvas()
+function LeftMiddlePaneCanvas()
 {
-	canvas = document.getElementById("RightPaneCanvas");
+	canvas = document.getElementById("LeftMiddlePaneCanvas");
 	context = canvas.getContext("2d");
 	
-	rightPane = document.getElementById("RightPane");
+	leftMiddlePane = document.getElementById("LeftMiddlePane");
 	
 	/*
 	 * Functions for public access
 	 */
 	this.DrawScreen = M_DrawScreen;
 	
-	var sTestTreeCompact = '[2;[2;[2;"B"][2;"D"]][2;"C"]][2;[2;"E"][2;[2;[2;"A"][2;"G"]][2;"F"]]]';
+	var sTestTreeCompact = '[5;[4;[3;"A"][2;"B"]][1;"C"]][2;[3;"D"][4;[5;[4;"E"][3;"F"]][2;"G"]]]';
 
 	var tree = ParseString(sTestTreeCompact);
 
@@ -23,11 +23,11 @@ function RightPaneCanvas()
 	{
 		Debugger.log("Drawing RightPaneCanvas");
 
-		canvas = document.getElementById("RightPaneCanvas");
+		canvas = document.getElementById("LeftMiddlePaneCanvas");
 		context = canvas.getContext("2d");
 		
-		canvas.width = rightPane.offsetWidth;
-		canvas.height = rightPane.offsetHeight;
+		canvas.width = leftMiddlePane.offsetWidth;
+		canvas.height = leftMiddlePane.offsetHeight;
 		
 		context.fillStyle = '#aaaaaa';
 		context.fillRect(0, 0, canvas.width, canvas.height);
