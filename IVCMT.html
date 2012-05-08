@@ -18,6 +18,7 @@
 		<script src="Vis2ParseFile.js"></script>
 		<script src="Vis2LeafMeasures.js"></script>
 		<script src="Vis2RightPaneCanvas.js"></script>
+		<script src="Vis2LeftTopPaneCanvas.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		<script src="Vis2Splitter.js"></script>
@@ -83,8 +84,10 @@
 		</div>
 		<div id="MainWindow">
 			<div id="LeftPaneSplitter1"> 
-	 			<div id="Left Top Pane">
-					<p>This is the left top pane for the first view</p>
+	 			<div id="LeftTopPane">
+					<canvas id="LeftTopPaneCanvas">
+						One does not simply use HTML5 Canvas with this browser
+					</canvas>
 				</div>
 				<div id="LeftPaneSplitter2">
 					<div id="Left Middle Pane">
@@ -96,7 +99,7 @@
 				</div>
 			</div>
 			<div id="RightPane">
-				<canvas id="canvas">
+				<canvas id="RightPaneCanvas">
 					One does not simply use HTML5 Canvas with this browser
 				</canvas>
 			</div> 

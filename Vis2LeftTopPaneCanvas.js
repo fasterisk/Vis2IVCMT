@@ -1,9 +1,9 @@
-function RightPaneCanvas()
+function LeftTopPaneCanvas()
 {
-	canvas = document.getElementById("RightPaneCanvas");
+	canvas = document.getElementById("LeftTopPaneCanvas");
 	context = canvas.getContext("2d");
 	
-	rightPane = document.getElementById("RightPane");
+	leftTopPane = document.getElementById("LeftTopPane");
 	
 	/*
 	 * Functions for public access
@@ -30,13 +30,13 @@ function RightPaneCanvas()
 
 	function M_DrawScreen()
 	{
-		Debugger.log("Drawing RightPaneCanvas");
+		Debugger.log("Drawing LeftTopPaneCanvas");
 
-		canvas = document.getElementById("RightPaneCanvas");
+		canvas = document.getElementById("LeftTopPaneCanvas");
 		context = canvas.getContext("2d");
 		
-		canvas.width = rightPane.offsetWidth;
-		canvas.height = rightPane.offsetHeight;
+		canvas.width = leftTopPane.offsetWidth;
+		canvas.height = leftTopPane.offsetHeight;
 		
 		context.fillStyle = '#aaaaaa';
 		context.fillRect(0, 0, canvas.width, canvas.height);

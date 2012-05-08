@@ -13,7 +13,6 @@ html, body
 	border: 3px solid #669;
 	min-width: 500px;	/* Splitter can't be too thin ... */
 	min-height: 300px;	/* ... or too flat */
-	height: 100%;
 }
 #MainWindow .Pane {
 	overflow: auto;
