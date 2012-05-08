@@ -1,19 +1,5 @@
-Debugger.log("Adding Window-Eventlistener");
-window.addEventListener('load', eventWindowLoaded, false);
-
-function eventWindowLoaded()
+function RightPaneCanvas()
 {
-	canvasApp();
-}
-
-function canvasApp()
-{
-	if (!canvasSupport())
-	{
-		Debugger.log("Canvas is not supported!");
-		return;
-	}
-
 	var canvas = document.getElementById("canvas");
 	var context = canvas.getContext("2d");
 	
@@ -52,13 +38,10 @@ function canvasApp()
 
 	function drawScreen()
 	{
-		Debugger.log("Drawing Canvas");
+		Debugger.log("Drawing RightPaneCanvas");
 
 		canvas.width = canvas.offsetWidth;
 		canvas.height = canvas.offsetHeight;
-		
-		Debugger.log(canvas.width);
-		Debugger.log(canvas.height);
 		
 		context.fillStyle = '#aaaaaa';
 		context.fillRect(0, 0, canvas.width, canvas.height);
@@ -101,7 +84,7 @@ function canvasApp()
 	}
 	function canvasSizeChanged(e)
 	{
-		Debugger.log("canvas resized");
+		Debugger.log("Canvas resized");
 		drawScreen();
 	}
 }

@@ -69,7 +69,7 @@ function ViewManager()
 		this.color7 = InterpolateColor(sColor2, this.color5, 154);
 		this.color8 = InterpolateColor(sColor2, this.color5, 102);
 		this.color9 = sColor2;
-		Debugger.log(this.color1);
+		/*Debugger.log(this.color1);
 		Debugger.log(this.color2);
 		Debugger.log(this.color3);
 		Debugger.log(this.color4);
@@ -77,6 +77,6 @@ function ViewManager()
 		Debugger.log(this.color6);
 		Debugger.log(this.color7);
 		Debugger.log(this.color8);
-		Debugger.log(this.color9);
+		Debugger.log(this.color9);*/
 	}
 }
