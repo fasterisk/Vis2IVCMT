@@ -7,7 +7,7 @@
 		<!-- external libs -->
 		<script src="modernizr-2.5.3.js"></script>
 		<script src="jscolor/jscolor.js"></script>
-		<script src="jquery/jquery-1.7.2.min.js"></script>
+		<script src="jquery/jquery.js"></script><!-- v1.3 is used because of splitter -->
 		<script src="splitter/splitter.js"></script>
 		
 		<!-- internal js files -->
@@ -56,15 +56,15 @@
 					ParseString(sTestTreeCompact3)));
 
 		</script>
-</head>
-<body>
-	<header>
-		<h1>
-			Interactive Visual Comparison of Multiple Trees
-		</h1>
-	</header>
-	<div id="MySplitter">
-		<div id="TopPane">
+		
+	</head>
+	<body>
+		<header>
+			<h1>
+				Interactive Visual Comparison of Multiple Trees
+			</h1>
+		</header>
+		<div id="userinterface">
 			<form>
 				Select measure:
 				<select id="measure">
@@ -80,12 +80,25 @@
 				<input class="color" id="color2" value="ff0000"/>
 			</form>
 		</div>
-	
-		<div id="BottomPane">
-			<canvas id="canvas" width="800" height="600">
-				One does not simply use HTML5 Canvas with this browser
-			</canvas>
-		</div>
-	</div>
-</body>
+		<div id="MainWindow">
+			<div id="LeftPaneSplitter1"> 
+	 			<div class="Left Top Pane">
+					<p>This is the left top pane for the first view</p>
+				</div>
+				<div id="LeftPaneSplitter2">
+					<div class="Left Middle Pane">
+						<p>This is the left middle pane</p>
+					</div>
+					<div class="Left Bottom Pane">
+						<p>This is the left bottom pane</p>
+					</div>
+				</div>
+			</div>
+			<div class="Right Pane">
+				<canvas id="canvas" width="800" height="600">
+					One does not simply use HTML5 Canvas with this browser
+				</canvas>
+			</div> 
+		</div> <!-- #MainWindow -->
+	</body>
 </html>

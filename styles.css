@@ -1,64 +1,46 @@
 <style type="text/css" media="all">
+html, body
+{
+	margin: 0;			/* Remove body margin/padding */
+	padding: 0;
+	overflow: hidden;	/* Remove scroll bars on browser window */
+}
+#header { padding: 1em; }
 
-	body {
-		padding: 1em;
-	}
+#MainWindow {
+	border: 3px solid #669;
+	min-width: 500px;	/* Splitter can't be too thin ... */
+	min-height: 300px;	/* ... or too flat */
+	height: 100%;
+}
+#MainWindow .Pane {
+	overflow: auto;
+	background: #def;
+}
 
-	/*
- 	 * Splitter container. Set this to the desired width and height
- 	 * of the combined left and right panes.
-	 */
-	#MySplitter {
-		height: 300px;
-		width: 600px;
-		border: 4px solid #cca;
-		/* No padding allowed */
-	}
-	/*
-	 * Top element of the splitter. Use pixel units for the
-	 * min-height and max-height; the splitter plugin parses them to
-	 * determine the splitter movement limits. Set the height to
-	 * the desired initial height of the element; the plugin changes
-	 * the height of this element dynamically.
-	 */
-	#TopPane {
-		background: #ffe;
-		overflow: auto;
-		/* Initial/min/max height for this pane */
-		height: 100px;
-		min-height: 50px;
-		max-height: 200px;
-		/* No margin or border allowed */
-	}
-	/*
-	 * Bottom element of the splitter; the plugin changes the top
-	 * position and height of this element dynamically.
-	 */
-	#BottomPane {
-		background: #ffd;
-		overflow: auto;
-		/* No margin or border allowed */
-	}
-	/* 
-	 * Splitter bar style; the .active class is added when the
-	 * mouse is over the splitter or the splitter is focused
-	 * via the keyboard taborder or an accessKey. 
-	 */
-	.hsplitbar {
-		height: 6px;
-		background: #cca url(hgrabber.gif) no-repeat center;
-		/* No margin, border, or padding allowed */
-	}
-	.hsplitbar.active, .hsplitbar:hover {
-		background: #e88 url(hgrabber.gif) no-repeat center;
-	}
-	
-	.vsplitbar {
-		width: 6px;
-		background: #cca url(hgrabber.gif) no-repeat center;
-		/* No margin, border, or padding allowed */
-	}
-	.vsplitbar.active, .vsplitbar:hover {
-		background: #e88 url(hgrabber.gif) no-repeat center;
-	}
+#LeftPaneSplitter1 {
+	min-width: 300px;
+}
+
+/* Splitbar styles; these are the default class names */
+
+.vsplitbar {
+	width: 6px;
+	background: #669 url(img/vgrabber.gif) no-repeat center;
+}
+.vsplitbar:hover, .vsplitbar.active {
+	background: #c66 url(img/vgrabber.gif) no-repeat center;
+	opacity: 0.7;
+	filter: alpha(opacity=70); /* IE */
+}
+.hsplitbar {
+	height: 6px;
+	background: #669 url(img/hgrabber.gif) no-repeat center;
+}
+.hsplitbar.active, .hsplitbar:hover {
+	background: #c66 url(img/hgrabber.gif) no-repeat center;
+	opacity: 0.7;
+	filter: alpha(opacity=70); /* IE */
+}
+
 </style>
