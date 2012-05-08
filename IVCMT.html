@@ -11,6 +11,7 @@
 		<script src="splitter/splitter.js"></script>
 		
 		<!-- internal js files -->
+		<script src="Vis2Globals.js"></script>
 		<script src="Vis2Helper.js"></script>
 		<script src="Vis2Node.js"></script>
 		<script src="Vis2ParseFile.js"></script>
@@ -82,20 +83,20 @@
 		</div>
 		<div id="MainWindow">
 			<div id="LeftPaneSplitter1"> 
-	 			<div class="Left Top Pane">
+	 			<div id="Left Top Pane">
 					<p>This is the left top pane for the first view</p>
 				</div>
 				<div id="LeftPaneSplitter2">
-					<div class="Left Middle Pane">
+					<div id="Left Middle Pane">
 						<p>This is the left middle pane</p>
 					</div>
-					<div class="Left Bottom Pane">
+					<div id="Left Bottom Pane">
 						<p>This is the left bottom pane</p>
 					</div>
 				</div>
 			</div>
-			<div class="Right Pane">
-				<canvas id="canvas" width="800" height="600">
+			<div id="RightPane">
+				<canvas id="canvas">
 					One does not simply use HTML5 Canvas with this browser
 				</canvas>
 			</div> 

@@ -1,6 +1,8 @@
 <style type="text/css" media="all">
 html, body
 {
+	width: 100%;
+	height: 100%;
 	margin: 0;			/* Remove body margin/padding */
 	padding: 0;
 	overflow: hidden;	/* Remove scroll bars on browser window */
@@ -22,23 +24,31 @@ html, body
 	min-width: 300px;
 }
 
+#RightPane {
+}
+
+#canvas {
+	width: 100%;
+	height: 100%;
+}
+
 /* Splitbar styles; these are the default class names */
 
 .vsplitbar {
 	width: 6px;
-	background: #669 url(img/vgrabber.gif) no-repeat center;
+	background: #669;
 }
 .vsplitbar:hover, .vsplitbar.active {
-	background: #c66 url(img/vgrabber.gif) no-repeat center;
+	background: #c66;
 	opacity: 0.7;
 	filter: alpha(opacity=70); /* IE */
 }
 .hsplitbar {
 	height: 6px;
-	background: #669 url(img/hgrabber.gif) no-repeat center;
+	background: #669;
 }
 .hsplitbar.active, .hsplitbar:hover {
-	background: #c66 url(img/hgrabber.gif) no-repeat center;
+	background: #c66;
 	opacity: 0.7;
 	filter: alpha(opacity=70); /* IE */
 }

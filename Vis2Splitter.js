@@ -22,5 +22,5 @@ $().ready(function() {
 		anchorToWindow: true,
 		accessKey: "L"
 	});
-
+	
 });
