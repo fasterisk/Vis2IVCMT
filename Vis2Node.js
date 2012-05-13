@@ -30,12 +30,18 @@ function Vis2Node()
 	this.leftLineLength;
 	this.rightLineLength;
 
+	// variables for holding measures
+	this.leafmeasure;
+	this.elementmeasure;
+	this.edgemeasure;
+
 	/*
 	 * Function placeholder for public access
 	 */
 
 	this.AddChild = PushChild;
 	this.AddLeafNodeName = PushLeafNodeName;
+	this.GetNodeList = GetNodeList;
 	this.numChildren = GetChildrenCount;
 	this.BuildLeafList = CalcLeafList;
 	this.BuildNeededSpace = CalcNeededSpace;
@@ -74,6 +80,28 @@ function Vis2Node()
 	function GetChildrenCount()
 	{
 		return this.children.length;
+	}
+
+	// returns an array list with all nodes under the current node
+	function GetNodeList()
+	{
+		var ReturnList = new Array();
+
+		ReturnList.push(this);
+
+		for ( var i = 0; i < this.children.length; i++)
+		{
+			var child = this.children[i];
+
+			if (child.numChildren() != 0)
+			{
+				ReturnList = ReturnList.concat(child.GetNodeList());
+				// ReturnList.push(child);
+			}
+
+		}
+
+		return ReturnList;
 	}
 
 	// Builds leaflists for all nodes (only call this starting from a root)
