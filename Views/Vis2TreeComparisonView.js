@@ -1,33 +1,27 @@
-function LeftMiddlePaneCanvas()
+function TreeComparisonView()
 {
-	canvas = document.getElementById("LeftMiddlePaneCanvas");
-	context = canvas.getContext("2d");
-	
-	leftMiddlePane = document.getElementById("LeftMiddlePane");
-	
 	/*
 	 * Functions for public access
 	 */
 	this.DrawScreen = M_DrawScreen;
 	
-	var sTestTreeCompact = '[5;[4;[3;"A"][2;"B"]][1;"C"]][2;[3;"D"][4;[5;[4;"E"][3;"F"]][2;"G"]]]';
+	var sTestTreeCompact = '[2;[2;[2;"B"][2;"D"]][2;"C"]][2;[2;"E"][2;[2;[2;"A"][2;"G"]][2;"F"]]]';
 
 	var tree = ParseString(sTestTreeCompact);
 
 	tree.BuildLeafList();
 	tree.BuildNeededSpace();
 
-	M_DrawScreen();
-
-	function M_DrawScreen()
+	function M_DrawScreen(paneID)
 	{
-		Debugger.log("Drawing LeftMiddlePaneCanvas");
+		Debugger.log("Drawing " + paneID + " Canvas");
 
-		canvas = document.getElementById("LeftMiddlePaneCanvas");
+		var pane = document.getElementById(paneID);
+		canvas = document.getElementById(paneID+"Canvas");
 		context = canvas.getContext("2d");
-		
-		canvas.width = leftMiddlePane.offsetWidth;
-		canvas.height = leftMiddlePane.offsetHeight;
+
+		canvas.width = pane.offsetWidth;
+		canvas.height = pane.offsetHeight;
 		
 		context.fillStyle = '#aaaaaa';
 		context.fillRect(0, 0, canvas.width, canvas.height);

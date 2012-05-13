@@ -1,33 +1,27 @@
-function LeftBottomPaneCanvas()
+function ScoreDistributionView()
 {
-	canvas = document.getElementById("LeftBottomPaneCanvas");
-	context = canvas.getContext("2d");
-	
-	leftBottomPane = document.getElementById("LeftBottomPane");
-	
 	/*
 	 * Functions for public access
 	 */
 	this.DrawScreen = M_DrawScreen;
 	
-	var sTestTreeCompact = '[1;[2;[1;"A"][1;"B"]][2;[1;"C"][1;"D"]][2;[1;"E"][1;"F"]]][3;"G"]';
+	var sTestTreeCompact = '[5;[4;[3;"A"][2;"B"]][1;"C"]][2;[3;"D"][4;[5;[4;"E"][3;"F"]][2;"G"]]]';
 
 	var tree = ParseString(sTestTreeCompact);
 
 	tree.BuildLeafList();
 	tree.BuildNeededSpace();
 
-	M_DrawScreen();
-
-	function M_DrawScreen()
+	function M_DrawScreen(paneID)
 	{
-		Debugger.log("Drawing LeftBottomPaneCanvas");
+		Debugger.log("Drawing " + paneID + " Canvas");
 
-		canvas = document.getElementById("LeftBottomPaneCanvas");
+		var pane = document.getElementById(paneID);
+		canvas = document.getElementById(paneID+"Canvas");
 		context = canvas.getContext("2d");
-		
-		canvas.width = leftBottomPane.offsetWidth;
-		canvas.height = leftBottomPane.offsetHeight;
+
+		canvas.width = pane.offsetWidth;
+		canvas.height = pane.offsetHeight;
 		
 		context.fillStyle = '#aaaaaa';
 		context.fillRect(0, 0, canvas.width, canvas.height);

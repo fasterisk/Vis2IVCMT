@@ -1,33 +1,28 @@
-function RightPaneCanvas()
+function ComparisonOverview()
 {
-	canvas = document.getElementById("RightPaneCanvas");
-	context = canvas.getContext("2d");
-	
-	rightPane = document.getElementById("RightPane");
-	
 	/*
 	 * Functions for public access
 	 */
 	this.DrawScreen = M_DrawScreen;
 	
-	var sTestTreeCompact = '[2;[2;[2;"B"][2;"D"]][2;"C"]][2;[2;"E"][2;[2;[2;"A"][2;"G"]][2;"F"]]]';
+	var sTestTreeCompact = '[1;[2;[3;"A"][4;"B"]][5;"C"]][4;[3;"D"][2;[3;[4;"E"][5;"F"]][6;"G"]]]';
 
 	var tree = ParseString(sTestTreeCompact);
 
 	tree.BuildLeafList();
+
 	tree.BuildNeededSpace();
 
-	M_DrawScreen();
-
-	function M_DrawScreen()
+	function M_DrawScreen(paneID)
 	{
-		Debugger.log("Drawing RightPaneCanvas");
+		Debugger.log("Drawing " + paneID + " Canvas");
 
-		canvas = document.getElementById("RightPaneCanvas");
+		var pane = document.getElementById(paneID);
+		canvas = document.getElementById(paneID+"Canvas");
 		context = canvas.getContext("2d");
-		
-		canvas.width = rightPane.offsetWidth;
-		canvas.height = rightPane.offsetHeight;
+
+		canvas.width = pane.offsetWidth;
+		canvas.height = pane.offsetHeight;
 		
 		context.fillStyle = '#aaaaaa';
 		context.fillRect(0, 0, canvas.width, canvas.height);

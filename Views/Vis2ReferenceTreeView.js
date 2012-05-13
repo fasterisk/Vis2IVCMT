@@ -1,34 +1,27 @@
-function LeftTopPaneCanvas()
+function ReferenceTreeView()
 {
-	canvas = document.getElementById("LeftTopPaneCanvas");
-	context = canvas.getContext("2d");
-	
-	leftTopPane = document.getElementById("LeftTopPane");
-	
 	/*
 	 * Functions for public access
 	 */
 	this.DrawScreen = M_DrawScreen;
 	
-	var sTestTreeCompact = '[1;[2;[3;"A"][4;"B"]][5;"C"]][4;[3;"D"][2;[3;[4;"E"][5;"F"]][6;"G"]]]';
+	var sTestTreeCompact = '[1;[2;[1;"A"][1;"B"]][2;[1;"C"][1;"D"]][2;[1;"E"][1;"F"]]][3;"G"]';
 
 	var tree = ParseString(sTestTreeCompact);
 
 	tree.BuildLeafList();
-
 	tree.BuildNeededSpace();
 
-	M_DrawScreen();
-
-	function M_DrawScreen()
+	function M_DrawScreen(paneID)
 	{
-		Debugger.log("Drawing LeftTopPaneCanvas");
+		Debugger.log("Drawing " + paneID + " Canvas");
 
-		canvas = document.getElementById("LeftTopPaneCanvas");
+		var pane = document.getElementById(paneID);
+		canvas = document.getElementById(paneID+"Canvas");
 		context = canvas.getContext("2d");
-		
-		canvas.width = leftTopPane.offsetWidth;
-		canvas.height = leftTopPane.offsetHeight;
+
+		canvas.width = pane.offsetWidth;
+		canvas.height = pane.offsetHeight;
 		
 		context.fillStyle = '#aaaaaa';
 		context.fillRect(0, 0, canvas.width, canvas.height);

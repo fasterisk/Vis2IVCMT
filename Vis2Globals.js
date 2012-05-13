@@ -13,10 +13,10 @@ function eventWindowLoaded()
 		return;
 	}
 	
-	window.leftTopPaneCanvas = new LeftTopPaneCanvas();
-	window.rightPaneCanvas = new RightPaneCanvas();
-	window.leftMiddlePaneCanvas = new LeftMiddlePaneCanvas();
-	window.leftBottomPaneCanvas = new LeftBottomPaneCanvas();
+	window.ComparisonOverview = new ComparisonOverview();
+	window.ScoreDistributionView = new ScoreDistributionView();
+	window.ReferenceTreeView = new ReferenceTreeView();
+	window.TreeComparisonView = new TreeComparisonView();
 	
 	formElement = document.getElementById("measure");
 	formElement.addEventListener('change', measureChanged, false);
@@ -29,6 +29,11 @@ function eventWindowLoaded()
 
 	formElement = document.getElementById("MainWindow");
 	formElement.addEventListener('mouseup', canvasSizeChanged, false);
+	
+	window.ComparisonOverview.DrawScreen("LeftTopPane");
+	window.ScoreDistributionView.DrawScreen("LeftMiddlePane");
+	window.ReferenceTreeView.DrawScreen("LeftBottomPane");
+	window.TreeComparisonView.DrawScreen("RightPane");
 }
 
 function measureChanged(e)
@@ -36,10 +41,10 @@ function measureChanged(e)
 	Debugger.log("Measure changed.");
 	var target = e.target;
 	window.viewManager.ChangeMeasure(target.value);
-	window.leftTopPaneCanvas.DrawScreen();
-	window.leftMiddlePaneCanvas.DrawScreen();
-	window.leftBottomPaneCanvas.DrawScreen();
-	window.rightPaneCanvas.DrawScreen();
+	window.ComparisonOverview.DrawScreen("LeftTopPane");
+	window.ScoreDistributionView.DrawScreen("LeftMiddlePane");
+	window.ReferenceTreeView.DrawScreen("LeftBottomPane");
+	window.TreeComparisonView.DrawScreen("RightPane");
 }
 
 function color1Changed(e)
@@ -47,26 +52,26 @@ function color1Changed(e)
 	Debugger.log("Color 1 changed.");
 	var target = e.target;
 	window.viewManager.ChangeColorMap('#' + target.value, window.viewManager.color9);
-	window.leftTopPaneCanvas.DrawScreen();
-	window.leftMiddlePaneCanvas.DrawScreen();
-	window.leftBottomPaneCanvas.DrawScreen();
-	window.rightPaneCanvas.DrawScreen();
+	window.ComparisonOverview.DrawScreen("LeftTopPane");
+	window.ScoreDistributionView.DrawScreen("LeftMiddlePane");
+	window.ReferenceTreeView.DrawScreen("LeftBottomPane");
+	window.TreeComparisonView.DrawScreen("RightPane");
 }
 function color2Changed(e)
 {
 	Debugger.log("Color 2 changed.");
 	var target = e.target;
 	window.viewManager.ChangeColorMap(window.viewManager.color1, '#' + target.value);
-	window.leftTopPaneCanvas.DrawScreen();
-	window.leftMiddlePaneCanvas.DrawScreen();
-	window.leftBottomPaneCanvas.DrawScreen();
-	window.rightPaneCanvas.DrawScreen();
+	window.ComparisonOverview.DrawScreen("LeftTopPane");
+	window.ScoreDistributionView.DrawScreen("LeftMiddlePane");
+	window.ReferenceTreeView.DrawScreen("LeftBottomPane");
+	window.TreeComparisonView.DrawScreen("RightPane");
 }
 function canvasSizeChanged(e)
 {
 	Debugger.log("Canvas resized");
-	window.leftTopPaneCanvas.DrawScreen();
-	window.leftMiddlePaneCanvas.DrawScreen();
-	window.leftBottomPaneCanvas.DrawScreen();
-	window.rightPaneCanvas.DrawScreen();
+	window.ComparisonOverview.DrawScreen("LeftTopPane");
+	window.ScoreDistributionView.DrawScreen("LeftMiddlePane");
+	window.ReferenceTreeView.DrawScreen("LeftBottomPane");
+	window.TreeComparisonView.DrawScreen("RightPane");
 }
