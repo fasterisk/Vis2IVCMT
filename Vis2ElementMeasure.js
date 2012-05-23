@@ -68,10 +68,10 @@ function GetElements(rNode)
 function GetElementMeasure(rNode1, rNode2)
 {
 	// get elements under node 1
-	var vElementsOfNode1 = GetElements1(rNode1);
+	var vElementsOfNode1 = GetElements(rNode1);
 
 	// get elements under node 2
-	var vElementsOfNode2 = GetElements1(rNode2);
+	var vElementsOfNode2 = GetElements(rNode2);
 
 	var iSameElements = 0;
 	var iTotal = vElementsOfNode1.length + vElementsOfNode2.length;
@@ -130,7 +130,7 @@ function GetElementMeasure(rNode1, rNode2)
  */
 function Vis2ElementMeasure(rReferenceTree, rTestTree)
 {
-var rNodesQueue = new Array();
+	var rNodesQueue = new Array();
 	var rNodesTotal = new Array();
 	var rNodesTotalReference = rReferenceTree.GetNodeList();
 
