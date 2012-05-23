@@ -6,8 +6,9 @@ function ComparisonOverview()
 	this.DrawScreen = M_DrawScreen;
 
 	var sTestTreeCompact = '[1;[2;[3;"A"][4;"B"]][5;"C"]][4;[3;"D"][2;[3;[4;"E"][5;"F"]][6;"G"]]]';
-	var sTestTreeReference = '[2;[4;"A"][2;"B"]][2;[2;"C"][2;"D"]]';
-	var sTestTree2 = '[2;[2;[4;"A"][2;"B"]][2;"C"]][4;"D"]';
+	
+	var sTestTreeReference = 	'[2;[4;"A"][2;"B"]][2;[2;"C"][2;"D"]]';
+	var sTestTree2 = 			'[2;[2;[4;"A"][2;"B"]][2;"C"]][4;"D"]';
 
 	var tree1 = ParseString(sTestTreeReference);
 	var tree2 = ParseString(sTestTree2);
@@ -17,7 +18,8 @@ function ComparisonOverview()
 	tree2.BuildLeafList();
 
 	// var LeafMeasure1 = Vis2LeafMeasures(tree1, tree2.children[0]);
-	var LeafMeasureRoot = Vis2LeafMeasures2(tree1, tree2);
+	var LeafMeasureRoot = Vis2LeafMeasures(tree1, tree2);
+	var ElementMeasureRoot = Vis2ElementMeasure(tree1, tree2);
 
 	// window.alert(LeafMeasureRoot);
 

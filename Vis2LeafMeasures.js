@@ -1,3 +1,9 @@
+/**
+ * This method strips the leaves of a node
+ * 
+ * @param {Vis2Node} rNode A Node
+ * @return {Array} Returns array with the name of all leaves below the given node
+ */
 function GetLeaves(rNode)
 {
 	var vLeaves = new Array();
@@ -20,6 +26,13 @@ function GetLeaves(rNode)
 	return vLeaves;
 }
 
+/**
+ * This method calculates the leaf measure for two given nodes
+ * 
+ * @param {Vis2Node} rNode1 A Node
+ * @param {Vis2Node} rNode2 A Node
+ * @return {float} Returns a floating value which represents the leaf measure of the two given nodes
+ */
 function GetLeafMeasure(rNode1, rNode2)
 {
 	// get leaves under node 1
@@ -52,45 +65,17 @@ function GetLeafMeasure(rNode1, rNode2)
 	}
 
 	return (iSameLeaves / iTotal);
-
-	/*
-	 * var iSameLeaves1To2 = 0; var iDifferentLeaves1To2 = 0; var iTotalLeaves =
-	 * 0; // count same leaves (for each leave under node1, search the matching
-	 * under // node2) // and count different leaves (if a leave under node1
-	 * does not have a // matching leave under node2)
-	 * 
-	 * for ( var i = 0; i < vLeavesOfNode1.length; i++) { var bFound = false;
-	 * 
-	 * for ( var j = 0; j < vLeavesOfNode2.length; j++) { if (vLeavesOfNode2[j] ==
-	 * vLeavesOfNode1[i]) { bFound = true; break; } }
-	 * 
-	 * if (bFound == true) iSameLeaves1To2++; else iDifferentLeaves1To2++; }
-	 * 
-	 * iTotalLeaves = iSameLeaves1To2 + iDifferentLeaves1To2; // now do the same
-	 * with node2 as reference node and test for matching leaves // under node1
-	 * var iSameLeaves2To1 = 0; var iDifferentLeaves2To1 = 0;
-	 * 
-	 * for ( var i = 0; i < vLeavesOfNode2.length; i++) { var bFound = false;
-	 * 
-	 * for ( var j = 0; j < vLeavesOfNode1.length; j++) { if (vLeavesOfNode1[j] ==
-	 * vLeavesOfNode2[i]) { bFound = true; break; } }
-	 * 
-	 * if (bFound == true) iSameLeaves2To1++; else iDifferentLeaves2To1++; } //
-	 * sum up the results
-	 * 
-	 * iTotalLeaves += iSameLeaves2To1 + iDifferentLeaves2To1; // return
-	 * leaf-based measure return (iSameLeaves1To2 + iSameLeaves2To1) /
-	 * iTotalLeaves;
-	 */
 }
 
-// / returns the leaf-based measure from 2 different nodes
-function Vis2LeafMeasures(rNode1, rNode2)
-{
-	return GetLeafMeasure(rNode1, rNode2);
-}
-
-function Vis2LeafMeasures2(rReferenceTree, rTestTree)
+/**
+ * This method calculates the leaf measures for the given test tree,
+ * tested against the reference tree
+ * 
+ * @param {Vis2Node} rReferenceTree The reference tree
+ * @param {Vis2Node} rTestTree The test tree, will be modified (leaf measure values will be set)
+ * @return {Vis2Node} Returns the rTestTree
+ */
+function Vis2LeafMeasures(rReferenceTree, rTestTree)
 {
 	var rNodesQueue = new Array();
 	var rNodesTotal = new Array();
@@ -106,6 +91,7 @@ function Vis2LeafMeasures2(rReferenceTree, rTestTree)
 
 		for ( var i = 0; i < rCurrentNode.numChildren(); i++)
 		{
+			/** @define {Vis2Node} */
 			var child = rCurrentNode.children[i];
 
 			if (child.isleaf == false)

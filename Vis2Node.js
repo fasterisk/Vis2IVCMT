@@ -1,3 +1,11 @@
+/**
+* Create a new instance of Vis2Node.
+*
+* @classDescription This class creates a new Vis2Node.
+* @return {Vis2Node}   Returns a new Node.
+* @type {Object}
+* @constructor  
+*/
 function Vis2Node()
 {
 	/*
