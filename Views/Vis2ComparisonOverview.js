@@ -102,7 +102,7 @@ function Vis2ComparisonOverview(divID)
 				}
 				
 				// set color
-				context.fillStyle = window.viewManager.GetColor(fMeasure);
+				context.fillStyle = window.ColorMap.GetColor(fMeasure);
 		
 				// draw rectangle
 				context.fillRect(nIndexX*nWidth+1, nIndexY*nHeight+1, nWidth - 2, nHeight - 2);

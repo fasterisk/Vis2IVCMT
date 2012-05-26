@@ -167,7 +167,7 @@ function Vis2Node()
 		if (this.elementmeasure != undefined)
 		{
 			context.fillText(this.elementmeasure.toPrecision(2), currX + 5, currY - 2);			
-			context.fillStyle = window.viewManager.GetColor(this.elementmeasure);
+			context.fillStyle = window.ColorMap.GetColor(this.elementmeasure);
 		}
 			
 		

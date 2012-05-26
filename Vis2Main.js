@@ -19,5 +19,8 @@ assert (window.TreeManager.GetNumTrees() > 0, "no trees loaded");
 // create selection manager
 window.SelectionManager = new Vis2SelectionManager();
 
+// create color map
+window.ColorMap = new Vis2ColorMap();
+
 // create view manager
 window.ViewManager = new Vis2ViewManager2();

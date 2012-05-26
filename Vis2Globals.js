@@ -3,8 +3,6 @@ window.addEventListener('load', eventWindowLoaded, false);
 window.addEventListener('resize', canvasSizeChanged, false);
 var formElement;
 
-window.viewManager = new ViewManager();
-
 function eventWindowLoaded()
 {
 	if (!canvasSupport())
@@ -13,8 +11,8 @@ function eventWindowLoaded()
 		return;
 	}
 
-	formElement = document.getElementById("measure");
-	formElement.addEventListener('change', measureChanged, false);
+	//formElement = document.getElementById("measure");
+	//formElement.addEventListener('change', measureChanged, false);
 
 	formElement = document.getElementById("color1");
 	formElement.addEventListener('change', color1Changed, false);
@@ -26,19 +24,20 @@ function eventWindowLoaded()
 	formElement.addEventListener('mouseup', canvasSizeChanged, false);
 }
 
-function measureChanged(e)
+/*function measureChanged(e)
 {
 	Debugger.log("Measure changed.");
 	var target = e.target;
 	window.viewManager.ChangeMeasure(target.value);
 	window.ViewManager.UpdateViews();
-}
+}*/
 
 function color1Changed(e)
 {
 	Debugger.log("Color 1 changed.");
 	var target = e.target;
-	window.viewManager.ChangeColorMap('#' + target.value, window.viewManager.color9);
+	
+	window.ColorMap.SetColor1('#' + target.value);
 	
 	window.ViewManager.UpdateViews();
 }
@@ -46,7 +45,8 @@ function color2Changed(e)
 {
 	Debugger.log("Color 2 changed.");
 	var target = e.target;
-	window.viewManager.ChangeColorMap(window.viewManager.color1, '#' + target.value);
+	
+	window.ColorMap.SetColor2('#' + target.value);
 	
 	window.ViewManager.UpdateViews();
 }
