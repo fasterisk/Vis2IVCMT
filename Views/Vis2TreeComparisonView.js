@@ -7,10 +7,7 @@ function TreeComparisonView()
 	
 	var sTestTreeCompact = '[2;[2;[2;"B"][2;"D"]][2;"C"]][2;[2;"E"][2;[2;[2;"A"][2;"G"]][2;"F"]]]';
 
-	var tree = ParseString(sTestTreeCompact);
-
-	tree.BuildLeafList();
-	tree.BuildNeededSpace();
+	var tree = CreateTreeFromString(sTestTreeCompact);
 
 	function M_DrawScreen(paneID)
 	{

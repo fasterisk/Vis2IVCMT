@@ -1,6 +1,6 @@
 var currId = 0;
 
-function ParseString(sSubString)
+function ItlParseString(sSubString)
 {
 	// TODO: handling wrong formated input
 
@@ -65,7 +65,7 @@ function ParseString(sSubString)
 				// Debugger.log("iLengthOfEdge = " + iLengthOfEdge);
 
 				// call ParseString recursively for extracted child substring
-				var rNewChildNode = ParseString(sChildSubString);
+				var rNewChildNode = ItlParseString(sChildSubString);
 
 				// add child node to current node
 				rNewNode.AddChild(rNewChildNode, iLengthOfEdge);
@@ -85,6 +85,22 @@ function ParseString(sSubString)
 	}
 
 	return rNewNode;
+}
+
+/**
+ * Tests the assertion and prints error message, if assertion failed
+ * 
+ * @param {string} sString The string to parse
+ * @return {Vis2Node} The created and initialized tree
+ */
+function CreateTreeFromString(sString)
+{
+	var vNewTree = ItlParseString(sString);
+	
+	vNewTree.BuildLeafList();
+	vNewTree.BuildNeededSpace();
+	
+	return vNewTree;	
 }
 
 function ParseFile(sFilename)

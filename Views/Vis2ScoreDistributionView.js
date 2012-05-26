@@ -7,10 +7,7 @@ function ScoreDistributionView()
 	
 	var sTestTreeCompact = '[5;[4;[3;"A"][2;"B"]][1;"C"]][2;[3;"D"][4;[5;[4;"E"][3;"F"]][2;"G"]]]';
 
-	var tree = ParseString(sTestTreeCompact);
-
-	tree.BuildLeafList();
-	tree.BuildNeededSpace();
+	var tree = CreateTreeFromString(sTestTreeCompact);
 
 	function M_DrawScreen(paneID)
 	{

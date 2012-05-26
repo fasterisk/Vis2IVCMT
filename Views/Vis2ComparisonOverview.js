@@ -13,28 +13,18 @@ function ComparisonOverview()
 	var sEdgeTestTree1 = 		'[2;[4;"A"][2;"B"]][2;[2;"C"][2;"D"]]';
 	var sEdgeTestTree2 = 		'[2;[4;"A"][2;"B"]][2;[1;"C"][2;"D"]]';
 
-	var tree1 = ParseString(sTestTreeReference);
-	var tree2 = ParseString(sTestTree2);
-	var edgetree1 = ParseString(sEdgeTestTree1);
-	var edgetree2 = ParseString(sEdgeTestTree2);
+	var tree1 = CreateTreeFromString(sTestTreeReference);
+	var tree2 = CreateTreeFromString(sTestTree2);
+	var edgetree1 = CreateTreeFromString(sEdgeTestTree1);
+	var edgetree2 = CreateTreeFromString(sEdgeTestTree2);
 	
 	var tree = tree1;
-
-	tree1.BuildLeafList();
-	tree2.BuildLeafList();
-	edgetree1.BuildLeafList();
-	edgetree2.BuildLeafList();
 
 	// var LeafMeasure1 = Vis2LeafMeasures(tree1, tree2.children[0]);
 	var LeafMeasureRoot = Vis2LeafMeasures(tree1, tree2);
 	var ElementMeasureRoot = Vis2ElementMeasure(tree1, tree2);
 	var EdgeMeasureRoot = Vis2EdgeMeasure(edgetree1, edgetree2);
 
-	// window.alert(LeafMeasureRoot);
-
-	tree.BuildLeafList();
-
-	tree.BuildNeededSpace();
 
 	function M_DrawScreen(paneID)
 	{
