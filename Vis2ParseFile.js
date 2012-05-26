@@ -132,6 +132,10 @@ function GetSampleTrees()
 	var sTree8 = '[1;[2;[3;"A"][4;"C"]][5;"O"]][4;[3;"D"][2;[3;[4;"E"][5;"F"]][6;"G"]]]';
 	var sTree9 = '[1;[2;[3;"A"][4;"C"]][5;"O"]][4;[3;"D"][2;[3;[4;"E"][5;"U"]][6;"Z"]]]';
 	var sTree10 = '[1;[2;[3;"A"][4;"C"]][5;"O"]][4;[3;"D"][2;[3;[4;"E"][5;"U"]][6;"Z"]]]';
+	var sTree11 = '[2;[2;[2;"A"][3;"B"]][1;"C"]][4;"O"]';
+	var sTree12 = '[2;[2;[2;"A"][3;"B"]][1;"C"]][2;[2;[2;"D"][3;"E"]][1;"F"]]';
+	var sTree13 = '[3;[2;[5;"A"][1;"B"]][2;"C"]][2;[2;[2;"D"][3;"E"]][1;"F"]]';
+	var sTree14 = '[3;[2;[5;[2;"A"][2;"O"]][1;"B"]][2;"C"]][2;[2;[2;"D"][3;"E"]][1;"F"]]';
 	
 	var aTrees = new Array();
 	
@@ -145,6 +149,10 @@ function GetSampleTrees()
 	aTrees.push(CreateTreeFromString(sTree8));
 	aTrees.push(CreateTreeFromString(sTree9));
 	aTrees.push(CreateTreeFromString(sTree10));
+	aTrees.push(CreateTreeFromString(sTree11));
+	aTrees.push(CreateTreeFromString(sTree12));
+	aTrees.push(CreateTreeFromString(sTree13));
+	aTrees.push(CreateTreeFromString(sTree14));
 	
 	
 	return aTrees;

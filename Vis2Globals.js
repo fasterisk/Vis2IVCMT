@@ -3,6 +3,7 @@ window.addEventListener('load', eventWindowLoaded, false);
 window.addEventListener('resize', canvasSizeChanged, false);
 var formElement;
 
+window.viewManager = new ViewManager();
 
 function eventWindowLoaded()
 {
@@ -23,8 +24,6 @@ function eventWindowLoaded()
 
 	formElement = document.getElementById("MainWindow");
 	formElement.addEventListener('mouseup', canvasSizeChanged, false);
-	
-	window.ViewManager.UpdateViews();
 }
 
 function measureChanged(e)

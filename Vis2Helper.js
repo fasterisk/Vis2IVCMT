@@ -32,6 +32,7 @@ function assert(exp, message)
 {
 	if (!exp)
 	{
+		alert ("Assertion failed: " + message);
 		throw new AssertException(message);
 	}
 }
@@ -58,4 +59,22 @@ function ValueToHex(hexvalue)
 	value = Math.max(0, Math.min(value, 255));
 	return "0123456789ABCDEF".charAt((value - value % 16) / 16)
 			+ "0123456789ABCDEF".charAt(value % 16);
+}
+
+function GetCanvasWithinDiv(divID)
+{
+	// get div
+	var div = document.getElementById(divID);
+	assert (div != undefined, 'no div with id "' + divID + '" could be found within the document');
+	
+	// get canvas list
+	canvasList = div.getElementsByTagName("canvas");
+	assert (canvasList.length != 0, 'no <canvas> elements within <div id="' + divID + '"> could be found');
+	assert (canvasList.length == 0 || canvasList.length == 1, 'more than 1 <canvas> elements found within <div id="' + divID + '">');
+	
+	// get canvas
+	canvas = canvasList[0];
+	assert(canvas != undefined, "canvas is undefined");
+		
+	return canvas;
 }

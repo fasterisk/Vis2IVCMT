@@ -1,18 +1,22 @@
 function Vis2ViewManager2()
 {
+	var ComparisonOverview = undefined;
+	var ReferenceTreeView = undefined;
+	var TreeComparisonView = undefined;
+	
+	this.InitializeViews = function()
+	{
+		ComparisonOverview = new Vis2ComparisonOverview("LeftTopPane");
+		ReferenceTreeView = new Vis2ReferenceTreeView("LeftBottomPane");
+		TreeComparisonView = new Vis2TreeComparisonView("RightPane");
+	}
+	
 	this.UpdateViews = function () 
 	{
-		window.ComparisonOverview = new ComparisonOverview();
-		window.ScoreDistributionView = new ScoreDistributionView();
-		window.ReferenceTreeView = new ReferenceTreeView();
-		window.TreeComparisonView = new TreeComparisonView();
+		assert (ComparisonOverview != undefined && ReferenceTreeView != undefined && TreeComparisonView != undefined, "Views not initialized yet!");
 		
-		window.ComparisonOverview.DrawScreen("LeftTopPane");
-		window.ScoreDistributionView.DrawScreen("LeftMiddlePane");
-		window.ReferenceTreeView.DrawScreen("LeftBottomPane");
-		window.TreeComparisonView.DrawScreen("RightLeftTopPane");
-		window.TreeComparisonView.DrawScreen("RightRightTopPane");
-		window.TreeComparisonView.DrawScreen("RightLeftBottomPane");
-		window.TreeComparisonView.DrawScreen("RightRightBottomPane");
+		ComparisonOverview.Update();			
+		ReferenceTreeView.Update();
+		TreeComparisonView.Update();
 	}
 }

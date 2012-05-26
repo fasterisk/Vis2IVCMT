@@ -43,6 +43,29 @@ function ViewManager()
 		context.fillStyle = this.color9;
 		context.fillRect(80, 0, 10, 20);
 	}
+	
+	this.GetColor = function(fValue)
+	{
+		if (fValue < 0.111111)
+			return this.color1;
+		else if (fValue < 0.2222222)
+			return this.color2;
+		else if (fValue < 0.3333333)
+			return this.color3;
+		else if (fValue < 0.4444444)
+			return this.color4;
+		else if (fValue < 0.5555555)
+			return this.color5;
+		else if (fValue < 0.6666666)
+			return this.color6;
+		else if (fValue < 0.7777777)
+			return this.color7;
+		else if (fValue < 0.8888888)
+			return this.color8;
+		else
+			return this.color9;				
+	}
+	
 	function M_ChangeMeasure(newMeasure)
 	{
 		switch (newMeasure)

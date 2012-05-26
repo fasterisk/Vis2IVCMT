@@ -163,10 +163,21 @@ function Vis2Node()
 		var nodeRadius = 5;
 
 		// Draw node as a circle
+		
+		if (this.elementmeasure != undefined)
+		{
+			context.fillText(this.elementmeasure.toPrecision(2), currX + 5, currY - 2);			
+			context.fillStyle = window.viewManager.GetColor(this.elementmeasure);
+		}
+			
+		
+
 		context.beginPath();
 		context.arc(currX, currY, nodeRadius, 0, Math.PI * 2, true);
 		context.closePath();
 		context.fill();
+		
+		context.fillStyle = '#000';
 
 		if (this.isleaf)
 		{
