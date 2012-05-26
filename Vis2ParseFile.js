@@ -119,3 +119,33 @@ function ParseFile(sFilename)
 
 	return tree;
 }
+
+function GetSampleTrees()
+{
+	var sTree1 = '[2;[4;"A"][2;"B"]][2;[2;"C"][2;"D"]]';
+	var sTree2 = '[2;[2;[4;"A"][2;"B"]][2;"C"]][4;"D"]';
+	var sTree3 = '[1;[2;[3;"A"][4;"B"]][5;"C"]][4;[3;"D"][2;[3;[4;"E"][5;"F"]][6;"G"]]]';
+	var sTree4 = '[2;[6;"A"][2;"B"]][2;[2;"C"][2;"D"]]';
+	var sTree5 = '[2;[6;"A"][2;"B"]][2;[2;"C"][2;"E"]]';
+	var sTree6 = '[3;[6;"B"][2;"A"]][2;[2;"C"][2;"E"]]';
+	var sTree7 = '[1;[2;[3;"A"][4;"B"]][5;"C"]][4;[3;"D"][2;[3;[4;"E"][5;"F"]][6;"G"]]]';
+	var sTree8 = '[1;[2;[3;"A"][4;"C"]][5;"O"]][4;[3;"D"][2;[3;[4;"E"][5;"F"]][6;"G"]]]';
+	var sTree9 = '[1;[2;[3;"A"][4;"C"]][5;"O"]][4;[3;"D"][2;[3;[4;"E"][5;"U"]][6;"Z"]]]';
+	var sTree10 = '[1;[2;[3;"A"][4;"C"]][5;"O"]][4;[3;"D"][2;[3;[4;"E"][5;"U"]][6;"Z"]]]';
+	
+	var aTrees = new Array();
+	
+	aTrees.push(CreateTreeFromString(sTree1));
+	aTrees.push(CreateTreeFromString(sTree2));
+	aTrees.push(CreateTreeFromString(sTree3));
+	aTrees.push(CreateTreeFromString(sTree4));
+	aTrees.push(CreateTreeFromString(sTree5));
+	aTrees.push(CreateTreeFromString(sTree6));
+	aTrees.push(CreateTreeFromString(sTree7));
+	aTrees.push(CreateTreeFromString(sTree8));
+	aTrees.push(CreateTreeFromString(sTree9));
+	aTrees.push(CreateTreeFromString(sTree10));
+	
+	
+	return aTrees;
+}

@@ -11,7 +11,9 @@
 		<script src="libs/splitter/splitter.js"></script>
 		
 		<!-- internal js files -->
+		<script src="Vis2TreeManager.js"></script>
 		<script src="Vis2Helper.js"></script>
+		<script src="Vis2ViewManager2.js"></script>
 		<script src="Vis2ViewManager.js"></script>
 		<script src="Vis2Globals.js"></script>
 		<script src="Vis2Node.js"></script>
@@ -26,40 +28,11 @@
 		
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		<script src="Vis2Splitter.js"></script>
+		<script src="Vis2Main.js"></script>
 		
 		<script type="text/javascript">
 		<!-- some testing code --/>
-			/*var node1 = new Vis2Node();
-			var node2 = new Vis2Node();
-			var node3 = new Vis2Node();
-			node1.name = "node1";
-			node1.isleaf = false;
-			node2.name = "node2";
-			node2.isleaf = false;
-			node3.name = "node3";
-			node3.isleaf = true;
-			node1.AddChild(node2, 1);
-			node2.AddChild(node3, 1);
-			Debugger.log("lsakdjfsadölkjf "+ node1.leafnodes[0]);
-			
-			
-			//Debugger.log(node1.name+": parent: "+node1.parent.name);
-			Debugger.log(node2.name+": parent: "+node2.parent.name);
-			Debugger.log(node3.name+": parent: "+node3.parent.name);*/
 
-
-			var sTestTreeCompact1 = '[1;[2;[1;"A"][1;"B"]][2;[1;"C"][1;"D"]][2;[1;"E"][1;"F"]]][3;"G"]';
-			var sTestTreeCompact2 = '[1;[2;[1;"A"][1;"B"]][2;[1;"G"][1;"D"]][2;[1;"E"][1;"F"]]][3;"C"]';
-			var sTestTreeCompact3 = '[1;[2;[1;"H"][1;"L"]][2;[1;"A"][1;"B"]][2;[1;"W"][1;"X"]]][3;"Z"]';
-
-			/*Debugger.log(Vis2LeafMeasures(ParseString(sTestTreeCompact1), 
-							ParseString(sTestTreeCompact2)));
-
-			Debugger.log(Vis2LeafMeasures(ParseString(sTestTreeCompact1), 
-					ParseString(sTestTreeCompact3)));
-
-			Debugger.log(Vis2LeafMeasures(ParseString(sTestTreeCompact2), 
-					ParseString(sTestTreeCompact3)));*/
 
 		</script>
 		
@@ -107,9 +80,32 @@
 				</div>
 			</div>
 			<div id="RightPane">
-				<canvas id="RightPaneCanvas">
-					One does not simply use HTML5 Canvas with this browser
-				</canvas>
+				<div id="RightLeftPane">
+					<div id="RightLeftTopPane">
+						<canvas id="RightLeftTopPaneCanvas">
+							One does not simply use HTML5 Canvas with this browser
+						</canvas>
+					</div>
+					<div id="RightLeftBottomPane">
+						<canvas id="RightLeftBottomPaneCanvas">
+							One does not simply use HTML5 Canvas with this browser
+						</canvas>
+					</div>
+					</div>
+				</div>
+				<div id="RightRightPane">
+					<div id="RightRightTopPane">
+						<canvas id="RightRightTopPaneCanvas">
+							One does not simply use HTML5 Canvas with this browser
+						</canvas>
+					</div>
+					<div id="RightRightBottomPane">
+						<canvas id="RightRightBottomPaneCanvas">
+							One does not simply use HTML5 Canvas with this browser
+						</canvas>
+					</div>
+					</div>
+				</div>
 			</div> 
 		</div> <!-- #MainWindow -->
 	</body>

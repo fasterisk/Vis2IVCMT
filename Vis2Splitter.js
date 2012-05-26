@@ -7,6 +7,8 @@ $().ready(function() {
 		sizeTop: 100, minTop: 50,
 		accessKey: "V"
 	});
+	
+	
 	// Second horizontal splitter, nested in bottom pane of first horizontal splitter
 	$("#LeftPaneSplitter2").splitter({
 		splitHorizontal: true,
@@ -22,5 +24,19 @@ $().ready(function() {
 		anchorToWindow: true,
 		accessKey: "L"
 	});
+
+	$("#RightPaneSplitterV").splitter({
+		splitHorizontal: false,
+		//outline: true,
+		sizeTop: 100, minTop: 50,
+		accessKey: "V"
+	});
 	
+	$("#RightPaneSplitterH").splitter({
+		splitHorizontal: true,
+		//outline: true,
+		sizeTop: 100, minTop: 50,
+		accessKey: "V"
+	});
+		
 });

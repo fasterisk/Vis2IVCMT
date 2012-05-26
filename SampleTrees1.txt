@@ -1,0 +1,6 @@
+// this file does not work atm
+// sample trees are defined in Vis2ParseFile::GetSampleTrees()
+
+[2;[4;"A"][2;"B"]][2;[2;"C"][2;"D"]]
+[2;[2;[4;"A"][2;"B"]][2;"C"]][4;"D"]
+[1;[2;[3;"A"][4;"B"]][5;"C"]][4;[3;"D"][2;[3;[4;"E"][5;"F"]][6;"G"]]]
