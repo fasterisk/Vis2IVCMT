@@ -42,10 +42,10 @@
 					width : 680,
 					mode : 'docked'
 				});
-				$('#DockingBox').jqxDocking('window1');
-				$('#DockingBox').jqxDocking('window2');
-				$('#DockingBox').jqxDocking('window3');
-				$('#DockingBox').jqxDocking('window4');
+				$('#DockingBox').jqxDocking('');
+				//$('#DockingBox').jqxDocking('window2');
+				//			$('#DockingBox').jqxDocking('window3');
+				//				$('#DockingBox').jqxDocking('window4');
 
 				$("#jqxSplitter2").jqxSplitter({
 					theme : 'summer',
@@ -81,6 +81,7 @@
 		</script>
 	</head>
 	<body class='default'>
+		<a href="javascript:window.ViewManager.CreateNewComparisonView();">CreateNewComparisonView() -- test only, not working correctly yet</a>
 		<div id="userinterface">
 			<form>
 				Select measure:
@@ -121,7 +122,14 @@
 						<div>
 							<div id="window1">
 								<div>
-									Tree Comparison View 1
+									<form>
+										View 1, select measure:
+										<select id="measure">
+											<option value="leafbased">leaf-based</option>
+											<option value="elementbased">element-based</option>
+											<option value="edgebased">edge-based</option>
+										</select>
+									</form>
 								</div>
 								<div id="RightPane" style="width: 100%; height: 100%;">
 									<canvas>
@@ -142,14 +150,6 @@
 							<div id="window3" style="height: 300px; width: 300px;">
 								<div>
 									Tree Comparison View 3
-								</div>
-								<div style="overflow: hidden;">
-									Only 1 tree comparison view supported in the backend at the moment
-								</div>
-							</div>
-							<div id="window4" style="height: 300px; width: 300px;">
-								<div>
-									Tree Comparison View 4
 								</div>
 								<div style="overflow: hidden;">
 									Only 1 tree comparison view supported in the backend at the moment
