@@ -23,4 +23,4 @@ window.SelectionManager = new Vis2SelectionManager();
 window.ColorMap = new Vis2ColorMap();
 
 // create view manager
-window.ViewManager = new Vis2ViewManager2();
+window.ViewManager = new Vis2ViewManager();

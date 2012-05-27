@@ -71,25 +71,21 @@ function Vis2NodeVisualizer(rNode)
 	
 	this.Draw = function (context, currX, currY)
 	{
-		// Debugger.log("drawing node: " + this.id);
 		var nodeRadius = 5;
 
 		// Draw node as a circle
 		
 		if (Node.elementmeasure != undefined)
 		{
-			context.fillText(Node.elementmeasure.toPrecision(2), currX + 5, currY - 2);			
 			context.fillStyle = window.ColorMap.GetColor(Node.elementmeasure);
-		}
-			
-		
+			context.strokeStyle = window.ColorMap.GetColor(Node.elementmeasure);
+			context.fillText(Node.elementmeasure.toPrecision(2), currX + 5, currY - 2);			
+		}		
 
 		context.beginPath();
 		context.arc(currX, currY, nodeRadius, 0, Math.PI * 2, true);
 		context.closePath();
 		context.fill();
-		
-		context.fillStyle = '#000';
 
 		if (Node.isleaf)
 		{
@@ -107,9 +103,6 @@ function Vis2NodeVisualizer(rNode)
 			context.lineTo(currX - nLeftLineLength * 10, currY
 					+ LeftChildVisualizer.GetNode().edgeweight * 10);
 			context.stroke();
-			
-			LeftChildVisualizer.Draw(context, currX - nLeftLineLength * 10,
-					currY + LeftChildVisualizer.GetNode().edgeweight * 10);
 
 			context.beginPath();
 			context.moveTo(currX, currY);
@@ -117,6 +110,10 @@ function Vis2NodeVisualizer(rNode)
 			context.lineTo(currX + nRightLineLength * 10, currY
 					+ RightChildVisualizer.GetNode().edgeweight * 10);
 			context.stroke();
+						
+			LeftChildVisualizer.Draw(context, currX - nLeftLineLength * 10,
+					currY + LeftChildVisualizer.GetNode().edgeweight * 10);
+
 			RightChildVisualizer.Draw(context, currX + nRightLineLength * 10,
 					currY + RightChildVisualizer.GetNode().edgeweight * 10);
 		}

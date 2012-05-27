@@ -1,4 +1,4 @@
-function Vis2ViewManager2()
+function Vis2ViewManager()
 {
 	var ComparisonOverview = undefined;
 	var ReferenceTreeView = undefined;
