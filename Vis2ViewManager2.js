@@ -19,4 +19,5 @@ function Vis2ViewManager2()
 		ReferenceTreeView.Update();
 		TreeComparisonView.Update();
 	}
+	
 }

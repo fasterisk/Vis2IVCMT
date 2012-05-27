@@ -98,7 +98,6 @@ function CreateTreeFromString(sString)
 	var vNewTree = ItlParseString(sString);
 	
 	vNewTree.BuildLeafList();
-	vNewTree.BuildNeededSpace();
 	
 	return vNewTree;	
 }

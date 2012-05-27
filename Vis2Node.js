@@ -52,8 +52,6 @@ function Vis2Node()
 	this.GetNodeList = GetNodeList;
 	this.numChildren = GetChildrenCount;
 	this.BuildLeafList = CalcLeafList;
-	this.BuildNeededSpace = CalcNeededSpace;
-	this.Draw = DrawTree;
 
 	/*
 	 * Functions
@@ -126,83 +124,6 @@ function Vis2Node()
 			{
 				child.BuildLeafList();
 			}
-		}
-	}
-
-	// Calculates the space needed to draw the tree
-	function CalcNeededSpace()
-	{
-		if (this.isleaf)
-		{
-			this.leftSpaceNeeded = 1;
-			this.rightSpaceNeeded = 1;
-			this.leftLineLength = 0;
-			this.rightLineLength = 0;
-		}
-		else
-		{
-			// children[0] is left child, children[1] is right child
-			this.children[0].BuildNeededSpace();
-			this.children[1].BuildNeededSpace();
-			this.leftSpaceNeeded = this.children[0].leftSpaceNeeded
-					+ this.children[0].rightSpaceNeeded;
-			this.rightSpaceNeeded = this.children[1].leftSpaceNeeded
-					+ this.children[1].rightSpaceNeeded;
-			this.leftLineLength = this.children[0].rightSpaceNeeded;
-			this.rightLineLength = this.children[1].leftSpaceNeeded;
-		}
-		// Debugger.log("NodeID: " + this.id
-		// + " needs following spaces(LSN, RSN, LLL, RLL): ("
-		// + this.leftSpaceNeeded + ", " + this.rightSpaceNeeded + ", "
-		// + this.leftLineLength + ", " + this.rightLineLength + ")");
-	}
-
-	function DrawTree(context, currX, currY)
-	{
-		// Debugger.log("drawing node: " + this.id);
-		var nodeRadius = 5;
-
-		// Draw node as a circle
-		
-		if (this.elementmeasure != undefined)
-		{
-			context.fillText(this.elementmeasure.toPrecision(2), currX + 5, currY - 2);			
-			context.fillStyle = window.ColorMap.GetColor(this.elementmeasure);
-		}
-			
-		
-
-		context.beginPath();
-		context.arc(currX, currY, nodeRadius, 0, Math.PI * 2, true);
-		context.closePath();
-		context.fill();
-		
-		context.fillStyle = '#000';
-
-		if (this.isleaf)
-		{
-			context.font = "10px sans-serif";
-			context.fillText(this.name, currX - 5, currY + 15);
-		}
-		else
-		{
-			context.beginPath();
-			context.moveTo(currX, currY);
-			context.lineTo(currX - this.leftLineLength * 10, currY);
-			context.lineTo(currX - this.leftLineLength * 10, currY
-					+ this.children[0].edgeweight * 10);
-			context.stroke();
-			this.children[0].Draw(context, currX - this.leftLineLength * 10,
-					currY + this.children[0].edgeweight * 10);
-
-			context.beginPath();
-			context.moveTo(currX, currY);
-			context.lineTo(currX + this.rightLineLength * 10, currY);
-			context.lineTo(currX + this.rightLineLength * 10, currY
-					+ this.children[1].edgeweight * 10);
-			context.stroke();
-			this.children[1].Draw(context, currX + this.rightLineLength * 10,
-					currY + this.children[1].edgeweight * 10);
 		}
 	}
 }

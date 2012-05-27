@@ -8,6 +8,8 @@ function Vis2TreeComparisonView(divID)
 	var DivElement = window.document.getElementById(divID);
 	var CanvasElement = GetCanvasWithinDiv(divID);
 
+	var rTreeVisualizer = undefined;
+	
 	/*
 	 * Private methods
 	 * /
@@ -30,9 +32,17 @@ function Vis2TreeComparisonView(divID)
 		
 		if (nComparisonTree != undefined)
 		{
+			// get tree object
 			rTree = window.TreeManager.GetTree(nComparisonTree);
 			
-			rTree.Draw(context, CanvasElement.width / 2, 10);
+			// create visualizer, if undefined or for wrong tree (selected tree may have changed)
+			if (rTreeVisualizer == undefined || rTreeVisualizer.GetNode() != rTree)
+			{
+				rTreeVisualizer = new Vis2NodeVisualizer(rTree);
+			}	
+			
+			// call visualizer
+			rTreeVisualizer.Draw(context, CanvasElement.width/2, 10);
 		}
 	}
 }
