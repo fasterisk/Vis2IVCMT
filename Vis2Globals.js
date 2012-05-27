@@ -20,7 +20,7 @@ function eventWindowLoaded()
 	formElement = document.getElementById("color2");
 	formElement.addEventListener('change', color2Changed, false);
 
-	formElement = document.getElementById("MainWindow");
+	formElement = document.getElementById("content");
 	formElement.addEventListener('mouseup', canvasSizeChanged, false);
 }
 

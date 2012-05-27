@@ -40,9 +40,9 @@ function Vis2TreeComparisonView(divID)
 			{
 				rTreeVisualizer = new Vis2NodeVisualizer(rTree);
 			}	
-			
+						
 			// call visualizer
-			rTreeVisualizer.Draw(context, CanvasElement.width/2, 10);
+			rTreeVisualizer.Draw(context, 150, 20);
 		}
 	}
 }

@@ -5197,7 +5197,8 @@ if ( document.querySelectorAll ) {
 		try {
 			// This should fail with an exception
 			// Gecko does not error, returns false instead
-			matches.call( document.documentElement, "[test!='']:sizzle" );
+			//matches.call( document.documentElement, "[test!='']:sizzle" );
+			pseudoWorks = true;
 
 		} catch( pseudoError ) {
 			pseudoWorks = true;

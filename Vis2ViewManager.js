@@ -6,8 +6,8 @@ function Vis2ViewManager()
 	
 	this.InitializeViews = function()
 	{
-		ComparisonOverview = new Vis2ComparisonOverview("LeftTopPane");
-		ReferenceTreeView = new Vis2ReferenceTreeView("LeftBottomPane");
+		ComparisonOverview = new Vis2ComparisonOverview("ComparisonOverviewPane");
+		ReferenceTreeView = new Vis2ReferenceTreeView("ReferenceTreePane");
 		TreeComparisonView = new Vis2TreeComparisonView("RightPane");
 	}
 	
