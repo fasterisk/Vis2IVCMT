@@ -7,6 +7,13 @@ function OnWindowLoaded()
 	
 	// update views
 	window.ViewManager.UpdateViews();
+	
+	//var theme = getTheme();
+    $('#RightPane').jqxDocking({ orientation: 'horizontal', width: 680, mode: 'docked' });
+	$('#RightPane').jqxDocking('disableWindowResize', 'window1');
+    $('#RightPane').jqxDocking('disableWindowResize', 'window2');
+    $('#RightPane').jqxDocking('disableWindowResize', 'window3');
+    $('#RightPane').jqxDocking('disableWindowResize', 'window4');
 }
 
 // attach OnWindowLoadedEvent

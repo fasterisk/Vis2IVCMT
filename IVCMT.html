@@ -5,10 +5,20 @@
 		<title>Interactive Visual Comparison of Multiple Trees</title>
 		
 		<!-- external libs -->
-		<script src="libs/modernizr-2.5.3.js"></script>
-		<script src="libs/jscolor/jscolor.js"></script>
-		<script src="libs/jquery/jquery.js"></script><!-- v1.3 is used because of splitter -->
-		<script src="libs/splitter/splitter.js"></script>
+		<!--<script src="libs/modernizr-2.5.3.js"></script>-->
+		<!--<script src="libs/jscolor/jscolor.js"></script>-->
+		<!--<script src="libs/jquery/jquery.js"></script>--><!-- v1.3 is used because of splitter -->
+		<!--<script type="text/javascript" src="libs/jquery/jquery-1.7.2.min.js"></script>-->
+		
+		<link rel="stylesheet" href="libs/jqwidgets/styles/jqx.base.css" type="text/css" />
+    	<link rel="stylesheet" href="libs/jqwidgets/styles/jqx.classic.css" type="text/css" />
+    	<script type="text/javascript" src="libs/scripts/gettheme.js"></script>
+    	<script type="text/javascript" src="libs/scripts/jquery-1.7.2.min.js"></script>
+    	<script type="text/javascript" src="libs/jqwidgets/jqxcore.js"></script>
+    	<script type="text/javascript" src="libs/jqwidgets/jqxdocking.js"></script>
+    	<script type="text/javascript" src="libs/jqwidgets/jqxwindow.js"></script>
+    
+		<!--<script src="libs/splitter/splitter.js"></script>-->
 		
 		<!-- internal js files -->
 		<script src="Vis2TreeManager.js"></script>
@@ -28,8 +38,10 @@
 		<script src="Views/Vis2ScoreDistributionView.js"></script>
 		<script src="Views/Vis2TreeComparisonView.js"></script>
 		
+	    <link rel="stylesheet" href="libs/jqwidgets/styles/jqx.base.css" type="text/css" />
+
 		<link rel="stylesheet" type="text/css" href="styles.css">
-		<script src="Vis2Splitter.js"></script>
+		<!--<script src="Vis2Splitter.js"></script>-->
 		<script src="Vis2Main.js"></script>
 		
 		<script type="text/javascript">
@@ -81,10 +93,18 @@
 					</div>
 				</div>
 			</div>
-			<div id="RightPane">
-				<canvas>
-					One does not simply use HTML5 Canvas with this browser
-				</canvas>
+			<div id='jqxWidget'>
+				<div id="RightPane">
+					<div>
+						<div id="window1">Window1</div>
+						<div id="window2">Window2</div>
+						<div id="window3">Window3</div>
+						<div id="window4">Window4</div>
+					</div>
+					<canvas>
+						One does not simply use HTML5 Canvas with this browser
+					</canvas>
+				</div>
 			</div> 
 		</div> <!-- #MainWindow -->
 	</body>
