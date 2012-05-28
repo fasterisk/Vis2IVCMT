@@ -3,55 +3,48 @@ function Vis2ViewManager()
 	var ComparisonOverview = undefined;
 	var ReferenceTreeView = undefined;
 	var TreeComparisonView = undefined;
-	
-	var nNextWindowNumber = 1;
+	var aTreeComparisonViews = new Array();
 	
 	this.InitializeViews = function()
 	{
 		ComparisonOverview = new Vis2ComparisonOverview("ComparisonOverviewPane");
 		ReferenceTreeView = new Vis2ReferenceTreeView("ReferenceTreePane");
-		TreeComparisonView = new Vis2TreeComparisonView("RightPane");
+	}
+	
+	this.AddTreeComparisonView = function (nWindowIndex, nTreeToCompare)
+	{	
+		// build id of div where we want to add the view
+		sDivID = "knockout-window-content-"+nWindowIndex;
+		
+		// create new view
+		rNewView = new Vis2TreeComparisonView(sDivID, nTreeToCompare);
+		
+		// insert into array of tree comparison views
+		aTreeComparisonViews.push(rNewView);
+		
+		// update views
+		this.UpdateViews();
 	}
 	
 	this.UpdateViews = function () 
 	{
-		assert (ComparisonOverview != undefined && ReferenceTreeView != undefined && TreeComparisonView != undefined, "Views not initialized yet!");
+		assert (ComparisonOverview != undefined && ReferenceTreeView != undefined, "Views not initialized yet!");
 		
-		ComparisonOverview.Update();			
+		// update comparison overview
+		ComparisonOverview.Update();
+		
+		// update reference tree view			
 		ReferenceTreeView.Update();
-		TreeComparisonView.Update();
+		
+		// update all tree comparison views
+		for (var i=0; i < aTreeComparisonViews.length; i++)
+			aTreeComparisonViews[i].Update();
 	}
 	
-	this.CreateNewComparisonView = function()
+	this.AddTreeComparisonWindow = function(nSelectedTreeToCompare)
 	{
-		var nWindowNumber = nNextWindowNumber;
+		window.ViewModel.addView(nSelectedTreeToCompare);
 		
-		nNextWindowNumber = nNextWindowNumber + 1;
-		
-		var sNewWindowName = "window" + nWindowNumber;
-		
-		var sWindowDivContent = '<div><form>View ' + nWindowNumber + ', select measure:' + 
-										'<select id="measure">'+
-											'<option value="leafbased">leaf-based</option>'+
-											'<option value="elementbased">element-based</option>'+
-											'<option value="edgebased">edge-based</option>'+
-										'</select>'+
-									'</form>'+
-								'</div>' +
-								'<div id="TestPane"' + nWindowNumber + ' style="width: 100%; height: 100%;">' +
-									'<canvas>'+
-										'not simply use HTML5 Canvas with this browser'+
-									'</canvas>'+
-								'</div>';
-		
-		//$("DockingBox").append('<p> HALLLLLLLLLLLO</p>');
-		var items1 = $("#" + sNewWindowName);
-		var items2 = $("#DockingBox");
-								
-		$("#DockingBox").append('<div><div id="' + sNewWindowName + '">' + sWindowDivContent + '</div></div>');
-		
-		$("#" + sNewWindowName).jqxWindow();
-		$("#DockingBox").jqxDocking('addWindow', sNewWindowName, 'docked');
+		return window.ViewModel.nWindows;
 	}
-	
 }

@@ -5,9 +5,11 @@
 		<title>Interactive Visual Comparison of Multiple Trees</title>
 		<link rel="stylesheet" href="libs/jqwidgets/styles/jqx.base.css" type="text/css"/>
 		<link rel="stylesheet" href="libs/jqwidgets/styles/jqx.summer.css" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="styles.css">
 		<script src="libs/modernizr-2.5.3.js"></script>
 		<script src="libs/jscolor/jscolor.js"></script>
 		<script type="text/javascript" src="libs/jquery/jquery-1.7.2.js"></script>
+		<script type="text/javascript" src="libs/scripts/knockout-2.0.0.js"></script>
 		<script type="text/javascript" src="libs/jqwidgets/jqxcore.js"></script>
 		<script type="text/javascript" src="libs/jqwidgets/jqxbuttons.js"></script>
 		<script type="text/javascript" src="libs/jqwidgets/jqxsplitter.js"></script>
@@ -31,57 +33,10 @@
 		<script src="Views/Vis2ReferenceTreeView.js"></script>
 		<script src="Views/Vis2ScoreDistributionView.js"></script>
 		<script src="Views/Vis2TreeComparisonView.js"></script>
-		<link rel="stylesheet" type="text/css" href="styles.css">
 		<script src="Vis2Main.js"></script>
 
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#DockingBox').jqxDocking({
-					theme : '',
-					orientation : 'horizontal',
-					width : 680,
-					mode : 'docked'
-				});
-				$('#DockingBox').jqxDocking('');
-				//$('#DockingBox').jqxDocking('window2');
-				//			$('#DockingBox').jqxDocking('window3');
-				//				$('#DockingBox').jqxDocking('window4');
-
-				$("#jqxSplitter2").jqxSplitter({
-					theme : 'summer',
-					orientation : 'horizontal',
-					panels : [{
-						size : '300px'
-					}, {
-						size : '300px'
-					}, {
-						size : '300px'
-					}]
-				});
-				$("#jqxSplitter").jqxSplitter({
-					theme : 'summer',
-					panels : [{
-						size : '300px'
-					}]
-				});
-
-				$('#jqxSplitter').bind('resize', canvasSizeChanged);
-				$('#jqxSplitter2').bind('resize', canvasSizeChanged);
-
-				$("#jqxSplitter").height(900);
-				$("#jqxSplitter2").height(900);
-				$("#DockingBox").height(900);
-
-				$("#ComparisonOverviewPane").height(300);
-				$("#HistogramViewPane").height(300);
-				$("#ReferenceTreePane").height(300);
-
-				$("#RightPane").width($("#window1").width());
-			});
-		</script>
 	</head>
 	<body class='default'>
-		<a href="javascript:window.ViewManager.CreateNewComparisonView();">CreateNewComparisonView() -- test only, not working correctly yet</a>
 		<div id="userinterface">
 			<form>
 				Select measure:
@@ -106,7 +61,7 @@
 							One does not simply use HTML5 Canvas with this browser
 						</canvas>
 					</div>
-					<div id="HistogramViewPane">
+					<div id="RightPane">
 						<canvas>
 							One does not simply use HTML5 Canvas with this browser
 						</canvas>
@@ -117,47 +72,20 @@
 						</canvas>
 					</div>
 				</div>
-				<div style="height: 100%">
-					<div id="DockingBox">
-						<div>
-							<div id="window1">
-								<div>
-									<form>
-										View 1, select measure:
-										<select id="measure">
-											<option value="leafbased">leaf-based</option>
-											<option value="elementbased">element-based</option>
-											<option value="edgebased">edge-based</option>
-										</select>
-									</form>
-								</div>
-								<div id="RightPane" style="width: 100%; height: 100%;">
-									<canvas>
-										not simply use HTML5 Canvas with this browser
-									</canvas>
-								</div>
+				<div id="docking" style="width: 100%" data-bind="template: { foreach: OpenViews, afterRender: buildWindow }">
+            		<div class="knockout-section">
+                		<div class="knockout-window">
+                			<div class="titlebar">
+								
 							</div>
-							<div id="window2" style="height: 300px; width: 300px;">
-								<div>
-									Tree Comparison View 2
-								</div>
-								<div style="overflow: hidden;">
-									Only 1 tree comparison view supported in the backend at the moment
-								</div>
+							<div class="content" style="width: 100%; height: 100%;">
+								<canvas>
+									not simply use HTML5 Canvas with this browser
+								</canvas>
 							</div>
-						</div>
-						<div>
-							<div id="window3" style="height: 300px; width: 300px;">
-								<div>
-									Tree Comparison View 3
-								</div>
-								<div style="overflow: hidden;">
-									Only 1 tree comparison view supported in the backend at the moment
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+            			</div>
+            		</div>
+            	</div>
 			</div>
 		</div>
 

@@ -21,16 +21,18 @@ function Vis2ComparisonOverview(divID)
 	
 	// attach event handler
 	CanvasElement.addEventListener('click', OnClick, false);
+	CanvasElement.addEventListener('dblclick', OnDoubleClick, false);
 		
-	// event handler	
-	function OnClick(event) 
+	// event handler
+	
+	function OnDoubleClick(event)
 	{
 		assert (bDivFilled, "click event called but div never filled");
 		
 		var nXinCanvas, nYinCanvas;
 		
 	  	// assert that properties are available
-		assert (event.offsetX || event.offsetX == 0, "offsetX / offsetY not supported by this browser");
+		assert (event.offsetX || event.offsetX == 0, "offsetX / offsetY not supported by this browser");	
 		
 		// Get the mouse position relative to the canvas element.		  
 	    nXinCanvas = event.offsetX;
@@ -54,12 +56,44 @@ function Vis2ComparisonOverview(divID)
     	
     	nSelectedTreeReference = nSelectedTreeX,
     	nSelectedTreeToCompare = nSelectedTreeY;
+    			
+		// set reference tree
+    	window.SelectionManager.SetReferenceTree(nSelectedTreeReference);
+    	    	
+    	// add new tree comparison window
+    	var nWindowIndex = window.ViewManager.AddTreeComparisonWindow(nSelectedTreeToCompare);
     	
+    	window.SelectionManager.AddTreeToCompare(nSelectedTreeToCompare, nWindowIndex);
+	}	
+	
+	function OnClick(event) 
+	{
+		assert (bDivFilled, "click event called but div never filled");
+		
+		var nXinCanvas, nYinCanvas;
+		
+	  	// assert that properties are available
+		assert (event.offsetX || event.offsetX == 0, "offsetX / offsetY not supported by this browser");	
+		
+		// Get the mouse position relative to the canvas element.		  
+	    nXinCanvas = event.offsetX;
+	    nYinCanvas = event.offsetY;
+
+		// get number of trees
+		nNumTrees = window.TreeManager.GetNumTrees();
+		assert (nNumTrees > 0, "no trees loaded");
+		
+		// get height of each rectangle
+		nHeight = CanvasElement.height / nNumTrees;
+		
+		// get height of each rectangle
+		nWidth = CanvasElement.width / nNumTrees;
+		
+		// get selected tree in x direction
+    	nSelectedTreeReference = Math.floor(nXinCanvas / nWidth);
+    	    	
     	// set reference tree
     	window.SelectionManager.SetReferenceTree(nSelectedTreeReference);
-    	
-    	// set tree to compare with
-    	window.SelectionManager.SetTreeToCompare(nSelectedTreeToCompare); 
 	}
 	
 	/*
@@ -85,7 +119,10 @@ function Vis2ComparisonOverview(divID)
 		// get height of each rectangle
 		nWidth = CanvasElement.width / nNumTrees;
 		
+		// get index of reference tree
 		nReferenceTree = window.SelectionManager.GetReferenceTree();
+		
+		// get tree index of selected trees
 		nCompareTree = window.SelectionManager.GetTreeToCompare();
 		
 		for (var nIndexX = 0; nIndexX < nNumTrees; nIndexX++)
@@ -94,12 +131,21 @@ function Vis2ComparisonOverview(divID)
 				// get measure value
 				fMeasure = window.TreeManager.GetComparisonOverviewMeasure(nIndexX, nIndexY);
 				
-				if (nIndexX == nReferenceTree && nIndexY == nCompareTree)
+				if (nIndexX == nReferenceTree)
 				{
+					if (nIndexY == nCompareTree)
+					{
+						context.fillStyle = "rgb(0, 0, 0)";
+						context.fillRect(nIndexX*nWidth, nIndexY*nHeight, nWidth, nHeight);	
+					}
+					else
+					{
 					// draw black border
-					context.fillStyle = "rgb(0, 0, 0)";
-					context.fillRect(nIndexX*nWidth, nIndexY*nHeight, nWidth, nHeight);	
+					context.fillStyle = "rgb(100, 100, 100)";
+					context.fillRect(nIndexX*nWidth, nIndexY*nHeight, nWidth, nHeight);						
+					}
 				}
+				 
 				
 				// set color
 				context.fillStyle = window.ColorMap.GetColor(fMeasure);

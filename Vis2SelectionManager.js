@@ -3,6 +3,8 @@ function Vis2SelectionManager()
 	var ReferenceTree = undefined;
 	var TreeToCompare = undefined;
 	
+	var TreesToCompare = new Array();
+	
 	/**
 	 * Sets the reference tree for the tree comparison
 	 * 
@@ -24,9 +26,9 @@ function Vis2SelectionManager()
 	 * 
 	 * @param {Vis2Node} rTree
 	 */
-	this.SetTreeToCompare = function(rTree)
+	this.AddTreeToCompare = function(nTreeIndex, nWindowIndex)
 	{	
-		TreeToCompare = rTree;
+		TreesToCompare.push([{tree: nTreeIndex, window: nWindowIndex}]);
 		
 		// trigger view update
 		window.ViewManager.UpdateViews();
@@ -49,6 +51,6 @@ function Vis2SelectionManager()
 	 */
 	this.GetTreeToCompare = function()
 	{
-		return TreeToCompare;
+		return 1;
 	}
 }

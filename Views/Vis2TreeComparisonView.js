@@ -1,4 +1,4 @@
-function Vis2TreeComparisonView(divID)
+function Vis2TreeComparisonView(divID, nTreeToCompare)
 {
 	/*
 	 * Private members
@@ -8,6 +8,8 @@ function Vis2TreeComparisonView(divID)
 	var DivElement = window.document.getElementById(divID);
 	var CanvasElement = GetCanvasWithinDiv(divID);
 
+	var m_nTreeToCompare = nTreeToCompare;
+	
 	var rTreeVisualizer = undefined;
 	
 	/*
@@ -28,7 +30,7 @@ function Vis2TreeComparisonView(divID)
 		context = CanvasElement.getContext("2d");
 		
 		// get reference tree		
-		nComparisonTree = window.SelectionManager.GetTreeToCompare();
+		nComparisonTree = m_nTreeToCompare;
 		
 		if (nComparisonTree != undefined)
 		{
@@ -42,7 +44,7 @@ function Vis2TreeComparisonView(divID)
 			}	
 						
 			// call visualizer
-			rTreeVisualizer.Draw(context, 150, 20);
+			rTreeVisualizer.Draw(context, CanvasElement.width / 2, 20);
 		}
 	}
 }
