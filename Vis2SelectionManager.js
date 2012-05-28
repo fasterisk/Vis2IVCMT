@@ -43,14 +43,4 @@ function Vis2SelectionManager()
 	{
 		return ReferenceTree;
 	}
-	
-	/**
-	 * Gets the tree to compare with the reference tree, may also be undefined
-	 * 
-	 * @return {Vis2Node} The tree 
-	 */
-	this.GetTreeToCompare = function()
-	{
-		return 1;
-	}
 }

@@ -69,17 +69,31 @@ function Vis2NodeVisualizer(rNode)
 		return Node;
 	}
 	
-	this.Draw = function (context, currX, currY)
+	this.Draw = function (context, sMeasureString, currX, currY)
 	{
 		var nodeRadius = 5;
 
 		// Draw node as a circle
 		
-		if (Node.elementmeasure != undefined)
+		// make sure that either leaf/element/edge is selected as measure, or none (for reference tree)
+		assert (sMeasureString == 'leaf' || sMeasureString == 'element' || sMeasureString == 'edge' || sMeasureString == '', "no valid measure string");
+		
+		var fMeasure = undefined;
+		
+		if (sMeasureString == 'leaf')
+			fMeasure = Node.leafmeasure;
+		else if (sMeasureString == 'element')
+			fMeasure = Node.elementmeasure;
+		else if (sMeasureString == 'edge')
+			fMeasure = Node.edgemeasure;
+				
+		if (fMeasure != undefined)
 		{
-			context.fillStyle = window.ColorMap.GetColor(Node.elementmeasure);
-			context.strokeStyle = window.ColorMap.GetColor(Node.elementmeasure);
-			context.fillText(Node.elementmeasure.toPrecision(2), currX + 5, currY - 2);			
+			context.fillStyle = window.ColorMap.GetColor(fMeasure);
+			context.strokeStyle = window.ColorMap.GetColor(fMeasure);
+			
+			context.font = "10px sans-serif";
+			context.fillText(fMeasure.toPrecision(2), currX + 5, currY - 2);			
 		}		
 
 		context.beginPath();
@@ -111,10 +125,10 @@ function Vis2NodeVisualizer(rNode)
 					+ RightChildVisualizer.GetNode().edgeweight * 10);
 			context.stroke();
 						
-			LeftChildVisualizer.Draw(context, currX - nLeftLineLength * 10,
+			LeftChildVisualizer.Draw(context, sMeasureString, currX - nLeftLineLength * 10,
 					currY + LeftChildVisualizer.GetNode().edgeweight * 10);
 
-			RightChildVisualizer.Draw(context, currX + nRightLineLength * 10,
+			RightChildVisualizer.Draw(context, sMeasureString, currX + nRightLineLength * 10,
 					currY + RightChildVisualizer.GetNode().edgeweight * 10);
 		}
 	}

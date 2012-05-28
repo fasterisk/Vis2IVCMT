@@ -4,28 +4,14 @@ function Vis2ViewManager()
 	var ReferenceTreeView = undefined;
 	var TreeComparisonView = undefined;
 	var aTreeComparisonViews = new Array();
+	var aAssociatedWindows = new Array();
 	
 	this.InitializeViews = function()
 	{
 		ComparisonOverview = new Vis2ComparisonOverview("ComparisonOverviewPane");
 		ReferenceTreeView = new Vis2ReferenceTreeView("ReferenceTreePane");
 	}
-	
-	this.AddTreeComparisonView = function (nWindowIndex, nTreeToCompare)
-	{	
-		// build id of div where we want to add the view
-		sDivID = "knockout-window-content-"+nWindowIndex;
 		
-		// create new view
-		rNewView = new Vis2TreeComparisonView(sDivID, nTreeToCompare);
-		
-		// insert into array of tree comparison views
-		aTreeComparisonViews.push(rNewView);
-		
-		// update views
-		this.UpdateViews();
-	}
-	
 	this.UpdateViews = function () 
 	{
 		assert (ComparisonOverview != undefined && ReferenceTreeView != undefined, "Views not initialized yet!");
@@ -43,8 +29,41 @@ function Vis2ViewManager()
 	
 	this.AddTreeComparisonWindow = function(nSelectedTreeToCompare)
 	{
-		window.ViewModel.addView(nSelectedTreeToCompare);
+		// create new window
+		var nWindowIndex = window.DynamicWindowsModel.addWindow(nSelectedTreeToCompare);
 		
-		return window.ViewModel.nWindows;
+		// build id of div where we want to add the view
+		sDivID = "knockout-window-content-"+nWindowIndex;
+		
+		// create new view
+		rNewView = new Vis2TreeComparisonView(sDivID, nSelectedTreeToCompare);
+		
+		// insert into array of tree comparison views
+		aTreeComparisonViews.push(rNewView);
+		
+		// store window index
+		aAssociatedWindows.push(nWindowIndex);
+		
+		// update views
+		this.UpdateViews();
+		
+		// return window index
+		return nWindowIndex;
+	}
+	
+	this.SetMeasureForComparisonView = function(nWindowIndex, sMeasureString)
+	{
+		//alert(nWindowIndex + ":" + sMeasureString);
+		
+		for (var i=0; i < aAssociatedWindows.length; i++)
+		{
+			if (aAssociatedWindows[i] == nWindowIndex)
+			{
+				aTreeComparisonViews[i].SetMeasureToUse(sMeasureString);
+				
+				aTreeComparisonViews[i].Update();
+				break;
+			}
+		}	
 	}
 }
