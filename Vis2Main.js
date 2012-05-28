@@ -73,7 +73,7 @@ function PrepareMainPage() {
 			sLinkElementMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindows + ', \'element\')">element-based</a> ';
 			sLinkEdgeMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindows + ', \'edge\')">edge-based</a> ';
 			
-			$(el).children(".titlebar").append('<br><span style="font-size: 8pt; font-family: arial;">Select measure: ' + sLinkLeafMeasure + sLinkElementMeasure + sLinkEdgeMeasure + '</span>');
+			$(el).children(".titlebar").append('<br><span style="font-size: 7pt; font-family: arial;">Select measure: ' + sLinkLeafMeasure + sLinkElementMeasure + sLinkEdgeMeasure + '</span>');
 			
 			// set id of <div class="content">
 			$(el).children(".content").attr('id', 'knockout-window-content-' + nWindows);
