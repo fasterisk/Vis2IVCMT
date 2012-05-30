@@ -3,7 +3,7 @@
 function OnWindowLoaded() {
 	// prepare main page (setting up splitter, docking, ...)
 	PrepareMainPage();
-	
+
 	// initialize views
 	window.ViewManager.InitializeViews();
 
@@ -59,22 +59,22 @@ function PrepareMainPage() {
 
 		//This method will handle the new added windows
 		function handleWindow(el) {
-			var id = 'knockout-window-' + nWindows, nSection = nWindows % nSections;
+			var nNewWindowIndex = nWindows+1;
+			var id = 'knockout-window-' + (nNewWindowIndex);
 			nWindows += 1;
+			
+			var nSection = nWindows % nSections;
+			
 			$(el).attr('id', id);
 
 			// get tree index
-			nTreeIndex = self.OpenViews()[nWindows-1].treeID;
+			var nTreeIndex = self.OpenViews()[nWindows - 1].treeID;
 			
 			// set titlebar caption
 			$(el).children(".titlebar").append("Tree Comparison View (Tree " + nTreeIndex.toString() + ")");
-			
-			sLinkLeafMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindows + ', \'leaf\')">leaf-based</a> ';
-			sLinkElementMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindows + ', \'element\')">element-based</a> ';
-			sLinkEdgeMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindows + ', \'edge\')">edge-based</a> ';
-			
-			$(el).children(".titlebar").append('<br><span style="font-size: 7pt; font-family: arial;">Select measure: ' + sLinkLeafMeasure + sLinkElementMeasure + sLinkEdgeMeasure + '</span>');
-			
+
+			$(el).children(".titlebar").append('<br><span id="measure-select-' + nNewWindowIndex + '"></span>');
+
 			// set id of <div class="content">
 			$(el).children(".content").attr('id', 'knockout-window-content-' + nWindows);
 
@@ -85,7 +85,7 @@ function PrepareMainPage() {
 				// initialize docking
 				$('#docking').jqxDocking({
 					theme : '',
-					width: 400,
+					width : 400,
 					panelsRoundedCorners : true
 				});
 
@@ -107,7 +107,8 @@ function PrepareMainPage() {
 		this.addWindow = function(nTreeToCompare) {
 			this.OpenViews.push({
 				treeID : nTreeToCompare,
-				windowIndex : nWindows
+				windowIndex : nWindows,
+
 			});
 
 			return nWindows;
@@ -122,6 +123,44 @@ function PrepareMainPage() {
 				handleWindow($(el).children('.knockout-window'));
 				$(el).remove();
 			}
+		}
+		
+		this.updateMeasure = function (nWindowIndex)
+		{
+			var id = '#knockout-window-' + nWindowIndex;
+			
+			// remove old line
+			//$(id).children(".titlebar").children(".measure-select").remove();
+					
+			$("#measure-select-" + nWindowIndex).empty();
+			
+			// build new line
+			
+			// get view from view manager
+			var rTreeComparisonView = window.ViewManager.GetTreeComparisonViewForWindow(nWindowIndex);
+			assert (rTreeComparisonView != undefined, "Associated TreeComparisonView for specific window not found");
+
+			var sUsedMeasure = rTreeComparisonView.GetMeasureToUse();
+			assert(sUsedMeasure != undefined, "undefined measure");
+
+			var sLinkLeafMeasure, sLinkElementMeasure, sLinkEdgeMeasure;
+
+			if(sUsedMeasure == 'leaf')
+				sLinkLeafMeasure = '<a>leaf-based</a> ';
+			else
+				sLinkLeafMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindows + ', \'leaf\')">leaf-based</a> ';
+
+			if(sUsedMeasure == 'element')
+				sLinkElementMeasure = '<a>element-based</a> ';
+			else
+				sLinkElementMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindows + ', \'element\')">element-based</a> ';
+
+			if(sUsedMeasure == 'edge')
+				sLinkEdgeMeasure = '<a>edge-based</a> ';
+			else
+				sLinkEdgeMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindows + ', \'edge\')">edge-based</a> ';
+
+			$("#measure-select-" + nWindowIndex).append('<span style="font-size: 7pt; font-family: arial;">Select measure: ' + sLinkLeafMeasure + sLinkElementMeasure + sLinkEdgeMeasure + '</span>');
 		}
 	};
 

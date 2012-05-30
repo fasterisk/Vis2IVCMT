@@ -23,6 +23,11 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 		m_sMeasureString = sMeasureString;
 	}
 	
+	this.GetMeasureToUse = function ()
+	{
+		return m_sMeasureString;
+	}
+	
 	this.Update = function() {
 		// set canvas size to div size
 		CanvasElement.width = DivElement.offsetWidth;

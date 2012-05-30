@@ -37,18 +37,35 @@ function Vis2ViewManager()
 		
 		// create new view
 		rNewView = new Vis2TreeComparisonView(sDivID, nSelectedTreeToCompare);
-		
+			
 		// insert into array of tree comparison views
 		aTreeComparisonViews.push(rNewView);
 		
 		// store window index
 		aAssociatedWindows.push(nWindowIndex);
 		
+		
+		// update measure-line
+		window.DynamicWindowsModel.updateMeasure(nWindowIndex);
+		
 		// update views
 		this.UpdateViews();
 		
 		// return window index
 		return nWindowIndex;
+	}
+	
+	this.GetTreeComparisonViewForWindow = function (nWindowIndex)
+	{	
+		for (var i=0; i < aAssociatedWindows.length; i++)
+		{
+			if (aAssociatedWindows[i] == nWindowIndex)
+			{
+				return aTreeComparisonViews[i];
+			}
+		}
+		
+		return undefined;
 	}
 	
 	this.SetMeasureForComparisonView = function(nWindowIndex, sMeasureString)
@@ -62,6 +79,9 @@ function Vis2ViewManager()
 				aTreeComparisonViews[i].SetMeasureToUse(sMeasureString);
 				
 				aTreeComparisonViews[i].Update();
+				
+				// also update window in html page
+				window.DynamicWindowsModel.updateMeasure(nWindowIndex);
 				break;
 			}
 		}	
