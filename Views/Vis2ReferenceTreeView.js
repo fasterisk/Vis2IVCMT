@@ -7,13 +7,9 @@ function Vis2ReferenceTreeView(divID) {
 	var DivElement = window.document.getElementById(divID);
 	var CanvasElement = GetCanvasWithinDiv(divID);
 
-	// coordinates of the selection rectangle
-	var nSelectionRectangle_X1 = undefined;
-	var nSelectionRectangle_X2 = undefined;
-	var nSelectionRectangle_Y1 = undefined;
-	var nSelectionRectangle_Y2 = undefined;
-
 	var rTreeVisualizer = undefined;
+	
+	var aRenderedNodes = new Array();
 
 	function ItlUpdate() {
 		// set canvas size to div size
@@ -23,30 +19,25 @@ function Vis2ReferenceTreeView(divID) {
 		// get context
 		context = CanvasElement.getContext("2d");
 
-		// get reference tree id
-		nReferenceTree = window.SelectionManager.GetReferenceTree();
+		// get reference tree
+		ReferenceTree = window.SelectionManager.GetReferenceTree();
 
-		if(nReferenceTree != undefined) {
+		if(ReferenceTree != undefined) {
 			// print legend (tree index)
 			context.font = "16px sans-serif";
-			context.fillText("Tree " + nReferenceTree.toString(), 0, 25);
-
-			// get tree object
-			rTree = window.TreeManager.GetTree(nReferenceTree);
+			context.fillText("Tree " + window.TreeManager.GetIndexOfTree(ReferenceTree), 0, 25);
 
 			// create visualizer, if undefined or for wrong tree (selected tree may have changed)
-			if(rTreeVisualizer == undefined || rTreeVisualizer.GetNode() != rTree) {
-				rTreeVisualizer = new Vis2NodeVisualizer(rTree);
+			if(rTreeVisualizer == undefined || rTreeVisualizer.GetNode() != ReferenceTree) {
+				rTreeVisualizer = new Vis2NodeVisualizer(ReferenceTree);
 			}
 
 			// call visualizer
-			rTreeVisualizer.Draw(context, '', CanvasElement.width / 2, 10);
+			aRenderedNodes = rTreeVisualizer.Draw(context, '', CanvasElement.width / 2, 10);
+			
+			Debugger.log("rendered " + aRenderedNodes.length + " nodes");
 		}
 
-		if(nSelectionRectangle_X1 != undefined) {
-			context.strokeStyle = "rgb(100, 100, 0)";
-			context.strokeRect(nSelectionRectangle_X1, nSelectionRectangle_Y1, nSelectionRectangle_X2 - nSelectionRectangle_X1, nSelectionRectangle_Y2 - nSelectionRectangle_Y1);
-		}
 
 	}
 
@@ -61,31 +52,36 @@ function Vis2ReferenceTreeView(divID) {
 
 	// event handler
 	function OnMouseDown(event) {
-		// set starting coordinates
-		nSelectionRectangle_X1 = event.offsetX;
-		nSelectionRectangle_Y1 = event.offsetY;
-
-		ItlUpdate();
-	}
-
-	function OnMouseMove(event) {
-		if(nSelectionRectangle_X1 != undefined) {
-			// update ending coordinates
-			nSelectionRectangle_X2 = event.offsetX;
-			nSelectionRectangle_Y2 = event.offsetY;
-
-			ItlUpdate();
+		// get coordinates
+		var nX = event.offsetX;
+		var nY = event.offsetY;
+		
+		for (var i=0; i < aRenderedNodes.length; i++)
+		{
+			var nDiffX =Math.abs(nX - aRenderedNodes[i].x);
+			var nDiffY =Math.abs(nY - aRenderedNodes[i].y);
+			
+			var fDiff = Math.sqrt(nDiffX * nDiffX + nDiffY * nDiffY);
+			
+			
+			var fNodeRadius = aRenderedNodes[i].radius;
+			
+			if (fDiff < fNodeRadius)
+			{
+				// node selected!
+								
+				// set reference node
+				window.SelectionManager.SetReferenceNode(aRenderedNodes[i].rNode);
+			}
 		}
 	}
 
-	function OnMouseUp(event) {
-		// clear coordinates
-		nSelectionRectangle_X1 = undefined;
-		nSelectionRectangle_X2 = undefined;
-		nSelectionRectangle_Y1 = undefined;
-		nSelectionRectangle_Y2 = undefined;
+	function OnMouseMove(event) {
+		// do nothing
+	}
 
-		ItlUpdate();
+	function OnMouseUp(event) {
+		// do nothing
 	}
 
 	/*

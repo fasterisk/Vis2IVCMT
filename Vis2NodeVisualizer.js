@@ -1,3 +1,11 @@
+function TItlRenderedNodeInformation(x, y, fRadius, rNode)
+{
+	this.x = x;
+	this.y = y;
+	this.radius = fRadius;
+	this.rNode = rNode;
+}
+	
 function Vis2NodeVisualizer(rNode)
 {
 	assert (rNode != undefined, "node not specified!");
@@ -69,10 +77,11 @@ function Vis2NodeVisualizer(rNode)
 		return Node;
 	}
 	
-	this.Draw = function (context, sMeasureString, currX, currY)
+	this.Draw = function (context, sMeasureString, currX, currY, bSelected)
 	{
 		var nodeRadius = 5;
-
+		var aRenderedNodes = new Array();
+		
 		// Draw node as a circle
 		
 		// make sure that either leaf/element/edge is selected as measure, or none (for reference tree)
@@ -94,13 +103,32 @@ function Vis2NodeVisualizer(rNode)
 			
 			context.font = "10px sans-serif";
 			context.fillText(fMeasure.toPrecision(2), currX + 5, currY - 2);			
-		}		
-
+		}
+		else
+		{
+			if (Node == window.SelectionManager.GetReferenceNode())
+				bSelected = true;
+				
+			if (bSelected)
+			{
+				context.fillStyle = '#F00';
+				context.strokeStyle = '#F00';
+			}
+			else
+			{
+				context.fillStyle = '#000';
+				context.strokeStyle = '#000';	
+			}			
+		}
+		
 		context.beginPath();
 		context.arc(currX, currY, nodeRadius, 0, Math.PI * 2, true);
 		context.closePath();
 		context.fill();
 
+		// store information about currently rendered node (the arc)
+		aRenderedNodes.push(new TItlRenderedNodeInformation(currX, currY, nodeRadius, Node));
+		
 		if (Node.isleaf)
 		{
 			context.font = "10px sans-serif";
@@ -125,11 +153,18 @@ function Vis2NodeVisualizer(rNode)
 					+ RightChildVisualizer.GetNode().edgeweight * 10);
 			context.stroke();
 						
-			LeftChildVisualizer.Draw(context, sMeasureString, currX - nLeftLineLength * 10,
-					currY + LeftChildVisualizer.GetNode().edgeweight * 10);
+			// render left children and store returned information about rendered nodes
+			var aRenderedNodesLeft = LeftChildVisualizer.Draw(context, sMeasureString, currX - nLeftLineLength * 10,
+															currY + LeftChildVisualizer.GetNode().edgeweight * 10, bSelected);
 
-			RightChildVisualizer.Draw(context, sMeasureString, currX + nRightLineLength * 10,
-					currY + RightChildVisualizer.GetNode().edgeweight * 10);
+			// render right children and store returned information abour rendered nodes
+			var aRenderedNodesRight = RightChildVisualizer.Draw(context, sMeasureString, currX + nRightLineLength * 10,
+														currY + RightChildVisualizer.GetNode().edgeweight * 10, bSelected);
+														
+			// concat arrays to get 1 array containing the currently rendered node and all rendered child nodes
+			aRenderedNodes = aRenderedNodes.concat(aRenderedNodesLeft, aRenderedNodesRight);
 		}
+		
+		return aRenderedNodes;
 	}
 }

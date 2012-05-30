@@ -53,8 +53,11 @@ function Vis2ComparisonOverview(divID) {
 
 		nSelectedTreeReference = nSelectedTreeX, nSelectedTreeToCompare = nSelectedTreeY;
 
+		// get tree
+		rTreeObject = window.TreeManager.GetTree (nSelectedTreeReference);
+		
 		// set reference tree
-		window.SelectionManager.SetReferenceTree(nSelectedTreeReference);
+		window.SelectionManager.SetReferenceTree(rTreeObject);
 
 		// add new tree comparison window
 		var nWindowIndex = window.ViewManager.AddTreeComparisonWindow(nSelectedTreeToCompare);
@@ -87,8 +90,11 @@ function Vis2ComparisonOverview(divID) {
 		// get selected tree in x direction
 		nSelectedTreeReference = Math.floor(nXinCanvas / nWidth) - 1;
 
+		// get tree
+		rTreeObject = window.TreeManager.GetTree (nSelectedTreeReference);
+		
 		// set reference tree
-		window.SelectionManager.SetReferenceTree(nSelectedTreeReference);
+		window.SelectionManager.SetReferenceTree(rTreeObject);
 	}
 
 	/*
@@ -114,7 +120,7 @@ function Vis2ComparisonOverview(divID) {
 		nWidth = CanvasElement.width / (nNumTrees + 1);
 
 		// get index of reference tree
-		nReferenceTree = window.SelectionManager.GetReferenceTree() + 1;
+		nReferenceTree = window.TreeManager.GetIndexOfTree(window.SelectionManager.GetReferenceTree()) + 1;
 
 		for(var nIndexX = 0; nIndexX <= nNumTrees; nIndexX++)
 			for(var nIndexY = 0; nIndexY <= nNumTrees; nIndexY++) {

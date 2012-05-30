@@ -80,12 +80,12 @@ function Vis2TreeManager(sFilename)
 	
 	this.UpdateAllMeasures = function()
 	{
-		nReferenceTree = window.SelectionManager.GetReferenceTree();
+		rReferenceNode = window.SelectionManager.GetReferenceNode();
 		
 		for (nCompareTree = 0; nCompareTree < m_aLoadedTrees.length; nCompareTree++)
 		{
-			Vis2LeafMeasures(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
-			Vis2ElementMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
+			Vis2LeafMeasures(rReferenceNode, m_aLoadedTrees[nCompareTree]);
+			Vis2ElementMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
 		}	
 	}
 	
@@ -97,6 +97,18 @@ function Vis2TreeManager(sFilename)
 		assert(iIndex < m_aLoadedTrees.length, "iIndex < m_aLoadedTrees.length failed");
 		
 		return m_aLoadedTrees[iIndex];
+	}
+	
+	this.GetIndexOfTree = function (rTree)
+	{
+		for (var nCompareTree = 0; nCompareTree < m_aLoadedTrees.length; nCompareTree++)
+		{
+			if (m_aLoadedTrees[nCompareTree] == rTree)
+				return nCompareTree;
+		}
+		
+		// if not found, return undefined
+		return undefined;
 	}
 	
 	this.GetTrees = function() {
