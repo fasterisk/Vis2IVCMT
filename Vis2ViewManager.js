@@ -32,6 +32,8 @@ function Vis2ViewManager()
 		// create new window
 		var nWindowIndex = window.DynamicWindowsModel.addWindow(nSelectedTreeToCompare);
 		
+		assert (nWindowIndex > 0, "nWindowIndex should be in range 1..n");
+		
 		// build id of div where we want to add the view
 		sDivID = "knockout-window-content-"+nWindowIndex;
 		
@@ -57,6 +59,8 @@ function Vis2ViewManager()
 	
 	this.GetTreeComparisonViewForWindow = function (nWindowIndex)
 	{	
+		assert (nWindowIndex > 0, "nWindowIndex should be in range 1..n");
+		
 		for (var i=0; i < aAssociatedWindows.length; i++)
 		{
 			if (aAssociatedWindows[i] == nWindowIndex)
@@ -70,7 +74,7 @@ function Vis2ViewManager()
 	
 	this.SetMeasureForComparisonView = function(nWindowIndex, sMeasureString)
 	{
-		//alert(nWindowIndex + ":" + sMeasureString);
+		assert (nWindowIndex > 0, "nWindowIndex should be in range 1..n");
 		
 		for (var i=0; i < aAssociatedWindows.length; i++)
 		{

@@ -127,39 +127,42 @@ function PrepareMainPage() {
 		
 		this.updateMeasure = function (nWindowIndex)
 		{
+			assert (nWindowIndex > 0, "nWindowIndex should be in range 1..n");
+			
 			var id = '#knockout-window-' + nWindowIndex;
 			
-			// remove old line
-			//$(id).children(".titlebar").children(".measure-select").remove();
-					
+			// remove old line				
 			$("#measure-select-" + nWindowIndex).empty();
 			
-			// build new line
+			// *** build new line *****
 			
 			// get view from view manager
 			var rTreeComparisonView = window.ViewManager.GetTreeComparisonViewForWindow(nWindowIndex);
 			assert (rTreeComparisonView != undefined, "Associated TreeComparisonView for specific window not found");
 
+			// get used measure
 			var sUsedMeasure = rTreeComparisonView.GetMeasureToUse();
 			assert(sUsedMeasure != undefined, "undefined measure");
 
+			// build links
 			var sLinkLeafMeasure, sLinkElementMeasure, sLinkEdgeMeasure;
 
 			if(sUsedMeasure == 'leaf')
 				sLinkLeafMeasure = '<a>leaf-based</a> ';
 			else
-				sLinkLeafMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindows + ', \'leaf\')">leaf-based</a> ';
+				sLinkLeafMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindowIndex + ', \'leaf\')">leaf-based</a> ';
 
 			if(sUsedMeasure == 'element')
 				sLinkElementMeasure = '<a>element-based</a> ';
 			else
-				sLinkElementMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindows + ', \'element\')">element-based</a> ';
+				sLinkElementMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindowIndex + ', \'element\')">element-based</a> ';
 
 			if(sUsedMeasure == 'edge')
 				sLinkEdgeMeasure = '<a>edge-based</a> ';
 			else
-				sLinkEdgeMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindows + ', \'edge\')">edge-based</a> ';
+				sLinkEdgeMeasure = '<a href="javascript:window.ViewManager.SetMeasureForComparisonView(' + nWindowIndex + ', \'edge\')">edge-based</a> ';
 
+			// append new line with links
 			$("#measure-select-" + nWindowIndex).append('<span style="font-size: 7pt; font-family: arial;">Select measure: ' + sLinkLeafMeasure + sLinkElementMeasure + sLinkEdgeMeasure + '</span>');
 		}
 	};
