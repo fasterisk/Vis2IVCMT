@@ -96,13 +96,23 @@ function Vis2NodeVisualizer(rNode)
 		else if (sMeasureString == 'edge')
 			fMeasure = Node.edgemeasure;
 				
-		if (fMeasure != undefined)
+		if (sMeasureString != '')
 		{
+			if (sMeasureString == 'leaf')
+				fMeasure = Node.leafmeasure;
+			else if (sMeasureString == 'element')
+				fMeasure = Node.elementmeasure;
+			else if (sMeasureString == 'edge')
+				fMeasure = Node.edgemeasure;
+			
+			if (fMeasure != undefined)
+			{
 			context.fillStyle = window.ColorMap.GetColor(fMeasure);
 			context.strokeStyle = window.ColorMap.GetColor(fMeasure);
 			
 			context.font = "10px sans-serif";
-			context.fillText(fMeasure.toPrecision(2), currX + 5, currY - 2);			
+			context.fillText(fMeasure.toPrecision(2), currX + 5, currY - 2);				
+			}			
 		}
 		else
 		{
