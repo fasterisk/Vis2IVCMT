@@ -39,14 +39,12 @@ function PrepareMainPage() {
 	// this class is a "model" in a ModelView-Pattern, used with knockout.js
 	// and stores information about the dynamically created windows
 	DynamicWindowsModel = function() {
-		this.OpenViews = ko.observableArray();
+		this.OpenViews = ko.observableArray([{treeID : 2,	windowIndex : 1}, {treeID : 2,	windowIndex : 2}]);
 
 		var self = this;
 		var nSections = 0;
 		var nWindows = 0;
 		var nMaxSections = 2;
-
-		var m_bDockingInitialized = false;
 
 		//This method will handle the new added sections
 		function handleSection(el) {
@@ -54,18 +52,19 @@ function PrepareMainPage() {
 			nSections += 1;
 			el.id = id;
 			$(el).appendTo($('#docking'));
-			$(el).css('width', '47%');
+			$(el).css('width', '48%');
 		}
 
 		//This method will handle the new added windows
 		function handleWindow(el) {
 			var nNewWindowIndex = nWindows+1;
-			var id = 'knockout-window-' + (nNewWindowIndex);
-			nWindows += 1;
-			
+			var id = 'knockout-window-' + (nNewWindowIndex);		
 			var nSection = nWindows % nSections;
 			
+			nWindows += 1;
+			
 			$(el).attr('id', id);
+			$(el).css('min-height', '300px');
 
 			// get tree index
 			var nTreeIndex = self.OpenViews()[nWindows - 1].treeID;
@@ -78,20 +77,7 @@ function PrepareMainPage() {
 			// set id of <div class="content">
 			$(el).children(".content").attr('id', 'knockout-window-content-' + nWindows);
 
-			if(m_bDockingInitialized == true) {
-				// add windowp to dock
-				$('#docking').jqxDocking('addWindow', id, 'default', nSection, nWindows);
-			} else {
-				// initialize docking
-				$('#docking').jqxDocking({
-					theme : '',
-					width : 400,
-					panelsRoundedCorners : true
-				});
-
-				m_bDockingInitialized = true;
-			}
-
+			$('#docking').jqxDocking('addWindow', id, 'default', nSection, nWindows);
 		}
 
 		function getDOMElement(args) {
@@ -104,7 +90,7 @@ function PrepareMainPage() {
 		}
 
 		//This method handles adding a new person (when the user click on the Add button)
-		this.addWindow = function(nTreeToCompare) {
+		this.addWindow = function(nTreeToCompare) {			
 			this.OpenViews.push({
 				treeID : nTreeToCompare,
 				windowIndex : nWindows,
@@ -171,6 +157,16 @@ function PrepareMainPage() {
 
 	// activate knockout.js, set Model
 	ko.applyBindings(window.DynamicWindowsModel);
+	
+	$('#docking').jqxDocking({
+					theme : '',
+					width: '700px',
+					panelsRoundedCorners : true
+				});
+				
+	// close the dummy windows, which were added to make the sections working (they must be existing at the docking-construction-time) 		
+	$('#docking').jqxDocking('closeWindow', 'knockout-window-1');
+	$('#docking').jqxDocking('closeWindow', 'knockout-window-2');			
 
 }
 
