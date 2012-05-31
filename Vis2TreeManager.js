@@ -42,11 +42,11 @@ function Vis2TreeManager(sFilename)
 		// calculate comparison measures for each pair of trees
 		m_aComparisonOverviewMeasures = new Array();
 		
-		for (nReferenceTree = 0; nReferenceTree < m_aLoadedTrees.length; nReferenceTree++)
+		for (var nReferenceTree = 0; nReferenceTree < m_aLoadedTrees.length; nReferenceTree++)
 		{
 		m_aComparisonOverviewMeasures[nReferenceTree] = new Array();	
 
-			for (nCompareTree = 0; nCompareTree < m_aLoadedTrees.length; nCompareTree++)
+			for (var nCompareTree = 0; nCompareTree < m_aLoadedTrees.length; nCompareTree++)
 			{
 				if (nCompareTree != nReferenceTree)
 				{
@@ -76,28 +76,28 @@ function Vis2TreeManager(sFilename)
 		assert (nCompareTree < m_aComparisonOverviewMeasures[nReferenceTree].length, "array index out of bounds");
 		
 		return m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree];
-	}
+	};
 	
 	this.UpdateAllMeasures = function()
 	{
 		rReferenceNode = window.SelectionManager.GetReferenceNode();
 		
-		for (nCompareTree = 0; nCompareTree < m_aLoadedTrees.length; nCompareTree++)
+		for (var nCompareTree = 0; nCompareTree < m_aLoadedTrees.length; nCompareTree++)
 		{
 			Vis2LeafMeasures(rReferenceNode, m_aLoadedTrees[nCompareTree]);
 			Vis2ElementMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
 		}	
-	}
+	};
 	
 	this.GetNumTrees = function() {
 		return m_aLoadedTrees.length;	
-	}
+	};
 	
 	this.GetTree = function (iIndex) {
 		assert(iIndex < m_aLoadedTrees.length, "iIndex < m_aLoadedTrees.length failed");
 		
 		return m_aLoadedTrees[iIndex];
-	}
+	};
 	
 	this.GetIndexOfTree = function (rTree)
 	{
@@ -109,9 +109,9 @@ function Vis2TreeManager(sFilename)
 		
 		// if not found, return undefined
 		return undefined;
-	}
+	};
 	
 	this.GetTrees = function() {
 		return m_aLoadedTrees;
-	}
+	};
 }

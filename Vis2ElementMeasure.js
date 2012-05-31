@@ -24,7 +24,7 @@ function GetElements_Worker(rNode, rElements, rLeaves)
 	else
 	{
 		// collect leaves under child nodes, if this is not a leaf
-		for ( var i = 0; i < rNode.numChildren(); i++)
+		for ( var i = 0; i < rNode.GetChildrenCount(); i++)
 		{
 			var vLeavesOfChildNode = GetLeaves(rNode.children[i]);
 					
@@ -142,7 +142,7 @@ function Vis2ElementMeasure(rReferenceTree, rTestTree)
 
 		rNodesTotal.push(rCurrentNode);
 
-		for ( var i = 0; i < rCurrentNode.numChildren(); i++)
+		for ( var i = 0; i < rCurrentNode.GetChildrenCount(); i++)
 		{
 			/** @define {Vis2Node} */
 			var child = rCurrentNode.children[i];

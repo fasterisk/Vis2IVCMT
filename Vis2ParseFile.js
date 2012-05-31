@@ -95,11 +95,7 @@ function ItlParseString(sSubString)
  */
 function CreateTreeFromString(sString)
 {
-	var vNewTree = ItlParseString(sString);
-	
-	vNewTree.BuildLeafList();
-	
-	return vNewTree;	
+	return ItlParseString(sString);	
 }
 
 function ParseFile(sFilename)
