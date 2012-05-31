@@ -94,7 +94,7 @@ function Vis2ComparisonOverview(divID) {
 		rTreeObject = window.TreeManager.GetTree (nSelectedTreeReference);
 		
 		// set reference tree
-		window.SelectionManager.SetReferenceTree(rTreeObject, nSelectedTreeReference);
+		window.SelectionManager.SetReferenceTree(rTreeObject);
 	}
 
 	/*

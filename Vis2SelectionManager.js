@@ -10,7 +10,7 @@ function Vis2SelectionManager()
 	 * 
 	 * @param {Vis2Node} rTree
 	 */
-	this.SetReferenceTree = function(rTree, nTreeNumber)
+	this.SetReferenceTree = function(rTree)
 	{	
 		ReferenceTree = rTree;
 		
