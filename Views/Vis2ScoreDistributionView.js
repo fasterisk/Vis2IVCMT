@@ -81,6 +81,7 @@ function Vis2ScoreDistributionView(divID)
 					
 					context.fillStyle = window.ColorMap.GetColor(k/10 + 0.05);
 					context.fillRect(currX+10*k, currY + 50 - nBarheight, 10, nBarheight);
+					context.strokeRect(currX+10*k, currY + 50 - nBarheight, 10, nBarheight);
 				}
 				
 				nTreeIndex++;

@@ -72,8 +72,6 @@ function Vis2TreeManager(sFilename)
 					//calculate comparison overview measure
 					var resultTree = Vis2ElementMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
 					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = resultTree.elementmeasure;
-					
-					
 				}
 				else
 				{
