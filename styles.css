@@ -9,15 +9,10 @@ html, body
 }
 #header { padding: 1em; }
 
-#MainWindow {
-	border: 3px solid #669;
-	min-width: 500px;	/* Splitter can't be too thin ... */
-	min-height: 300px;	/* ... or too flat */
-}
-#MainWindow .Pane {
+#ScoreDistributionPane {
 	overflow: auto;
-	background: #def;
 }
+
 
 #LeftPaneSplitter1 {
 	min-width: 300px;

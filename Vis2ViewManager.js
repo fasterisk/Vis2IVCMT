@@ -2,7 +2,7 @@ function Vis2ViewManager()
 {
 	var ComparisonOverview = undefined;
 	var ReferenceTreeView = undefined;
-	var TreeComparisonView = undefined;
+	var ScoreDistributionView = undefined;
 	var aTreeComparisonViews = new Array();
 	var aAssociatedWindows = new Array();
 	
@@ -10,7 +10,8 @@ function Vis2ViewManager()
 	{
 		ComparisonOverview = new Vis2ComparisonOverview("ComparisonOverviewPane");
 		ReferenceTreeView = new Vis2ReferenceTreeView("ReferenceTreePane");
-	}
+		ScoreDistributionView = new Vis2ScoreDistributionView("ScoreDistributionPane");
+	};
 		
 	this.UpdateViews = function () 
 	{
@@ -22,10 +23,13 @@ function Vis2ViewManager()
 		// update reference tree view			
 		ReferenceTreeView.Update();
 		
+		// update score distribution view
+		ScoreDistributionView.Update();
+		
 		// update all tree comparison views
 		for (var i=0; i < aTreeComparisonViews.length; i++)
 			aTreeComparisonViews[i].Update();
-	}
+	};
 	
 	this.AddTreeComparisonWindow = function(nSelectedTreeToCompare)
 	{
@@ -55,7 +59,7 @@ function Vis2ViewManager()
 		
 		// return window index
 		return nWindowIndex;
-	}
+	};
 	
 	this.GetTreeComparisonViewForWindow = function (nWindowIndex)
 	{	
@@ -70,7 +74,7 @@ function Vis2ViewManager()
 		}
 		
 		return undefined;
-	}
+	};
 	
 	this.SetMeasureForComparisonView = function(nWindowIndex, sMeasureString)
 	{
@@ -89,5 +93,5 @@ function Vis2ViewManager()
 				break;
 			}
 		}	
-	}
+	};
 }
