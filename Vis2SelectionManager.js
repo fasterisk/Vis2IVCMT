@@ -10,7 +10,7 @@ function Vis2SelectionManager()
 	 * 
 	 * @param {Vis2Node} rTree
 	 */
-	this.SetReferenceTree = function(rTree)
+	this.SetReferenceTree = function(rTree, nTreeNumber)
 	{	
 		ReferenceTree = rTree;
 		
@@ -22,7 +22,7 @@ function Vis2SelectionManager()
 		
 		// trigger view update
 		window.ViewManager.UpdateViews();
-	}
+	};
 	
 	/**
 	 * Sets the reference node for the tree comparison
@@ -38,7 +38,7 @@ function Vis2SelectionManager()
 		
 		// trigger view update
 		window.ViewManager.UpdateViews();
-	}
+	};
 	
 	/**
 	 * Sets the tree to compare with the reference tree
@@ -51,7 +51,7 @@ function Vis2SelectionManager()
 		
 		// trigger view update
 		window.ViewManager.UpdateViews();
-	}
+	};
 	
 	/**
 	 * Gets the reference tree, may also be undefined
@@ -61,7 +61,7 @@ function Vis2SelectionManager()
 	this.GetReferenceTree = function()
 	{
 		return ReferenceTree;
-	}
+	};
 	
 	/**
 	 * Gets the reference node, may also be undefined
@@ -71,5 +71,5 @@ function Vis2SelectionManager()
 	this.GetReferenceNode = function()
 	{
 		return ReferenceNode;
-	}
+	};
 }

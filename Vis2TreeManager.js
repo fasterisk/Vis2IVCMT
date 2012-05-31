@@ -5,7 +5,7 @@ function Vis2TreeManager(sFilename)
 	var m_sFilename = sFilename;
 	var m_aLoadedTrees = undefined;
 	var m_aComparisonOverviewMeasures = undefined;
-	
+	var m_aScoreDistribution = undefined;
 	
 	function LoadTrees()
 	{
@@ -41,18 +41,39 @@ function Vis2TreeManager(sFilename)
 		
 		// calculate comparison measures for each pair of trees
 		m_aComparisonOverviewMeasures = new Array();
+		m_aScoreDistribution = new Array();
 		
 		for (var nReferenceTree = 0; nReferenceTree < m_aLoadedTrees.length; nReferenceTree++)
 		{
-		m_aComparisonOverviewMeasures[nReferenceTree] = new Array();	
-
+			m_aComparisonOverviewMeasures[nReferenceTree] = new Array();
+			m_aScoreDistribution[nReferenceTree] = new Array();
+		
 			for (var nCompareTree = 0; nCompareTree < m_aLoadedTrees.length; nCompareTree++)
 			{
+				m_aScoreDistribution[nReferenceTree][nCompareTree] = new Array();
+				for(var i = 0; i < 10; i++)
+					m_aScoreDistribution[nReferenceTree][nCompareTree][i] = 0;
+				
+				//calculate score distributions
+				//get all nodes of the comparing tree
+				var aNodeList = m_aLoadedTrees[nCompareTree].GetNodeList();
+				//compare all nodes of the comparing tree with the reference tree and store the distributions
+				for(var nCompareNode = 0; nCompareNode < aNodeList.length; nCompareNode++)
+				{
+					resultTree = Vis2ElementMeasure(m_aLoadedTrees[nReferenceTree], aNodeList[nCompareNode]);
+					var value = Math.floor(resultTree.elementmeasure * 10);
+					if(value == 10)
+						value--;
+					m_aScoreDistribution[nReferenceTree][nCompareTree][value] += 1/aNodeList.length;
+				}
+				
 				if (nCompareTree != nReferenceTree)
 				{
-					resultTree = Vis2ElementMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
-					
+					//calculate comparison overview measure
+					var resultTree = Vis2ElementMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
 					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = resultTree.elementmeasure;
+					
+					
 				}
 				else
 				{
@@ -76,6 +97,15 @@ function Vis2TreeManager(sFilename)
 		assert (nCompareTree < m_aComparisonOverviewMeasures[nReferenceTree].length, "array index out of bounds");
 		
 		return m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree];
+	};
+	
+	this.GetScoreDistribution = function(nReferenceTree, nCompareTree)
+	{
+		assert (m_aScoreDistribution != undefined, "Trees not loaded correctly: m_aScoreDistribution == undefined");
+		assert (nReferenceTree < m_aScoreDistribution.length, "array index out of bounds: m_aScoreDistribution.length("+m_aScoreDistribution.length+") <= nReferenceTree("+nReferenceTree+")");
+		assert (nCompareTree < m_aScoreDistribution[nReferenceTree].length, "array index out of bounds: m_aScoreDistribution[nReferenceTree].length("+m_aScoreDistribution[nReferenceTree].length+") <= nCompareTree("+nCompareTree+")");
+		
+		return m_aScoreDistribution[nReferenceTree][nCompareTree];
 	};
 	
 	this.UpdateAllMeasures = function()

@@ -56,26 +56,26 @@ function Vis2NodeVisualizer(rNode)
 		assert(nLeftSpaceNeeded != undefined && nRightSpaceNeeded != undefined, "values not correctly initialized");
 		
 		return nLeftSpaceNeeded + nRightSpaceNeeded;
-	}
+	};
 	
 	this.GetLeftSpaceNeeded = function()
 	{
 		assert (nLeftSpaceNeeded != undefined, "value not initialized");
 		
 		return nLeftSpaceNeeded;
-	}
+	};
 	
 	this.GetRightSpaceNeeded = function()
 	{
 		assert (nRightSpaceNeeded != undefined, "value not initialized");
 		
 		return nRightSpaceNeeded;
-	}
+	};
 	
 	this.GetNode = function()
 	{
 		return Node;
-	}
+	};
 	
 	this.Draw = function (context, sMeasureString, currX, currY, bSelected)
 	{
@@ -176,5 +176,5 @@ function Vis2NodeVisualizer(rNode)
 		}
 		
 		return aRenderedNodes;
-	}
+	};
 }

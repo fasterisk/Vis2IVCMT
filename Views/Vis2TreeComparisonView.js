@@ -21,12 +21,12 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 		assert (sMeasureString == 'leaf' || sMeasureString == 'element' || sMeasureString == 'edge', "no valid measure string");
 		
 		m_sMeasureString = sMeasureString;
-	}
+	};
 	
 	this.GetMeasureToUse = function ()
 	{
 		return m_sMeasureString;
-	}
+	};
 	
 	this.Update = function() {
 		// set canvas size to div size
@@ -51,5 +51,5 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 			// call visualizer
 			rTreeVisualizer.Draw(context, m_sMeasureString, CanvasElement.width / 2, 20);
 		}
-	}
+	};
 }
