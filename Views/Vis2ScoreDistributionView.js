@@ -22,8 +22,7 @@ function Vis2ScoreDistributionView(divID)
 	this.Update = function() {
 		
 		// Set canvas width to div width (height is set later)
-		// -20 for the scrollbar
-		CanvasElement.width = DivElement.offsetWidth-18;
+		CanvasElement.width = DivElement.offsetWidth;
 				
 		// Get context
 		var context = CanvasElement.getContext("2d");
@@ -34,6 +33,8 @@ function Vis2ScoreDistributionView(divID)
 		
 		// Get rows & cols
 		var nCols = Math.floor(CanvasElement.width / 100);
+		if((nCols*100 + nCols*4 + 4) > (CanvasElement.width - 18)) //if space needed for the columns is bigger than the space available (18 is the scrollbar)
+			nCols--;
 		var nRows = 0;
 		while(nRows*nCols < nNumTrees) {
 			nRows++;
