@@ -128,11 +128,11 @@ function Vis2ComparisonOverview(divID) {
 					// do nothing
 				} else if(nIndexY == 0) {
 					// write legend
-					context.fillStype = "rgb(0, 0, 0)";
+					context.fillStyle = "rgb(0, 0, 0)";
 					context.fillText((nIndexX - 1).toString(), nIndexX * nWidth, 10);
 				} else if(nIndexX == 0) {
 					// write legend
-					context.fillStype = "rgb(0, 0, 0)";
+					context.fillStyle = "rgb(0, 0, 0)";
 					context.fillText((nIndexY - 1).toString(), 0, nIndexY * nHeight + 10);
 				} else {
 					// get measure value
@@ -147,11 +147,11 @@ function Vis2ComparisonOverview(divID) {
 						 else*/
 						{
 							// draw black border
-							context.fillStyle = "rgb(100, 100, 100)";
+							context.fillStyle = "rgb(0, 0, 0)";
 							context.fillRect(nIndexX * nWidth, nIndexY * nHeight, nWidth, nHeight);
 						}
 					}
-
+					
 					// set color
 					context.fillStyle = window.ColorMap.GetColor(fMeasure);
 
