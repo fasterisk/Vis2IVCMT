@@ -19,51 +19,6 @@ function Vis2ComparisonOverview(divID) {
 
 	// attach event handler
 	CanvasElement.addEventListener('click', OnClick, false);
-	CanvasElement.addEventListener('dblclick', OnDoubleClick, false);
-
-	// event handler
-
-	function OnDoubleClick(event) {
-		assert(bDivFilled, "click event called but div never filled");
-
-		var nXinCanvas, nYinCanvas;
-
-		// assert that properties are available
-		assert(event.offsetX || event.offsetX == 0, "offsetX / offsetY not supported by this browser");
-
-		// Get the mouse position relative to the canvas element.
-		nXinCanvas = event.offsetX;
-		nYinCanvas = event.offsetY;
-
-		// get number of trees
-		nNumTrees = window.TreeManager.GetNumTrees();
-		assert(nNumTrees > 0, "no trees loaded");
-
-		// get height of each rectangle
-		nHeight = CanvasElement.height / (nNumTrees + 1);
-
-		// get height of each rectangle
-		nWidth = CanvasElement.width / (nNumTrees + 1);
-
-		// get selected tree in x direction
-		nSelectedTreeX = Math.floor(nXinCanvas / nWidth) - 1;
-
-		// get selected tree in y direction
-		nSelectedTreeY = Math.floor(nYinCanvas / nHeight) - 1;
-
-		nSelectedTreeReference = nSelectedTreeX, nSelectedTreeToCompare = nSelectedTreeY;
-
-		// get tree
-		rTreeObject = window.TreeManager.GetTree (nSelectedTreeReference);
-		
-		// set reference tree
-		window.SelectionManager.SetReferenceTree(rTreeObject);
-
-		// add new tree comparison window
-		var nWindowIndex = window.ViewManager.AddTreeComparisonWindow(nSelectedTreeToCompare);
-
-		window.SelectionManager.AddTreeToCompare(nSelectedTreeToCompare, nWindowIndex);
-	}
 
 	function OnClick(event) {
 		assert(bDivFilled, "click event called but div never filled");
@@ -91,8 +46,8 @@ function Vis2ComparisonOverview(divID) {
 		nSelectedTreeReference = Math.floor(nXinCanvas / nWidth) - 1;
 
 		// get tree
-		rTreeObject = window.TreeManager.GetTree (nSelectedTreeReference);
-		
+		rTreeObject = window.TreeManager.GetTree(nSelectedTreeReference);
+
 		// set reference tree
 		window.SelectionManager.SetReferenceTree(rTreeObject);
 	}
@@ -151,7 +106,7 @@ function Vis2ComparisonOverview(divID) {
 							context.fillRect(nIndexX * nWidth, nIndexY * nHeight, nWidth, nHeight);
 						}
 					}
-					
+
 					// set color
 					context.fillStyle = window.ColorMap.GetColor(fMeasure);
 
