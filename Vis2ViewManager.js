@@ -34,7 +34,11 @@ function Vis2ViewManager()
 	this.HideHelpWindow = function ()
 	{
 		$("#help").hide('normal');
-		$("#show_help_link").show('normal');	
+		
+		if ($("#show_help_link").length == 0)
+			$('body').prepend('<a id="show_help_link" href="javascript: window.ViewManager.ShowHelpWindow()">Show Help</a>');
+		else
+			$("#show_help_link").show('normal');	
 	}
 	
 	this.ShowHelpWindow = function ()
