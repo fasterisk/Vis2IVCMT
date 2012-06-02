@@ -30,8 +30,8 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 	
 	this.Update = function() {
 		// set canvas size to div size
-		CanvasElement.width = DivElement.offsetWidth;
-		CanvasElement.height = DivElement.offsetHeight;
+		CanvasElement.width = DivElement.offsetWidth - 18;
+		CanvasElement.height = DivElement.offsetHeight - 18;
 
 		// get context
 		context = CanvasElement.getContext("2d");

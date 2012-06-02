@@ -31,8 +31,23 @@ function Vis2ViewManager()
 			aTreeComparisonViews[i].Update();
 	};
 	
+	this.HideHelpWindow = function ()
+	{
+		$("#help").hide('normal');
+		$("#show_help_link").show('normal');	
+	}
+	
+	this.ShowHelpWindow = function ()
+	{
+		$("#help").show('normal');
+		$("#show_help_link").hide('normal');
+	}
+	
 	this.AddTreeComparisonWindow = function(nSelectedTreeToCompare)
 	{
+		// hide help window, if showed
+		this.HideHelpWindow();
+		
 		// create new window
 		var nWindowIndex = window.DynamicWindowsModel.addWindow(nSelectedTreeToCompare);
 		
@@ -49,7 +64,6 @@ function Vis2ViewManager()
 		
 		// store window index
 		aAssociatedWindows.push(nWindowIndex);
-		
 		
 		// update measure-line
 		window.DynamicWindowsModel.updateMeasure(nWindowIndex);
