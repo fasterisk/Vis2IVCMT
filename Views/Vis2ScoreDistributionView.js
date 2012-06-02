@@ -54,9 +54,10 @@ function Vis2ScoreDistributionView(divID) {
 	 */
 
 	this.Update = function() {
-		// Set canvas width to div width (height is set later)
+		// Set canvas width to div width, also do the height
 		CanvasElement.width = DivElement.offsetWidth;
-
+		CanvasElement.height = DivElement.offsetHeight - 10;
+		
 		// Get context
 		var context = CanvasElement.getContext("2d");
 
@@ -64,19 +65,32 @@ function Vis2ScoreDistributionView(divID) {
 		var nNumTrees = window.TreeManager.GetNumTrees();
 		assert(nNumTrees > 0, "no trees loaded");
 
-		// Get rows & cols
-		var nCols = Math.floor(CanvasElement.width / 100);
-		if((nCols * 100 + nCols * 4 + 4) > (CanvasElement.width - 18))//if space needed for the columns is bigger than the space available (18 is the scrollbar)
-			nCols--;
-		var nRows = 0;
-		while(nRows * nCols < nNumTrees) {
-			nRows++;
+		// calculate necessary number of columns/rows
+		// lets say, width = 2*height
+		
+		var nCols = undefined;
+		var nRows = undefined;
+		var fDiagramWidth = undefined;
+		var fDiagramHeight = undefined;
+		
+		for (var i=0; i < 10; i+=1)
+		{
+			// TODO: make better algorithm which sets nCols/nRows in a more dynamic way
+			
+			nCols = i;
+			nRows = i*2;
+			
+			if (nCols * nRows >= nNumTrees)
+				break;
 		}
-		assert(nRows * nCols >= nNumTrees, "Not enough rows and cols for histogram view");
-
-		// Set canvas height according to nRows
-		CanvasElement.height = nRows * 50 + 4 * nRows + 4;
-
+		
+		var fPadding = 4;
+		
+		// so we have the number of cols and rows
+		fDiagramWidth = CanvasElement.width / nCols - fPadding - 2;
+		fDiagramHeight = CanvasElement.height / nRows - fPadding;
+		
+		
 		//Get the reference tree
 		var rReferenceTree = window.SelectionManager.GetReferenceTree();
 		if(rReferenceTree == undefined)
@@ -98,29 +112,30 @@ function Vis2ScoreDistributionView(divID) {
 
 				var aScoreDistribution = window.TreeManager.GetScoreDistribution(nReferenceTree, nTreeIndex);
 
-				var fCellWidth = 100;
-				var fCellHeight = 50;
+				var fCellWidth = fDiagramWidth;
+				var fCellHeight = fDiagramHeight;
 
-				var currX = j * 100 + 4 * j + 4;
-				var currY = i * 50 + 4 * i + 4;
+				var currX = j * fCellWidth + fPadding * (j+1);
+				var currY = i * fCellHeight + fPadding * (i+1);
 
 				context.fillStyle = "rgb(255, 255, 255)";
 
 				if(nTreeIndex == nReferenceTree)
 					context.fillStyle = "rgb(255, 200, 200)";
 
-				context.strokeRect(currX, currY, 100, 50);
-				context.fillRect(currX, currY, 100, 50);
+				context.strokeRect(currX, currY, fCellWidth, fCellHeight);
+				context.fillRect(currX, currY, fCellWidth, fCellHeight);
 
 				context.fillStyle = "rgb(0, 0, 0)";
 				context.fillText(nTreeIndex, currX, currY + 9);
 
 				for(var k = 0; k < 10; k++) {
-					var nBarheight = Math.round(50 * aScoreDistribution[k]);
-
+					var fBarHeight = fCellHeight * aScoreDistribution[k];
+					var fBarWidth = fCellWidth / 10;
+					
 					context.fillStyle = window.ColorMap.GetColor(k / 10 + 0.05);
-					context.fillRect(currX + 10 * k, currY + 50 - nBarheight, 10, nBarheight);
-					context.strokeRect(currX + 10 * k, currY + 50 - nBarheight, 10, nBarheight);
+					context.fillRect(currX + fBarWidth * k, currY + fCellHeight - fBarHeight, fBarWidth, fBarHeight);
+					context.strokeRect(currX + fBarWidth * k, currY + fCellHeight - fBarHeight, fBarWidth, fBarHeight);
 				}
 
 				m_aDiagramInfos.push({
