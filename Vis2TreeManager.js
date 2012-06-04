@@ -133,6 +133,34 @@ function Vis2TreeManager(sFilename)
 		}	
 	};
 	
+	this.UpdateReferenceTreeAverage = function()
+	{
+		var rReferenceTree = window.SelectionManager.GetReferenceTree();
+		var nReferenceTree = this.GetIndexOfTree(rReferenceTree);
+
+		var aNodeList = rReferenceTree.GetNodeList();
+		
+		for(var i = 0; i < aNodeList.length; i++)
+		{
+			aNodeList[i].averageleafmeasure = 0;
+			aNodeList[i].averageelementmeasure = 0;
+			aNodeList[i].averageedgemeasure = 0;
+			
+			for(var j = 0; j < m_aLoadedTrees.length; j++)
+			{
+				if(j != nReferenceTree)
+				{
+					aNodeList[i].averageleafmeasure += GetLeafMeasure(aNodeList[i], m_aLoadedTrees[j]);
+					aNodeList[i].averageelementmeasure += GetElementMeasure(aNodeList[i], m_aLoadedTrees[j]);
+					aNodeList[i].averageedgemeasure += 0;// GetEdgeMeasure(aNodeList[i], m_aLoadedTrees[j]); //TODO
+				}
+			}
+			aNodeList[i].averageleafmeasure /= m_aLoadedTrees.length;
+			aNodeList[i].averageelementmeasure /= m_aLoadedTrees.length;
+			aNodeList[i].averageedgemeasure /= m_aLoadedTrees.length;
+		}
+	};
+	
 	this.GetNumTrees = function() {
 		return m_aLoadedTrees.length;	
 	};

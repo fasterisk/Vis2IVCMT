@@ -85,7 +85,14 @@ function Vis2NodeVisualizer(rNode)
 		// Draw node as a circle
 		
 		// make sure that either leaf/element/edge is selected as measure, or none (for reference tree)
-		assert (sMeasureString == 'leaf' || sMeasureString == 'element' || sMeasureString == 'edge' || sMeasureString == '', "no valid measure string");
+		assert (sMeasureString == 'leaf' 
+			|| sMeasureString == 'element' 
+			|| sMeasureString == 'edge' 
+			|| sMeasureString == '' 
+			|| sMeasureString == 'leafaverage' 
+			|| sMeasureString == 'elementaverage' 
+			|| sMeasureString == 'edgeaverage', 
+			"no valid measure string");
 		
 		var fMeasure = undefined;
 		
@@ -95,6 +102,12 @@ function Vis2NodeVisualizer(rNode)
 			fMeasure = Node.elementmeasure;
 		else if (sMeasureString == 'edge')
 			fMeasure = Node.edgemeasure;
+		else if (sMeasureString == 'leafaverage')
+			fMeasure = Node.averageleafmeasure;
+		else if (sMeasureString == 'edgeaverage')
+			fMeasure = Node.averageedgemeasure;
+		else if (sMeasureString == 'elementaverage')
+			fMeasure = Node.averageelementmeasure;
 				
 		if (sMeasureString != '')
 		{

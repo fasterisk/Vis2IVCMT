@@ -20,6 +20,9 @@ function Vis2SelectionManager()
 		// update all measures because reference tree has changed
 		window.TreeManager.UpdateAllMeasures();
 		
+		// update the average measures of the referencetree
+		window.TreeManager.UpdateReferenceTreeAverage();
+		
 		// trigger view update
 		window.ViewManager.UpdateViews();
 	};

@@ -37,6 +37,9 @@ function Vis2Node()
 	this.leafmeasure;
 	this.elementmeasure;
 	this.edgemeasure;
+	this.averageleafmeasure;
+	this.averageelementmeasure;
+	this.averageedgemeasure;
 
 	/*
 	 * Functions

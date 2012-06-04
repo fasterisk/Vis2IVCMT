@@ -33,7 +33,7 @@ function Vis2ReferenceTreeView(divID) {
 			}
 
 			// call visualizer
-			aRenderedNodes = rTreeVisualizer.Draw(context, '', CanvasElement.width / 2, 10);
+			aRenderedNodes = rTreeVisualizer.Draw(context, 'leafaverage', CanvasElement.width / 2, 10);
 			
 			Debugger.log("rendered " + aRenderedNodes.length + " nodes");
 		}

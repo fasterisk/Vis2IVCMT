@@ -14,11 +14,11 @@ function eventWindowLoaded()
 	//formElement = document.getElementById("measure");
 	//formElement.addEventListener('change', measureChanged, false);
 
-	formElement = document.getElementById("color1");
-	formElement.addEventListener('change', color1Changed, false);
+	//formElement = document.getElementById("color1");
+	//formElement.addEventListener('change', color1Changed, false);
 
-	formElement = document.getElementById("color2");
-	formElement.addEventListener('change', color2Changed, false);
+	//formElement = document.getElementById("color2");
+	//formElement.addEventListener('change', color2Changed, false);
 
 	formElement = document.getElementById("content");
 	formElement.addEventListener('mouseup', canvasSizeChanged, false);

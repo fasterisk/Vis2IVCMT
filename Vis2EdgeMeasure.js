@@ -7,7 +7,7 @@
  */
 function ArrayContainsLeaf(rArray, rLeaf)
 {
-	for (i=0; i < rArray.length; i++)
+	for (var i=0; i < rArray.length; i++)
 		if (rArray[i] == rLeaf.name)
 			return true;
 	
