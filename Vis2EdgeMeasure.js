@@ -177,7 +177,44 @@ function s(Node1, Node2)
 	return fMeasure; 
 }
 
+/**
+ * 
+ * @param Tree1 has to be a root node!
+ * @param Tree2 has to be a root node!
+ * @returns measure value
+ */
 function GetEdgeMeasure(Tree1, Tree2)
 {
 	return s(Tree1, Tree2);
+}
+
+function Vis2EdgeMeasure(rReferenceTree, rCompareTree)
+{
+	var fMeasureVal = GetEdgeMeasure(rReferenceTree, rCompareTree);
+	rCompareTree.edgemeasure = fMeasureVal;
+	
+	var aReferenceTreeNodes = rReferenceTree.GetNodeList();
+	var aCompareTreeNodes = rCompareTree.GetNodeList();
+	
+	for(var i = 1; i < aCompareTreeNodes.length; i++)
+	{
+		var fMaximum = 0;
+		for(var j = 0; j < aReferenceTreeNodes.length; j++)
+		{
+			var fLengthCTNode = aCompareTreeNodes[i].accedgeweight;
+			var fLengthRTNode = aReferenceTreeNodes[j].accedgeweight;
+			
+			var fTempMax;
+			if(fLengthCTNode > fLengthRTNode)
+				fTempMax = fLengthRTNode / fLengthCTNode;
+			else
+				fTempMax = fLengthCTNode / fLengthRTNode;
+			
+			if(fTempMax > fMaximum)
+				fMaximum = fTempMax
+		}
+		aCompareTreeNodes[i].edgemeasure = fMeasureVal * fMaximum;
+	}
+	
+	return rCompareTree;
 }

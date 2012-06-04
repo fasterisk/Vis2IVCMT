@@ -23,6 +23,9 @@ function Vis2Node()
 
 	// Weight of the edge between parent and this node
 	this.edgeweight;
+	
+	// Accumulated weight of all edges between root node and this node
+	this.accedgeweight = 0;
 
 	// Array of the children
 	this.children = new Array();
@@ -53,6 +56,7 @@ function Vis2Node()
 		this.children.push(child);
 		child.parent = this;
 		child.edgeweight = weight;
+		child.accedgeweight = this.accedgeweight + weight;
 	};
 
 	// Returns the number of children of this node

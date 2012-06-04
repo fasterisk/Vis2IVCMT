@@ -129,7 +129,7 @@ function Vis2TreeManager(sFilename)
 		{
 			Vis2LeafMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
 			Vis2ElementMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
-			//Vis2EdgeMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
+			Vis2EdgeMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
 		}	
 	};
 	
