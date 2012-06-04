@@ -111,17 +111,19 @@ function Vis2ScoreDistributionView(divID) {
 			for(var j = 0; j < nCols; j++) {
 
 				var aScoreDistribution = window.TreeManager.GetScoreDistribution(nReferenceTree, nTreeIndex);
+				var fAverage = window.TreeManager.GetAverageScore(nReferenceTree, nTreeIndex);
 
 				var fCellWidth = fDiagramWidth;
 				var fCellHeight = fDiagramHeight;
 
 				var currX = j * fCellWidth + fPadding * (j+1);
 				var currY = i * fCellHeight + fPadding * (i+1);
+				
+				
+				context.fillStyle = window.ColorMap.GetColor(fAverage);
 
-				context.fillStyle = "rgb(255, 255, 255)";
-
-				if(nTreeIndex == nReferenceTree)
-					context.fillStyle = "rgb(255, 200, 200)";
+				//if(nTreeIndex == nReferenceTree)
+					//context.fillStyle = "rgb(255, 200, 200)";
 
 				context.strokeRect(currX, currY, fCellWidth, fCellHeight);
 				context.fillRect(currX, currY, fCellWidth, fCellHeight);

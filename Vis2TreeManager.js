@@ -6,6 +6,7 @@ function Vis2TreeManager(sFilename)
 	var m_aLoadedTrees = undefined;
 	var m_aComparisonOverviewMeasures = undefined;
 	var m_aScoreDistribution = undefined;
+	var m_aAverageScore = undefined;
 	
 	function LoadTrees()
 	{
@@ -42,15 +43,19 @@ function Vis2TreeManager(sFilename)
 		// calculate comparison measures for each pair of trees
 		m_aComparisonOverviewMeasures = new Array();
 		m_aScoreDistribution = new Array();
+		m_aAverageScore = new Array();
 		
 		for (var nReferenceTree = 0; nReferenceTree < m_aLoadedTrees.length; nReferenceTree++)
 		{
 			m_aComparisonOverviewMeasures[nReferenceTree] = new Array();
 			m_aScoreDistribution[nReferenceTree] = new Array();
+			m_aAverageScore[nReferenceTree] = new Array();
 		
 			for (var nCompareTree = 0; nCompareTree < m_aLoadedTrees.length; nCompareTree++)
 			{
 				m_aScoreDistribution[nReferenceTree][nCompareTree] = new Array();
+				m_aAverageScore[nReferenceTree][nCompareTree] = 0;
+				
 				for(var i = 0; i < 10; i++)
 					m_aScoreDistribution[nReferenceTree][nCompareTree][i] = 0;
 				
@@ -65,7 +70,9 @@ function Vis2TreeManager(sFilename)
 					if(value == 10)
 						value--;
 					m_aScoreDistribution[nReferenceTree][nCompareTree][value] += 1/aNodeList.length;
+					m_aAverageScore[nReferenceTree][nCompareTree] += resultTree.elementmeasure;
 				}
+				m_aAverageScore[nReferenceTree][nCompareTree] /= aNodeList.length;
 				
 				if (nCompareTree != nReferenceTree)
 				{
@@ -104,6 +111,15 @@ function Vis2TreeManager(sFilename)
 		assert (nCompareTree < m_aScoreDistribution[nReferenceTree].length, "array index out of bounds: m_aScoreDistribution[nReferenceTree].length("+m_aScoreDistribution[nReferenceTree].length+") <= nCompareTree("+nCompareTree+")");
 		
 		return m_aScoreDistribution[nReferenceTree][nCompareTree];
+	};
+	
+	this.GetAverageScore = function(nReferenceTree, nCompareTree)
+	{
+		assert (m_aAverageScore != undefined, "Trees not loaded correctly: m_aScoreDistribution == undefined");
+		assert (nReferenceTree < m_aAverageScore.length, "array index out of bounds: m_aScoreDistribution.length("+m_aAverageScore.length+") <= nReferenceTree("+nReferenceTree+")");
+		assert (nCompareTree < m_aAverageScore[nReferenceTree].length, "array index out of bounds: m_aScoreDistribution[nReferenceTree].length("+m_aAverageScore[nReferenceTree].length+") <= nCompareTree("+nCompareTree+")");
+		
+		return m_aAverageScore[nReferenceTree][nCompareTree];
 	};
 	
 	this.UpdateAllMeasures = function()
