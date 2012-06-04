@@ -10,7 +10,7 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 	var m_nTreeToCompare = nTreeToCompare;
 
 	var rTreeVisualizer = undefined;
-	var m_sMeasureString = 'element';
+	//var m_sMeasureString = 'element';
 
 	/*
 	 * Functions for public access
@@ -20,12 +20,13 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 	{
 		assert (sMeasureString == 'leaf' || sMeasureString == 'element' || sMeasureString == 'edge', "no valid measure string");
 		
-		m_sMeasureString = sMeasureString;
+		// not used anymore!
+		//m_sMeasureString = sMeasureString;
 	};
 	
 	this.GetMeasureToUse = function ()
 	{
-		return m_sMeasureString;
+		return window.sGlobalMeasure;
 	};
 	
 	this.Update = function() {
@@ -49,7 +50,7 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 			}
 
 			// call visualizer
-			rTreeVisualizer.Draw(context, m_sMeasureString, CanvasElement.width / 2, 20);
+			rTreeVisualizer.Draw(context, window.sGlobalMeasure, CanvasElement.width / 2, 20);
 		}
 	};
 }

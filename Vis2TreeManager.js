@@ -8,6 +8,8 @@ function Vis2TreeManager(sFilename)
 	var m_aScoreDistribution = undefined;
 	var m_aAverageScore = undefined;
 	
+	
+	
 	function LoadTrees()
 	{
 		/* this only works, if the website is hosted by a webserver.
@@ -40,7 +42,12 @@ function Vis2TreeManager(sFilename)
 			
 		m_aLoadedTrees = GetSampleTrees();
 		
-		// calculate comparison measures for each pair of trees
+		UpdateOverviewMeasures();
+	}
+	
+	function UpdateOverviewMeasures()
+	{
+			// calculate comparison measures for each pair of trees
 		m_aComparisonOverviewMeasures = new Array();
 		m_aScoreDistribution = new Array();
 		m_aAverageScore = new Array();
@@ -65,19 +72,43 @@ function Vis2TreeManager(sFilename)
 				//compare all nodes of the comparing tree with the reference tree and store the distributions
 				for(var nCompareNode = 0; nCompareNode < aNodeList.length; nCompareNode++)
 				{
-					resultTree = Vis2ElementMeasure(m_aLoadedTrees[nReferenceTree], aNodeList[nCompareNode]);
-					var value = Math.floor(resultTree.elementmeasure * 10);
+					var resultTree = undefined;
+					var fMeasure = undefined;
+					
+					if (window.sGlobalMeasure == "leaf")
+					{
+						resultTree = Vis2LeafMeasure(m_aLoadedTrees[nReferenceTree], aNodeList[nCompareNode]);
+						fMeasure = resultTree.leafmeasure;	
+					}
+					else if (window.sGlobalMeasure == "element")
+					{
+						resultTree = Vis2ElementMeasure(m_aLoadedTrees[nReferenceTree], aNodeList[nCompareNode]);
+						fMeasure = resultTree.elementmeasure;	
+					}
+					else if (window.sGlobalMeasure == "edge")
+					{
+						resultTree = Vis2EdgeMeasure(m_aLoadedTrees[nReferenceTree], aNodeList[nCompareNode]);
+						fMeasure = resultTree.edgemeasure;	
+					}
+					else 
+						assert (false, "no valid measure selected!");
+						
+					assert (resultTree != undefined, "resultTree not assigned");
+					
+					
+					var value = Math.floor(fMeasure * 10);
 					if(value == 10)
 						value--;
+						
 					m_aScoreDistribution[nReferenceTree][nCompareTree][value] += 1/aNodeList.length;
-					m_aAverageScore[nReferenceTree][nCompareTree] += resultTree.elementmeasure;
+					m_aAverageScore[nReferenceTree][nCompareTree] += fMeasure;
 				}
 				m_aAverageScore[nReferenceTree][nCompareTree] /= aNodeList.length;
 				
 				if (nCompareTree != nReferenceTree)
 				{
 					//calculate comparison overview measure
-					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = GetEdgeMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
+					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = fMeasure;
 				}
 				else
 				{
@@ -85,7 +116,6 @@ function Vis2TreeManager(sFilename)
 				}
 			}
 		}
-		
 	}
 	
 	
@@ -123,6 +153,9 @@ function Vis2TreeManager(sFilename)
 	
 	this.UpdateAllMeasures = function()
 	{
+		// update comparison measures, score distribution measures, ...
+		UpdateOverviewMeasures();
+		
 		rReferenceNode = window.SelectionManager.GetReferenceNode();
 		
 		for (var nCompareTree = 0; nCompareTree < m_aLoadedTrees.length; nCompareTree++)
