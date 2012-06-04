@@ -8,7 +8,7 @@
 function ArrayContainsLeaf(rArray, rLeaf)
 {
 	for (var i=0; i < rArray.length; i++)
-		if (rArray[i] == rLeaf.name)
+		if (rArray[i].name == rLeaf.name)
 			return true;
 	
 	return false;
@@ -25,12 +25,12 @@ function GetLeafNodes(rNode)
 	var vLeaves = new Array();
 
 	// return name, if this is a leaf
-	if (rNode.isleaf == true)
+	if (rNode.children.length == 0)
 		vLeaves.push(rNode);
 	else
 	{
 		// collect leaves under child nodes, if this is not a leaf
-		for ( var i = 0; i < rNode.numChildren(); i++)
+		for ( var i = 0; i < rNode.GetChildrenCount(); i++)
 		{
 			var vLeavesOfChildNode = GetLeafNodes(rNode.children[i]);
 
@@ -53,16 +53,14 @@ function CalcEdgeLengthDownToLeaf(rNode, rLeaf)
 {
 	var fLength = 0.0;
 			
-	if (rNode.name == rLeaf)
-		fLength = rNode.edgeweight;
-	else
+	if (rNode.name != rLeaf.name)
 	{
 		var bFound = false;
 
 		
-		for (var i = 0; i < rNode.numChildren(); i++)
+		for (var i = 0; i < rNode.GetChildrenCount(); i++)
 		{
-			if (ArrayContainsLeaf(rNode.children[i].leafnodes, rLeaf))
+			if (ArrayContainsLeaf(GetLeafNodes(rNode.children[i]), rLeaf))
 			{
 				bFound = true;
 				
@@ -70,8 +68,7 @@ function CalcEdgeLengthDownToLeaf(rNode, rLeaf)
 				
 				break; 
 			}
-			else
-			if ((rNode.children[i].isleaf==true) && (rNode.children[i].name == rLeaf.name))
+			else if ((rNode.children[i].isleaf==true) && (rNode.children[i].name == rLeaf.name))
 			{
 				bFound = true;
 				
@@ -82,7 +79,7 @@ function CalcEdgeLengthDownToLeaf(rNode, rLeaf)
 		}
 
 			
-		assert(bFound, 'rLeaf not found');
+		assert(bFound == true, 'rLeaf not found');
 	}
 	
 	return fLength;
@@ -100,21 +97,18 @@ function wd(Leaf1, Leaf2)
 	// start from leaf1, go up until leaf2 is found in CalcLeafList(), 
 	// and then go down until Leaf2 is found
 	
-	var Leaf1Name = Leaf1.name;
-	var Leaf2Name = Leaf2.name;
-	
 	var CurrentNode = Leaf1;
 	
 	// go up
-	while (ArrayContainsLeaf(CurrentNode.leafnodes, Leaf2) == false)
+	while (ArrayContainsLeaf(GetLeafNodes(CurrentNode), Leaf2) == false)
 	{
-		assert((CurrentNode.parent != null), 'Both leaves must be in the same tree - but Leaf2 could not be found in highest node (or .parent is wrong)');
+		assert((CurrentNode.parent != undefined), 'Both leaves must be in the same tree - but Leaf2 could not be found in highest node (or .parent is wrong)');
 		
 		CurrentNode = CurrentNode.parent;	
 	}
 	
-	assert(ArrayContainsLeaf(CurrentNode.leafnodes, Leaf1), 'CurrentNode does not contain Leaf1');
-	assert(ArrayContainsLeaf(CurrentNode.leafnodes, Leaf2), 'CurrentNode does not contain Leaf2');
+	assert(ArrayContainsLeaf(GetLeafNodes(CurrentNode), Leaf1), 'CurrentNode does not contain Leaf1');
+	assert(ArrayContainsLeaf(GetLeafNodes(CurrentNode), Leaf2), 'CurrentNode does not contain Leaf2');
 	
 	var fLengthTo1 = CalcEdgeLengthDownToLeaf(CurrentNode, Leaf1);
 	var fLengthTo2 = CalcEdgeLengthDownToLeaf(CurrentNode, Leaf2);
@@ -158,27 +152,32 @@ function ed(Node1, Node2)
 	
 	for (var i=0; i < vLeavesOfNode1.length; i++)
 		for (var j=0; j < vLeavesOfNode2.length; j++)
-			if (i != j)
+			if (j > i)
 			{
 				var fWD1 = wd(vLeavesOfNode1[i], vLeavesOfNode1[j]);
 				var fWD2 = wd(vLeavesOfNode2[i], vLeavesOfNode2[j]);
+				
 				var fDiff = fWD1 - fWD2;
-				 
+				
 				fSquaredSum += fDiff*fDiff;	
 			}			
 
+	
 	return Math.sqrt(fSquaredSum);
 }
 
 function s(Node1, Node2)
 {
 	var fMax = wd_max(Node1, Node2);
-	var fED = ed(Node1, Node2, fMax);
+	var fED = ed(Node1, Node2);
 	
-	return 1.0 - fED / fMax; 
+	var fMeasure = 1.0 - fED / fMax;
+	if(fMeasure < 0)
+		fMeasure = 0;
+	return fMeasure; 
 }
 
-function Vis2EdgeMeasure(Tree1, Tree2)
+function GetEdgeMeasure(Tree1, Tree2)
 {
 	return s(Tree1, Tree2);
 }
