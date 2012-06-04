@@ -70,10 +70,9 @@ function Vis2ReferenceTreeView(divID) {
 			if (fDiff < fNodeRadius)
 			{
 				// node selected!
-				alert("selecting nodes is disabled at the moment");
 								
 				// set reference node
-				//window.SelectionManager.SetReferenceNode(aRenderedNodes[i].rNode);
+				window.SelectionManager.SetSelectedNode(aRenderedNodes[i].rNode);
 			}
 		}
 	}

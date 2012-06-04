@@ -1,6 +1,7 @@
 function Vis2SelectionManager()
 {
 	var ReferenceTree = undefined;
+	var SelectedNode = undefined;
 	
 	var TreesToCompare = new Array();
 	var aTreeSelections = new Array();
@@ -93,5 +94,19 @@ function Vis2SelectionManager()
 		}
 		
 		return bSelected;
+	}
+	
+	this.SetSelectedNode = function (rNode)
+	{
+		window.TreeManager.ClearSelectedNodes();
+		
+		window.TreeManager.SetSelectedNode(rNode);
+		
+		SelectedNode = rNode;
+	}
+	
+	this.GetSelectedNode = function()
+	{
+		return SelectedNode;
 	}
 }

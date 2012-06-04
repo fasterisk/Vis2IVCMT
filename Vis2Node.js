@@ -40,6 +40,8 @@ function Vis2Node()
 	this.averageleafmeasure;
 	this.averageelementmeasure;
 	this.averageedgemeasure;
+	
+	this.bIsSelected;
 
 	/*
 	 * Functions
