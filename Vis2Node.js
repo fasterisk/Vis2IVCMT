@@ -19,7 +19,7 @@ function Vis2Node()
 	this.name;
 
 	// Parent of the node
-	this.parent;
+	this.parent = undefined;
 
 	// Weight of the edge between parent and this node
 	this.edgeweight;

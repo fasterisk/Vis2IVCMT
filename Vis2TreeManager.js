@@ -77,7 +77,7 @@ function Vis2TreeManager(sFilename)
 				if (nCompareTree != nReferenceTree)
 				{
 					//calculate comparison overview measure
-					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = GetLeafMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
+					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = GetEdgeMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
 				}
 				else
 				{
@@ -129,6 +129,7 @@ function Vis2TreeManager(sFilename)
 		{
 			Vis2LeafMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
 			Vis2ElementMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
+			//Vis2EdgeMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
 		}	
 	};
 	
