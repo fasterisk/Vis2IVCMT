@@ -33,7 +33,7 @@ function Vis2ReferenceTreeView(divID) {
 			}
 
 			// call visualizer
-			aRenderedNodes = rTreeVisualizer.Draw(context, window.sGlobalMeasure + 'average', CanvasElement.width / 2, 10);
+			aRenderedNodes = rTreeVisualizer.Draw(context, window.TreeManager.GetGlobalMeasure() + 'average', CanvasElement.width / 2, 10);
 			
 			Debugger.log("rendered " + aRenderedNodes.length + " nodes");
 		}
@@ -70,10 +70,9 @@ function Vis2ReferenceTreeView(divID) {
 			if (fDiff < fNodeRadius)
 			{
 				// node selected!
-				alert("selecting nodes is disabled at the moment");
 								
 				// set reference node
-				//window.SelectionManager.SetReferenceNode(aRenderedNodes[i].rNode);
+				window.SelectionManager.SetSelectedNode(aRenderedNodes[i].rNode);
 			}
 		}
 	}

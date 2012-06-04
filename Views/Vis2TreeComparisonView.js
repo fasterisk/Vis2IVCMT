@@ -16,19 +16,6 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 	 * Functions for public access
 	 */
 
-	this.SetMeasureToUse = function (sMeasureString)
-	{
-		assert (sMeasureString == 'leaf' || sMeasureString == 'element' || sMeasureString == 'edge', "no valid measure string");
-		
-		// not used anymore!
-		//m_sMeasureString = sMeasureString;
-	};
-	
-	this.GetMeasureToUse = function ()
-	{
-		return window.sGlobalMeasure;
-	};
-	
 	this.Update = function() {
 		// set canvas size to div size
 		CanvasElement.width = DivElement.offsetWidth - 18;
@@ -50,7 +37,7 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 			}
 
 			// call visualizer
-			rTreeVisualizer.Draw(context, window.sGlobalMeasure, CanvasElement.width / 2, 20);
+			rTreeVisualizer.Draw(context, window.TreeManager.GetGlobalMeasure(), CanvasElement.width / 2, 20);
 		}
 	};
 }
