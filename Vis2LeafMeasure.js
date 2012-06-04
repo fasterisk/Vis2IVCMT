@@ -98,3 +98,28 @@ function Vis2LeafMeasure(rReferenceTree, rTestTree)
 	return rTestTree;
 
 }
+
+function GetLeafMeasureOverview(rReferenceTree, rTestTree)
+{
+	var aReferenceTreeNodes = rReferenceTree.GetNodeList();
+	var aTestTreeNodes = rTestTree.GetNodeList();
+	
+	var fAverage = 0;
+	
+	//i and j start from 1 because root node is excluded
+	for(var i = 1; i < aTestTreeNodes.length; i++)
+	{
+		var iMaximum = 0;
+		for(var j = 1; j < aReferenceTreeNodes; j++)
+		{
+			var iMeasure = GetLeafMeasure(aTestTreeNodes[i], aReferenceTreeNodes[j]);
+			if(iMeasure > iMaximum)
+				iMaximum = iMeasure;
+		}
+		fAverage += iMaximum;
+	}
+	
+	fAverage /= aTestTreeNodes.length - 1;
+	
+	return fAverage;
+}
