@@ -73,7 +73,7 @@ function Vis2ReferenceTreeView(divID) {
 				alert("selecting nodes is disabled at the moment");
 								
 				// set reference node
-				window.SelectionManager.SetReferenceNode(aRenderedNodes[i].rNode);
+				//window.SelectionManager.SetReferenceNode(aRenderedNodes[i].rNode);
 			}
 		}
 	}
