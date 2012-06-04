@@ -128,7 +128,7 @@ function Vis2TreeManager(sFilename)
 		
 		for (var nCompareTree = 0; nCompareTree < m_aLoadedTrees.length; nCompareTree++)
 		{
-			Vis2LeafMeasures(rReferenceNode, m_aLoadedTrees[nCompareTree]);
+			Vis2LeafMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
 			Vis2ElementMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
 		}	
 	};

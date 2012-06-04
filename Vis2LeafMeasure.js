@@ -75,7 +75,7 @@ function GetLeafMeasure(rNode1, rNode2)
  * @param {Vis2Node} rTestTree The test tree, will be modified (leaf measure values will be set)
  * @return {Vis2Node} Returns the rTestTree
  */
-function Vis2LeafMeasures(rReferenceTree, rTestTree)
+function Vis2LeafMeasure(rReferenceTree, rTestTree)
 {
 	var rNodesQueue = new Array();
 	var rNodesTotal = new Array();
