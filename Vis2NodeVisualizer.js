@@ -81,6 +81,8 @@ function Vis2NodeVisualizer(rNode)
 	{
 		var nodeRadius = 5;
 		var aRenderedNodes = new Array();
+
+		var sMeasureColor = undefined;
 		
 		// Draw node as a circle
 		
@@ -108,59 +110,31 @@ function Vis2NodeVisualizer(rNode)
 			fMeasure = Node.averageedgemeasure;
 		else if (sMeasureString == 'elementaverage')
 			fMeasure = Node.averageelementmeasure;
-				
-		if (sMeasureString != '')
-		{
-			if (sMeasureString == 'leaf')
-				fMeasure = Node.leafmeasure;
-			else if (sMeasureString == 'element')
-				fMeasure = Node.elementmeasure;
-			else if (sMeasureString == 'edge')
-				fMeasure = Node.edgemeasure;
-			
-			if (fMeasure != undefined)
-			{
-			context.fillStyle = window.ColorMap.GetColor(fMeasure);
-			context.strokeStyle = window.ColorMap.GetColor(fMeasure);
-			
-			context.font = "10px sans-serif";
-			context.fillText(fMeasure.toPrecision(2), currX + 5, currY - 2);				
-			}			
-		}
-		else
-		{
-			if (Node == window.SelectionManager.GetReferenceNode())
-				bSelected = true;
-				
-			if (bSelected)
-			{
-				context.fillStyle = '#F00';
-				context.strokeStyle = '#F00';
-			}
-			else
-			{
-				context.fillStyle = '#000';
-				context.strokeStyle = '#000';	
-			}			
-		}
-		
-		context.beginPath();
-		context.arc(currX, currY, nodeRadius, 0, Math.PI * 2, true);
-		context.closePath();
-		context.fill();
 
 		// store information about currently rendered node (the arc)
 		aRenderedNodes.push(new TItlRenderedNodeInformation(currX, currY, nodeRadius, Node));
 		
 		if (Node.isleaf)
 		{
+			sMeasureColor = "#000";
+			
+			context.fillStyle=sMeasureColor;
 			context.font = "10px sans-serif";
 			context.fillText(Node.name, currX - 5, currY + 15);
 		}
 		else
 		{
+			sMeasureColor = window.ColorMap.GetColor(fMeasure);
+			
 			assert (LeftChildVisualizer != undefined, "NodeVisualizer not correctly initialized");
 			assert (RightChildVisualizer != undefined, "NodeVisualizer not correctly initialized");
+			assert (sMeasureColor != undefined, "sMeasureColor not defined");
+			
+			var nLineWidth = 4;
+			context.strokeStyle = sMeasureColor;
+			
+			// draw thick lines
+			context.lineWidth   = nLineWidth;
 			
 			context.beginPath();
 			context.moveTo(currX, currY);
@@ -175,6 +149,39 @@ function Vis2NodeVisualizer(rNode)
 			context.lineTo(currX + nRightLineLength * 10, currY
 					+ RightChildVisualizer.GetNode().edgeweight * 10);
 			context.stroke();
+			
+			// draw thin lines
+			context.lineWidth = 1;
+			context.strokeStyle = "#000";
+			
+			context.beginPath();
+			context.moveTo(currX, currY - nLineWidth / 2);
+			context.lineTo(currX - nLeftLineLength * 10 - nLineWidth / 2, currY - nLineWidth / 2);
+			context.lineTo(currX - nLeftLineLength * 10 - nLineWidth / 2, currY
+					+ LeftChildVisualizer.GetNode().edgeweight * 10);
+			context.stroke();
+			
+			context.beginPath();
+			context.moveTo(currX, currY + nLineWidth / 2);
+			context.lineTo(currX - nLeftLineLength * 10 + nLineWidth / 2, currY + nLineWidth / 2);
+			context.lineTo(currX - nLeftLineLength * 10 + nLineWidth / 2, currY
+					+ LeftChildVisualizer.GetNode().edgeweight * 10);
+			context.stroke();
+
+			context.beginPath();
+			context.moveTo(currX, currY - nLineWidth / 2);
+			context.lineTo(currX + nRightLineLength * 10 + nLineWidth / 2, currY - nLineWidth / 2);
+			context.lineTo(currX + nRightLineLength * 10 + nLineWidth / 2, currY
+					+ RightChildVisualizer.GetNode().edgeweight * 10);
+			context.stroke();
+			
+			context.beginPath();
+			context.moveTo(currX, currY + nLineWidth / 2);
+			context.lineTo(currX + nRightLineLength * 10 - nLineWidth / 2, currY + nLineWidth / 2);
+			context.lineTo(currX + nRightLineLength * 10 - nLineWidth / 2, currY
+					+ RightChildVisualizer.GetNode().edgeweight * 10);
+			context.stroke();
+						
 						
 			// render left children and store returned information about rendered nodes
 			var aRenderedNodesLeft = LeftChildVisualizer.Draw(context, sMeasureString, currX - nLeftLineLength * 10,
@@ -186,6 +193,24 @@ function Vis2NodeVisualizer(rNode)
 														
 			// concat arrays to get 1 array containing the currently rendered node and all rendered child nodes
 			aRenderedNodes = aRenderedNodes.concat(aRenderedNodesLeft, aRenderedNodesRight);
+		}
+		
+		context.fillStyle = sMeasureColor;
+		
+		// draw arc 
+		context.beginPath();
+		context.arc(currX, currY, nodeRadius, 0, Math.PI * 2, true);
+		context.closePath();
+		context.fill();
+		context.stroke();
+		
+		if (fMeasure != undefined)
+		{			
+			sMeasureColor = window.ColorMap.GetColor(fMeasure);
+				
+			context.fillStyle = '#000';		
+			context.font = "10px sans-serif";
+			context.fillText(fMeasure.toPrecision(2), currX + 5, currY - 4);						
 		}
 		
 		return aRenderedNodes;
