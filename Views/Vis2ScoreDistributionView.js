@@ -112,7 +112,17 @@ function Vis2ScoreDistributionView(divID) {
 
 				var aScoreDistribution = window.TreeManager.GetScoreDistribution(nReferenceTree, nTreeIndex);
 				var fAverage = window.TreeManager.GetAverageScore(nReferenceTree, nTreeIndex);
+				var bIsTreeSelected = window.SelectionManager.IsTreeSelected(nTreeIndex);
 
+				if (bIsTreeSelected == true)
+				{
+					context.strokeStyle = "rgb(255, 0, 0)";
+				}
+				else
+				{
+					context.strokeStyle = "rgb(0, 0, 0)";
+				}
+				
 				var fCellWidth = fDiagramWidth;
 				var fCellHeight = fDiagramHeight;
 
@@ -125,19 +135,26 @@ function Vis2ScoreDistributionView(divID) {
 				//if(nTreeIndex == nReferenceTree)
 					//context.fillStyle = "rgb(255, 200, 200)";
 
+				context.lineWidth = 2;
 				context.strokeRect(currX, currY, fCellWidth, fCellHeight);
 				context.fillRect(currX, currY, fCellWidth, fCellHeight);
 
 				context.fillStyle = "rgb(0, 0, 0)";
 				context.fillText(nTreeIndex+1, currX, currY + 9);
 
+				context.strokeStyle = "rgb(0, 0, 0)";
+				context.lineWidth = 1;
+				
 				for(var k = 0; k < 10; k++) {
 					var fBarHeight = fCellHeight * aScoreDistribution[k];
 					var fBarWidth = fCellWidth / 10;
 					
+					if (fBarHeight > 0)
+					{
 					context.fillStyle = window.ColorMap.GetColor(k / 10 + 0.05);
 					context.fillRect(currX + fBarWidth * k, currY + fCellHeight - fBarHeight, fBarWidth, fBarHeight);
-					context.strokeRect(currX + fBarWidth * k, currY + fCellHeight - fBarHeight, fBarWidth, fBarHeight);
+					context.strokeRect(currX + fBarWidth * k, currY + fCellHeight - fBarHeight, fBarWidth, fBarHeight);	
+					}
 				}
 
 				m_aDiagramInfos.push({
