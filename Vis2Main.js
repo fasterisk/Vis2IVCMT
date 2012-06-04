@@ -36,6 +36,7 @@ function PrepareMainPage() {
 	$('#jqxSplitter').bind('resize', canvasSizeChanged);
 	$('#jqxSplitter2').bind('resize', canvasSizeChanged);
 
+
 	// this class is a "model" in a ModelView-Pattern, used with knockout.js
 	// and stores information about the dynamically created windows
 	DynamicWindowsModel = function() {
@@ -77,6 +78,8 @@ function PrepareMainPage() {
 			// set id of <div class="content">
 			$(el).children(".content").attr('id', 'knockout-window-content-' + nWindows);
 
+			$(el).bind('closed', function (event) { window.ViewManager.OnCloseWindow(id); } );
+			
 			$('#docking').jqxDocking('addWindow', id, 'default', nSection, nWindows);
 		}
 
@@ -166,7 +169,8 @@ function PrepareMainPage() {
 				
 	// close the dummy windows, which were added to make the sections working (they must be existing at the docking-construction-time) 		
 	$('#docking').jqxDocking('closeWindow', 'knockout-window-1');
-	$('#docking').jqxDocking('closeWindow', 'knockout-window-2');			
+	$('#docking').jqxDocking('closeWindow', 'knockout-window-2');
+		
 
 }
 

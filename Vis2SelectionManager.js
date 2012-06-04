@@ -4,7 +4,7 @@ function Vis2SelectionManager()
 	var ReferenceNode = undefined;
 	
 	var TreesToCompare = new Array();
-	
+	var aTreeSelections = new Array();
 	/**
 	 * Sets the reference tree for the tree comparison
 	 * 
@@ -75,4 +75,52 @@ function Vis2SelectionManager()
 	{
 		return ReferenceNode;
 	};
+	
+	this.TreeSelectionAdded = function(_nTreeID)
+	{
+		var bFound = false;
+		
+		for (var i=0; i < aTreeSelections.length; i++)
+		{
+			if (aTreeSelections[i].nTreeID == _nTreeID)
+				{
+					aTreeSelections[i].nSelections ++;
+					bFound = true;
+				}
+		}
+		
+		if (!bFound)
+			aTreeSelections.push({nTreeID: _nTreeID, nSelections: 1});
+	}
+	
+	this.TreeSelectionRemoved = function(_nTreeID)
+	{
+		var bFound = false;
+		
+		for (var i=0; i < aTreeSelections.length; i++)
+		{
+			if (aTreeSelections[i].nTreeID == _nTreeID)
+				{
+					aTreeSelections[i].nSelections --;
+					bFound = true;
+				}
+		}
+		
+		assert (bFound, "TreeSelection should be modified, but data not found!");
+	}
+	
+	this.IsTreeSelected = function(_nTreeID)
+	{
+		var bSelected = false;
+				
+		for (var i=0; i < aTreeSelections.length; i++)
+		{
+			if (aTreeSelections[i].nTreeID == _nTreeID && aTreeSelections[i].nSelections > 0)
+				{
+					bSelected = true;
+				}
+		}
+		
+		return bSelected;
+	}
 }
