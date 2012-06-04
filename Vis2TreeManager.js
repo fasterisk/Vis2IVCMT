@@ -155,9 +155,9 @@ function Vis2TreeManager(sFilename)
 					aNodeList[i].averageedgemeasure += 0;// GetEdgeMeasure(aNodeList[i], m_aLoadedTrees[j]); //TODO
 				}
 			}
-			aNodeList[i].averageleafmeasure /= m_aLoadedTrees.length;
-			aNodeList[i].averageelementmeasure /= m_aLoadedTrees.length;
-			aNodeList[i].averageedgemeasure /= m_aLoadedTrees.length;
+			aNodeList[i].averageleafmeasure /= m_aLoadedTrees.length - 1;
+			aNodeList[i].averageelementmeasure /= m_aLoadedTrees.length - 1;
+			aNodeList[i].averageedgemeasure /= m_aLoadedTrees.length - 1;
 		}
 	};
 	
