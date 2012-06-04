@@ -93,19 +93,20 @@ function Vis2ComparisonOverview(divID) {
 					// get measure value
 					fMeasure = window.TreeManager.GetComparisonOverviewMeasure(nIndexX - 1, nIndexY - 1);
 
+					if (window.SelectionManager.IsTreeSelected(nIndexY-1))
+					{
+						context.fillStyle = "rgb(255, 0, 0)";
+						context.fillRect(nIndexX * nWidth, nIndexY * nHeight, nWidth, nHeight);
+					}
+					
 					if(nIndexX == nReferenceTree) {
-						/*if (nIndexY == nCompareTree)
-						 {
-						 context.fillStyle = "rgb(0, 0, 0)";
-						 context.fillRect(nIndexX*nWidth, nIndexY*nHeight, nWidth, nHeight);
-						 }
-						 else*/
-						{
 							// draw black border
 							context.fillStyle = "rgb(0, 0, 0)";
 							context.fillRect(nIndexX * nWidth, nIndexY * nHeight, nWidth, nHeight);
-						}
 					}
+					
+
+					
 
 					// set color
 					context.fillStyle = window.ColorMap.GetColor(fMeasure);
