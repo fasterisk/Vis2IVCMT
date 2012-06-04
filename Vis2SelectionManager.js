@@ -14,7 +14,9 @@ function Vis2SelectionManager()
 	{	
 		ReferenceTree = rTree;
 		
-		
+		// clear selected node
+		this.SetSelectedNode(undefined);
+				
 		// update all measures because reference tree has changed
 		window.TreeManager.UpdateAllMeasures();
 		
@@ -100,7 +102,8 @@ function Vis2SelectionManager()
 	{
 		window.TreeManager.ClearSelectedNodes();
 		
-		window.TreeManager.SetSelectedNode(rNode);
+		if (rNode != undefined)
+			window.TreeManager.SetSelectedNode(rNode);
 		
 		SelectedNode = rNode;
 	}
