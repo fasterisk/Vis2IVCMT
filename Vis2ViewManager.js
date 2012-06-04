@@ -84,9 +84,6 @@ function Vis2ViewManager() {
 
 		window.SelectionManager.TreeSelectionAdded(nSelectedTreeToCompare);
 
-		// update measure-line
-		window.DynamicWindowsModel.updateMeasure(nWindowIndex);
-
 		// update views
 		this.UpdateViews();
 
@@ -106,22 +103,5 @@ function Vis2ViewManager() {
 		}
 
 		return undefined;
-	};
-
-	this.SetMeasureForComparisonView = function(nWindowIndex, sMeasureString) {
-		assert(nWindowIndex > 0, "nWindowIndex should be in range 1..n");
-
-		for(var i = 0; i < aCreatedWindows.length; i++) {
-			if(aCreatedWindows[i].windowIndex == nWindowIndex) {
-				assert(aCreatedWindows[i].rViewObject != undefined, "view object doesn't exist anymore, window closed?");
-
-				aCreatedWindows[i].rViewObject.SetMeasureToUse(sMeasureString);
-				aCreatedWindows[i].rViewObject.Update();
-
-				// also update window in html page
-				window.DynamicWindowsModel.updateMeasure(nWindowIndex);
-				break;
-			}
-		}
 	};
 }

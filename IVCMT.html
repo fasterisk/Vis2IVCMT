@@ -47,7 +47,7 @@
 			</form>
 		</div>-->
 		Measure:
-		<select id="measure-select" onchange='window.SetGlobalMeasure(this.options[this.selectedIndex].value)'>
+		<select id="measure-select" onchange='window.TreeManager.SetGlobalMeasure(this.options[this.selectedIndex].value)'>
 		<option value="leaf" selected="selected">leaf-based</option>
 		<option value="element">element-based</option>
 		<option value="edge">edge-based</option>

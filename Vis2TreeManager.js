@@ -8,7 +8,7 @@ function Vis2TreeManager(sFilename)
 	var m_aScoreDistribution = undefined;
 	var m_aAverageScore = undefined;
 	
-	
+	var m_sGlobalMeasure = "leaf";
 	
 	function LoadTrees()
 	{
@@ -75,17 +75,19 @@ function Vis2TreeManager(sFilename)
 					var resultTree = undefined;
 					var fMeasure = undefined;
 					
-					if (window.sGlobalMeasure == "leaf")
+					assert (m_sGlobalMeasure == "leaf" || m_sGlobalMeasure == "element" || m_sGlobalMeasure == "edge", "Wrong measure set");
+					
+					if (m_sGlobalMeasure == "leaf")
 					{
 						resultTree = Vis2LeafMeasure(m_aLoadedTrees[nReferenceTree], aNodeList[nCompareNode]);
 						fMeasure = resultTree.leafmeasure;	
 					}
-					else if (window.sGlobalMeasure == "element")
+					else if (m_sGlobalMeasure == "element")
 					{
 						resultTree = Vis2ElementMeasure(m_aLoadedTrees[nReferenceTree], aNodeList[nCompareNode]);
 						fMeasure = resultTree.elementmeasure;	
 					}
-					else if (window.sGlobalMeasure == "edge")
+					else if (m_sGlobalMeasure == "edge")
 					{
 						resultTree = Vis2EdgeMeasure(m_aLoadedTrees[nReferenceTree], aNodeList[nCompareNode]);
 						fMeasure = resultTree.edgemeasure;	
@@ -156,7 +158,7 @@ function Vis2TreeManager(sFilename)
 		// update comparison measures, score distribution measures, ...
 		UpdateOverviewMeasures();
 		
-		rReferenceNode = window.SelectionManager.GetReferenceNode();
+		rReferenceNode = window.SelectionManager.GetReferenceTree();
 		
 		for (var nCompareTree = 0; nCompareTree < m_aLoadedTrees.length; nCompareTree++)
 		{
@@ -219,4 +221,20 @@ function Vis2TreeManager(sFilename)
 	this.GetTrees = function() {
 		return m_aLoadedTrees;
 	};
+	
+	// sets the global measure, must be "leaf", "element" or "edge"
+	this.SetGlobalMeasure = function(sMeasure){
+		assert (sMeasure == "leaf" || sMeasure == "element" || sMeasure == "edge", "Wrong measure set");
+		
+		m_sGlobalMeasure = sMeasure;
+		
+		this.UpdateAllMeasures();
+		window.ViewManager.UpdateViews();
+	}
+	
+	// returns the global measure
+	this.GetGlobalMeasure = function()
+	{
+		return m_sGlobalMeasure;
+	}
 }
