@@ -77,42 +77,22 @@ function GetLeafMeasure(rNode1, rNode2)
  */
 function Vis2LeafMeasure(rReferenceTree, rTestTree)
 {
-	var rNodesQueue = new Array();
-	var rNodesTotal = new Array();
-	var rNodesTotalReference = rReferenceTree.GetNodeList();
+	var rNodesTestTree = rTestTree.GetNodeList();
+	var rNodesReferenceTree = rReferenceTree.GetNodeList();
 
-	rNodesQueue.push(rTestTree);
-
-	while (rNodesQueue.length > 0)
-	{
-		var rCurrentNode = rNodesQueue.shift();
-
-		rNodesTotal.push(rCurrentNode);
-
-		for ( var i = 0; i < rCurrentNode.GetChildrenCount(); i++)
-		{
-			/** @define {Vis2Node} */
-			var child = rCurrentNode.children[i];
-
-			if (child.isleaf == false)
-				rNodesQueue.push(child);
-		}
-	}
-
-	for ( var iNode = 0; iNode < rNodesTotal.length; iNode++)
+	for ( var iNode = 0; iNode < rNodesTestTree.length; iNode++)
 	{
 		var iMaximum = 0;
 
-		for ( var iReferenceNode = 0; iReferenceNode < rNodesTotalReference.length; iReferenceNode++)
+		for ( var iReferenceNode = 0; iReferenceNode < rNodesReferenceTree.length; iReferenceNode++)
 		{
-			var iMeasure = GetLeafMeasure(rNodesTotalReference[iReferenceNode],
-					rNodesTotal[iNode]);
+			var iMeasure = GetLeafMeasure(rNodesReferenceTree[iReferenceNode],	rNodesTestTree[iNode]);
 			if (iMeasure > iMaximum)
 				iMaximum = iMeasure;
 
 		}
 
-		rNodesTotal[iNode].leafmeasure = iMaximum;
+		rNodesTestTree[iNode].leafmeasure = iMaximum;
 	}
 
 	return rTestTree;

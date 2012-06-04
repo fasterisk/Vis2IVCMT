@@ -77,8 +77,7 @@ function Vis2TreeManager(sFilename)
 				if (nCompareTree != nReferenceTree)
 				{
 					//calculate comparison overview measure
-					var resultTree = Vis2LeafMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
-					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = resultTree.leafmeasure;
+					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = GetLeafMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
 				}
 				else
 				{
