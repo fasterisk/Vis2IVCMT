@@ -129,7 +129,7 @@ function Vis2ScoreDistributionView(divID) {
 				context.fillRect(currX, currY, fCellWidth, fCellHeight);
 
 				context.fillStyle = "rgb(0, 0, 0)";
-				context.fillText(nTreeIndex, currX, currY + 9);
+				context.fillText(nTreeIndex+1, currX, currY + 9);
 
 				for(var k = 0; k < 10; k++) {
 					var fBarHeight = fCellHeight * aScoreDistribution[k];

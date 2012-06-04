@@ -25,7 +25,7 @@ function Vis2ReferenceTreeView(divID) {
 		if(ReferenceTree != undefined) {
 			// print legend (tree index)
 			context.font = "16px sans-serif";
-			context.fillText("Tree " + window.TreeManager.GetIndexOfTree(ReferenceTree), 0, 25);
+			context.fillText("Tree " + (window.TreeManager.GetIndexOfTree(ReferenceTree)+1), 0, 25);
 
 			// create visualizer, if undefined or for wrong tree (selected tree may have changed)
 			if(rTreeVisualizer == undefined || rTreeVisualizer.GetNode() != ReferenceTree) {

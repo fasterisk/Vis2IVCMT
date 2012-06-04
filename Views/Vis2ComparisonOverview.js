@@ -84,11 +84,11 @@ function Vis2ComparisonOverview(divID) {
 				} else if(nIndexY == 0) {
 					// write legend
 					context.fillStyle = "rgb(0, 0, 0)";
-					context.fillText((nIndexX - 1).toString(), nIndexX * nWidth, 10);
+					context.fillText((nIndexX).toString(), nIndexX * nWidth, 10);
 				} else if(nIndexX == 0) {
 					// write legend
 					context.fillStyle = "rgb(0, 0, 0)";
-					context.fillText((nIndexY - 1).toString(), 0, nIndexY * nHeight + 10);
+					context.fillText((nIndexY).toString(), 0, nIndexY * nHeight + 10);
 				} else {
 					// get measure value
 					fMeasure = window.TreeManager.GetComparisonOverviewMeasure(nIndexX - 1, nIndexY - 1);

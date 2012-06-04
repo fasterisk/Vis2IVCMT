@@ -70,7 +70,7 @@ function PrepareMainPage() {
 			var nTreeIndex = self.OpenViews()[nWindows - 1].treeID;
 			
 			// set titlebar caption
-			$(el).children(".titlebar").append("Tree Comparison View (Tree " + nTreeIndex.toString() + ")");
+			$(el).children(".titlebar").append("Tree Comparison View (Tree " + (nTreeIndex+1).toString() + ")");
 
 			$(el).children(".titlebar").append('<br><span id="measure-select-' + nNewWindowIndex + '"></span>');
 
