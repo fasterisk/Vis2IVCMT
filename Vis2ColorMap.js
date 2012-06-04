@@ -1,88 +1,38 @@
 function Vis2ColorMap() {
-	var m_sColor1 = '#0000FF';
-	var m_sColor2 = '#FF0000';
 
-	//var m_nSteps = 10;
-
-	function ItlValueToHex(hexvalue) {
-		var value = parseInt(hexvalue, 10);
-		value = Math.max(0, Math.min(value, 255));
-		return "0123456789ABCDEF".charAt((value - value % 16) / 16) + "0123456789ABCDEF".charAt(value % 16);
-	}
-
-	function ItlInterpolateColor(color1, color2, value) {
-		var r1 = parseInt(color1.substring(1, 3), 16);
-		var r2 = parseInt(color2.substring(1, 3), 16);
-		var g1 = parseInt(color1.substring(3, 5), 16);
-		var g2 = parseInt(color2.substring(3, 5), 16);
-		var b1 = parseInt(color1.substring(5, 7), 16);
-		var b2 = parseInt(color2.substring(5, 7), 16);
-
-		var red = Math.round(r1 + ((r2 - r1) * value));
-		var green = Math.round(g1 + ((g2 - g1) * value));
-		var blue = Math.round(b1 + ((b2 - b1) * value));
-
-		return '#' + ItlValueToHex(red) + ItlValueToHex(green) + ItlValueToHex(blue);
-	}
-	
-	function ItlInterpolateColorR(color1, color2, value) {
-		var r1 = parseInt(color1.substring(1, 3), 16);
-		var r2 = parseInt(color2.substring(1, 3), 16);
-
-		return Math.round(r1 + ((r2 - r1) * value));
-	}
-	
-	function ItlInterpolateColorG(color1, color2, value) {
-		var g1 = parseInt(color1.substring(3, 5), 16);
-		var g2 = parseInt(color2.substring(3, 5), 16);
-
-		return Math.round(g1 + ((g2 - g1) * value));
-	}
-	
-	function ItlInterpolateColorB(color1, color2, value) {
-		var b1 = parseInt(color1.substring(5, 7), 16);
-		var b2 = parseInt(color2.substring(5, 7), 16);
-
-		return Math.round(b1 + ((b2 - b1) * value));
-	}
-
-	/*this.SetSteps = function(nSteps)
-	 {
-	 m_nSteps = nsteps;
-	 }*/
-
-	this.SetColor1 = function(sColor) {
-		m_sColor1 = sColor;
-	};
-
-	this.SetColor2 = function(sColor) {
-		m_sColor2 = sColor;
-	};
+	var m_sOriginalColorMap_C1 = '#ef3033';
+	var m_sOriginalColorMap_C2 = '#f25945';
+	var m_sOriginalColorMap_C3 = '#f79854';
+	var m_sOriginalColorMap_C4 = '#fcd776';
+	var m_sOriginalColorMap_C5 = '#f6f8a9';
+	var m_sOriginalColorMap_C6 = '#d2f0f1';
+	var m_sOriginalColorMap_C7 = '#8fdae2';
+	var m_sOriginalColorMap_C8 = '#5ab3d4';
+	var m_sOriginalColorMap_C9 = '#3877c0';
 
 	this.GetColor = function(fValue) {
 		assert(fValue >= 0.0 && fValue <= 1.0, "fValue out of bounds");
 
-		return ItlInterpolateColor(m_sColor1, m_sColor2, fValue);
+		if (fValue <= 0.11111)
+			return m_sOriginalColorMap_C1;
+		else if (fValue <= 0.22222)
+			return m_sOriginalColorMap_C2;
+		else if (fValue <= 0.33333)
+			return m_sOriginalColorMap_C3;
+		else if (fValue <= 0.44444)
+			return m_sOriginalColorMap_C4;
+		else if (fValue <= 0.55555)
+			return m_sOriginalColorMap_C5;
+		else if (fValue <= 0.66666)
+			return m_sOriginalColorMap_C6;
+		else if (fValue <= 0.77777)
+			return m_sOriginalColorMap_C7;
+		else if (fValue <= 0.88888)
+			return m_sOriginalColorMap_C8;
+		else if (fValue <= 1.0)
+			return m_sOriginalColorMap_C9;
+		else
+			assert (false, "fValue out of bounds");
 	};
-	
-	this.GetColorR = function(fValue)
-	{
-		assert(fValue >= 0.0 && fValue <= 1.0, "fValue out of bounds");
-		
-		return ItlInterpolateColorR(m_sColor1, m_sColor2, fValue);
-	};
-	
-	this.GetColorG = function(fValue)
-	{
-		assert(fValue >= 0.0 && fValue <= 1.0, "fValue out of bounds");
-		
-		return ItlInterpolateColorG(m_sColor1, m_sColor2, fValue);
-	};
-	
-	this.GetColorB = function(fValue)
-	{
-		assert(fValue >= 0.0 && fValue <= 1.0, "fValue out of bounds");
-		
-		return ItlInterpolateColorB(m_sColor1, m_sColor2, fValue);
-	};
+
 }
