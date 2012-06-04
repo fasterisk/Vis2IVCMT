@@ -117,39 +117,20 @@ function ParseFile(sFilename)
 
 function GetSampleTrees()
 {
-	var sTree1 = '[2;[4;"A"][2;"B"]][2;[2;"C"][2;"D"]]';
-	var sTree2 = '[2;[2;[4;"A"][2;"B"]][2;"C"]][4;"D"]';
-	var sTree3 = '[1;[2;[3;"A"][4;"B"]][5;"C"]][4;[3;"D"][2;[3;[4;"E"][5;"F"]][6;"G"]]]';
-	var sTree4 = '[2;[6;"A"][2;"B"]][2;[2;"C"][2;"D"]]';
-	var sTree5 = '[2;[6;"A"][2;"B"]][2;[2;"D"][2;"C"]]';
-	var sTree6 = '[3;[6;"B"][2;"A"]][2;[2;"C"][2;"D"]]';
-	var sTree7 = '[1;[3;[4;"A"][4;"B"]][4;"C"]][3;[4;"D"][3;[3;[4;"E"][1;"F"]][6;"G"]]]';
-	var sTree8 = '[4;[2;[3;"A"][6;"C"]][2;"B"]][4;[2;"D"][5;[3;[3;"E"][5;"F"]][2;"G"]]]';
-	var sTree9 = '[3;[1;[2;"A"][1;"C"]][5;"D"]][1;[3;"B"][2;[4;[5;"F"][4;"E"]][5;"G"]]]';
-	var sTree10 = '[1;[2;[3;"A"][4;"C"]][5;"B"]][4;[3;"D"][2;[3;[4;"G"][5;"E"]][6;"F"]]]';
-	var sTree11 = '[2;[3;[1;"D"][4;"C"]][1;"A"]][1;"B"]';
-	var sTree12 = '[2;[2;[2;"A"][3;"D"]][1;"C"]][2;[2;[2;"B"][3;"E"]][1;"F"]]';
-	var sTree13 = '[3;[2;[5;"A"][1;"B"]][2;"C"]][5;[1;[3;"D"][1;"E"]][4;"F"]]';
-	var sTree14 = '[3;[2;[5;[2;"A"][2;"G"]][1;"B"]][2;"C"]][2;[2;[2;"D"][3;"E"]][1;"F"]]';
-	var sTree15 = '[3;[2;"A"][1;"B"]][1;[1;"C"][2;"D"]]';
+	var sTree1 = '[6;[5;[4;"G"][3;"F"]][2;[6;[2;"A"][3;[4;"B"][5;[4;"C"][3;"D"]]]][2;"E"]]][6;"H"]';
+	var sTree2 = '[2;[4;"F"][3;[2;[6;"D"][2;[6;"B"][3;"A"]]][2;"C"]]][6;[2;"G"][3;[4;"E"][2;"H"]]]';
+	var sTree3 = '[3;[3;"A"][2;"B"]][2;[3;[6;[4;"C"][6;[6;"D"][4;"E"]]][5;[4;"F"][5;"H"]]][3;"G"]]';
+	var sTree4 = '[4;[2;[6;"C"][2;"A"]][3;[4;"B"][5;"G"]]][3;[2;[6;"H"][2;"D"]][3;[4;"E"][4;"F"]]]';
+	var sTree5 = '[5;[6;[2;[3;"D"][4;"C"]][5;"B"]][4;"A"]][3;[2;"H"][6;[2;"E"][3;[4;"G"][5;"F"]]]]';
+	
 	
 	var aTrees = new Array();
 	
 	aTrees.push(CreateTreeFromString(sTree1));
 	aTrees.push(CreateTreeFromString(sTree2));
-//	aTrees.push(CreateTreeFromString(sTree3));
+	aTrees.push(CreateTreeFromString(sTree3));
 	aTrees.push(CreateTreeFromString(sTree4));
 	aTrees.push(CreateTreeFromString(sTree5));
-	aTrees.push(CreateTreeFromString(sTree6));
-//	aTrees.push(CreateTreeFromString(sTree7));
-//	aTrees.push(CreateTreeFromString(sTree8));
-//	aTrees.push(CreateTreeFromString(sTree9));
-//	aTrees.push(CreateTreeFromString(sTree10));
-	aTrees.push(CreateTreeFromString(sTree11));
-//	aTrees.push(CreateTreeFromString(sTree12));
-//	aTrees.push(CreateTreeFromString(sTree13));
-//	aTrees.push(CreateTreeFromString(sTree14));
-	aTrees.push(CreateTreeFromString(sTree15));
 	
 	return aTrees;
 }

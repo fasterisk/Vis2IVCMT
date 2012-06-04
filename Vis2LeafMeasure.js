@@ -110,7 +110,7 @@ function GetLeafMeasureOverview(rReferenceTree, rTestTree)
 	for(var i = 1; i < aTestTreeNodes.length; i++)
 	{
 		var iMaximum = 0;
-		for(var j = 1; j < aReferenceTreeNodes; j++)
+		for(var j = 1; j < aReferenceTreeNodes.length; j++)
 		{
 			var iMeasure = GetLeafMeasure(aTestTreeNodes[i], aReferenceTreeNodes[j]);
 			if(iMeasure > iMaximum)

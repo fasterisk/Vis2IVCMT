@@ -105,9 +105,29 @@ function Vis2TreeManager(sFilename)
 				}
 				m_aAverageScore[nReferenceTree][nCompareTree] /= aNodeList.length;
 				
+				
+				
 				if (nCompareTree != nReferenceTree)
 				{
 					//calculate comparison overview measure
+					
+					var fMeasure = undefined;
+					
+					if (window.sGlobalMeasure == "leaf")
+					{
+						fMeasure = GetLeafMeasureOverview(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
+					}
+					else if (window.sGlobalMeasure == "element")
+					{
+						fMeasure = GetElementMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
+					}
+					else if (window.sGlobalMeasure == "edge")
+					{
+						fMeasure = GetEdgeMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
+					}
+					else 
+						assert (false, "no valid measure selected!");
+					
 					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = fMeasure;
 				}
 				else
