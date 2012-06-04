@@ -46,16 +46,17 @@
 				<input class="color" id="color2" value="ff0000"/>
 			</form>
 		</div>-->
+		Measure:
+		<select id="measure-select" onchange='window.SetGlobalMeasure(this.options[this.selectedIndex].value)'>
+		<option value="leaf" selected="selected">leaf-based</option>
+		<option value="element">element-based</option>
+		<option value="edge">edge-based</option>
+		</select>
 		<div id='content'>
 			<div id='jqxSplitter' style="width: auto; height: auto; background-color: #FFFFFF">
 				<div id="jqxSplitter2" style="background-color: red; height: 100%">
 					<div id="ComparisonOverviewPane">
-						Measure:
-						<select id="measure-select" onchange='window.SetGlobalMeasure(this.options[this.selectedIndex].value)'>
-							<option value="leaf" selected="selected">leaf-based</option>
-							<option value="element">element-based</option>
-							<option value="edge">edge-based</option>
-						</select>
+
 						
 						<canvas>
 							One does not simply use HTML5 Canvas with this browser
