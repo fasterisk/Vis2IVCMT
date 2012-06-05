@@ -121,22 +121,34 @@ function wd_max(Node1, Node2)
 	var vLeavesOfNode1 = GetLeafNodes(Node1);
 	var vLeavesOfNode2 = GetLeafNodes(Node2);
 	
-	assert (vLeavesOfNode1.length == vLeavesOfNode2.length, 'Trees must have the same structure');
+	//assert (vLeavesOfNode1.length == vLeavesOfNode2.length, 'Trees must have the same structure');
 	
 	var fMax = 0.0;
 	
-	for (var i=0; i < vLeavesOfNode1.length; i++)
-		for (var j=0; j < vLeavesOfNode2.length; j++)
-			if (i != j)
+	for(var i = 0; i < vLeavesOfNode2.length; i++)
+	{
+		for(var j = i+1; j < vLeavesOfNode2.length; j++)
+		{
+			var fWD1 = wd(vLeavesOfNode2[i], vLeavesOfNode2[j]);
+			
+			var node1;
+			var node2;
+			for(var k = 0; k < vLeavesOfNode1.length; k++)
 			{
-				var fWD1 = wd(vLeavesOfNode1[i], vLeavesOfNode1[j]);
-				var fWD2 = wd(vLeavesOfNode2[i], vLeavesOfNode2[j]);
-				
-				if (fWD1 > fMax)
-					fMax = fWD1;
-				if (fWD2 > fMax)
-					fMax = fWD2; 	
-			}			
+				if(vLeavesOfNode2[i].name == vLeavesOfNode1[k].name)
+					node1 = vLeavesOfNode1[k];
+				if(vLeavesOfNode2[j].name == vLeavesOfNode1[k].name)
+					node2 = vLeavesOfNode1[k];
+			}
+			
+			var fWD2 = wd(node1, node2);
+			
+			if (fWD1 > fMax)
+				fMax = fWD1;
+			if (fWD2 > fMax)
+				fMax = fWD2; 	
+		}
+	}
 
 	return fMax;	
 }
@@ -146,22 +158,33 @@ function ed(Node1, Node2)
 	var vLeavesOfNode1 = GetLeafNodes(Node1);
 	var vLeavesOfNode2 = GetLeafNodes(Node2);
 	
-	assert (vLeavesOfNode1.length == vLeavesOfNode2.length, 'Trees must have the same structure');
+	//assert (vLeavesOfNode1.length == vLeavesOfNode2.length, 'Trees must have the same structure');
 	
 	var fSquaredSum = 0.0;
 	
-	for (var i=0; i < vLeavesOfNode1.length; i++)
-		for (var j=0; j < vLeavesOfNode2.length; j++)
-			if (j > i)
+	for(var i = 0; i < vLeavesOfNode1.length; i++)
+	{
+		for(var j = i+1; j < vLeavesOfNode1.length; j++)
+		{
+			var fWD1 = wd(vLeavesOfNode1[i], vLeavesOfNode1[j]);
+			
+			var node1;
+			var node2;
+			for(var k = 0; k < vLeavesOfNode2.length; k++)
 			{
-				var fWD1 = wd(vLeavesOfNode1[i], vLeavesOfNode1[j]);
-				var fWD2 = wd(vLeavesOfNode2[i], vLeavesOfNode2[j]);
-				
-				var fDiff = fWD1 - fWD2;
-				
-				fSquaredSum += fDiff*fDiff;	
-			}			
-
+				if(vLeavesOfNode1[i].name == vLeavesOfNode2[k].name)
+					node1 = vLeavesOfNode2[k];
+				if(vLeavesOfNode1[j].name == vLeavesOfNode2[k].name)
+					node2 = vLeavesOfNode2[k];
+			}
+			
+			var fWD2 = wd(node1, node2);
+			
+			var fDiff = fWD1 - fWD2;
+			
+			fSquaredSum += fDiff*fDiff;	
+		}
+	}
 	
 	return Math.sqrt(fSquaredSum);
 }
@@ -188,33 +211,14 @@ function GetEdgeMeasure(Tree1, Tree2)
 	return s(Tree1, Tree2);
 }
 
-function Vis2EdgeMeasure(rReferenceTree, rCompareTree)
+function Vis2EdgeMeasure(rReferenceTree, rTestTree)
 {
-	var fMeasureVal = GetEdgeMeasure(rReferenceTree, rCompareTree);
-	rCompareTree.edgemeasure = fMeasureVal;
-	
-	var aReferenceTreeNodes = rReferenceTree.GetNodeList();
-	var aCompareTreeNodes = rCompareTree.GetNodeList();
-	
-	for(var i = 1; i < aCompareTreeNodes.length; i++)
+	var rNodesTestTree = rTestTree.GetNodeList();
+
+	for ( var iNode = 0; iNode < rNodesTestTree.length; iNode++)
 	{
-		var fMaximum = 0;
-		for(var j = 0; j < aReferenceTreeNodes.length; j++)
-		{
-			var fLengthCTNode = aCompareTreeNodes[i].accedgeweight;
-			var fLengthRTNode = aReferenceTreeNodes[j].accedgeweight;
-			
-			var fTempMax;
-			if(fLengthCTNode > fLengthRTNode)
-				fTempMax = fLengthRTNode / fLengthCTNode;
-			else
-				fTempMax = fLengthCTNode / fLengthRTNode;
-			
-			if(fTempMax > fMaximum)
-				fMaximum = fTempMax
-		}
-		aCompareTreeNodes[i].edgemeasure = fMeasureVal * fMaximum;
+		rNodesTestTree[iNode].edgemeasure = GetEdgeMeasure(rReferenceTree,	rNodesTestTree[iNode]);
 	}
-	
-	return rCompareTree;
+
+	return rTestTree;
 }

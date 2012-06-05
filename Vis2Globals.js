@@ -1,6 +1,6 @@
 Debugger.log("Adding Window-Eventlistener");
 window.addEventListener('load', eventWindowLoaded, false);
-window.addEventListener('resize', canvasSizeChanged, false);
+//window.addEventListener('resize', canvasSizeChanged, false);
 var formElement;
 
 function eventWindowLoaded()

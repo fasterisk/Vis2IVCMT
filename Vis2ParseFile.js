@@ -123,14 +123,27 @@ function GetSampleTrees()
 	var sTree4 = '[4;[2;[6;"C"][2;"A"]][3;[4;"B"][5;"G"]]][3;[2;[6;"H"][2;"D"]][3;[4;"E"][4;"F"]]]';
 	var sTree5 = '[5;[6;[2;[3;"D"][4;"C"]][5;"B"]][4;"A"]][3;[2;"H"][6;[2;"E"][3;[4;"G"][5;"F"]]]]';
 	
+	var sTree6 = '[2;[2;"A"][2;"B"]][2;[2;"C"][2;"D"]]';
+	var sTree7 = '[2;[2;[2;"A"][2;"B"]][2;"C"]][2;"D"]';
+	
+	var sTree8 = '[2;"A"][2;"B"]';
+	var sTree9 = '[1;"A"][2;"B"]';
 	
 	var aTrees = new Array();
 	
-	aTrees.push(CreateTreeFromString(sTree1));
+	/*aTrees.push(CreateTreeFromString(sTree1));
 	aTrees.push(CreateTreeFromString(sTree2));
 	aTrees.push(CreateTreeFromString(sTree3));
 	aTrees.push(CreateTreeFromString(sTree4));
 	aTrees.push(CreateTreeFromString(sTree5));
+	
+	aTrees.push(CreateTreeFromString(sTree6));
+	aTrees.push(CreateTreeFromString(sTree7));
+	*/
+	aTrees.push(CreateTreeFromString(sTree8));
+	aTrees.push(CreateTreeFromString(sTree9));
+	
+	//var tree = Vis2EdgeMeasure(aTrees[0], aTrees[0]);
 	
 	return aTrees;
 }

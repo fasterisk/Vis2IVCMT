@@ -79,7 +79,7 @@ function Vis2TreeManager(sFilename) {
 						fMeasure = resultTree.elementmeasure;
 					} else if(m_sGlobalMeasure == "edge") {
 						resultTree = Vis2EdgeMeasure(m_aLoadedTrees[nReferenceTree], aNodeList[nCompareNode]);
-						fMeasure = resultTree.edgemeasure;
+						fMeasure = GetEdgeMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
 					} else
 						assert(false, "no valid measure selected!");
 
@@ -126,8 +126,8 @@ function Vis2TreeManager(sFilename) {
 
 	this.GetComparisonOverviewMeasure = function(nReferenceTree, nCompareTree) {
 		assert(m_aComparisonOverviewMeasures != undefined, 'Trees not loaded correctly');
-		assert(nReferenceTree < m_aComparisonOverviewMeasures.length, "array index out of bounds");
-		assert(nCompareTree < m_aComparisonOverviewMeasures[nReferenceTree].length, "array index out of bounds");
+		assert(nReferenceTree < m_aComparisonOverviewMeasures.length, "array index out of bounds: m_aComparisonOverviewMeasures.length("+m_aComparisonOverviewMeasures.length+") <= nReferenceTree("+nReferenceTree+")");
+		assert(nCompareTree < m_aComparisonOverviewMeasures[nReferenceTree].length, "array index out of bounds: m_aComparisonOverviewMeasures[nReferenceTree].length("+m_aComparisonOverviewMeasures[nReferenceTree].length+") <= nCompareTree("+nCompareTree+")");
 
 		return m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree];
 	};
@@ -152,12 +152,12 @@ function Vis2TreeManager(sFilename) {
 		// update comparison measures, score distribution measures, ...
 		UpdateOverviewMeasures();
 
-		rReferenceNode = window.SelectionManager.GetReferenceTree();
+		var rReferenceTree = window.SelectionManager.GetReferenceTree();
 
 		for(var nCompareTree = 0; nCompareTree < m_aLoadedTrees.length; nCompareTree++) {
-			Vis2LeafMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
-			Vis2ElementMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
-			Vis2EdgeMeasure(rReferenceNode, m_aLoadedTrees[nCompareTree]);
+			Vis2LeafMeasure(rReferenceTree, m_aLoadedTrees[nCompareTree]);
+			Vis2ElementMeasure(rReferenceTree, m_aLoadedTrees[nCompareTree]);
+			Vis2EdgeMeasure(rReferenceTree, m_aLoadedTrees[nCompareTree]);
 		}
 	};
 
@@ -176,8 +176,7 @@ function Vis2TreeManager(sFilename) {
 				if(j != nReferenceTree) {
 					aNodeList[i].averageleafmeasure += GetLeafMeasure(aNodeList[i], m_aLoadedTrees[j]);
 					aNodeList[i].averageelementmeasure += GetElementMeasure(aNodeList[i], m_aLoadedTrees[j]);
-					aNodeList[i].averageedgemeasure += 0;
-					// GetEdgeMeasure(aNodeList[i], m_aLoadedTrees[j]); //TODO
+					aNodeList[i].averageedgemeasure += GetEdgeMeasure(aNodeList[i], m_aLoadedTrees[j]);
 				}
 			}
 			aNodeList[i].averageleafmeasure /= m_aLoadedTrees.length - 1;
