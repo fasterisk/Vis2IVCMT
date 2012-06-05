@@ -178,7 +178,7 @@ function Vis2TreeManager(sFilename) {
 			for(var j = 0; j < m_aLoadedTrees.length; j++) {
 				if(j != nReferenceTree) {
 					aNodeList[i].averageleafmeasure += GetBestMatchingLeafMeasure(aNodeList[i], m_aLoadedTrees[j]);
-					aNodeList[i].averageelementmeasure += GetElementMeasure(aNodeList[i], m_aLoadedTrees[j]);
+					aNodeList[i].averageelementmeasure += GetBestMatchingElementMeasure(aNodeList[i], m_aLoadedTrees[j]);
 					aNodeList[i].averageedgemeasure += GetEdgeMeasure(m_aLoadedTrees[j], aNodeList[i]);
 				}
 			}

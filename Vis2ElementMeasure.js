@@ -121,6 +121,29 @@ function GetElementMeasure(rNode1, rNode2)
 }
 
 /**
+ * This method calculates the best matching element measure of a tree compared to
+ * a specific reference node
+ * 
+ * @param rReferenceNode
+ * @param rTestTree
+ * @returns {Number}
+ */
+function GetBestMatchingElementMeasure(rReferenceNode, rTestTree)
+{
+	var aTestTreeNodes = rTestTree.GetNodeList();
+	var fMaximum = 0;
+	
+	for(var i = 0; i < aTestTreeNodes.length; i++)
+	{
+		var fMeasure = GetElementMeasure(rReferenceNode, aTestTreeNodes[i]);
+		if(fMeasure > fMaximum)
+			fMaximum = fMeasure;
+	}
+	
+	return fMaximum;
+}
+
+/**
  * This method calculates the element measures for the given test tree,
  * tested against the reference tree
  * 

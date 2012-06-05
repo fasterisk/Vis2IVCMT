@@ -67,6 +67,14 @@ function GetLeafMeasure(rNode1, rNode2)
 	return (iSameLeaves / iTotal);
 }
 
+/**
+ * This method calculates the best matching leaf measure of a tree compared to
+ * a specific reference node
+ * 
+ * @param rReferenceNode
+ * @param rTestTree
+ * @returns {Number}
+ */
 function GetBestMatchingLeafMeasure(rReferenceNode, rTestTree)
 {
 	var aTestTreeNodes = rTestTree.GetNodeList();
