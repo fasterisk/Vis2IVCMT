@@ -10,7 +10,11 @@ function OnWindowLoaded() {
 	// update views
 	window.ViewManager.UpdateViews();
 	
-	canvasSizeChanged();
+	// get tree
+	var rTreeObject = window.TreeManager.GetTree(0);
+
+	// set reference tree
+	window.SelectionManager.SetReferenceTree(rTreeObject);
 }
 
 function PrepareMainPage() {
