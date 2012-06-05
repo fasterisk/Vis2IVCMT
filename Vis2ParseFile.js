@@ -131,14 +131,14 @@ function GetSampleTrees()
 	
 	var aTrees = new Array();
 	
-	/*aTrees.push(CreateTreeFromString(sTree1));
+	aTrees.push(CreateTreeFromString(sTree1));
 	aTrees.push(CreateTreeFromString(sTree2));
 	aTrees.push(CreateTreeFromString(sTree3));
 	aTrees.push(CreateTreeFromString(sTree4));
 	aTrees.push(CreateTreeFromString(sTree5));
-	*/
-	aTrees.push(CreateTreeFromString(sTree6));
-	aTrees.push(CreateTreeFromString(sTree7));
+	
+	//aTrees.push(CreateTreeFromString(sTree6));
+	//aTrees.push(CreateTreeFromString(sTree7));
 	
 	//aTrees.push(CreateTreeFromString(sTree8));
 	//aTrees.push(CreateTreeFromString(sTree9));

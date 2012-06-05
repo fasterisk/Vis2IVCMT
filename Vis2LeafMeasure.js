@@ -67,6 +67,21 @@ function GetLeafMeasure(rNode1, rNode2)
 	return (iSameLeaves / iTotal);
 }
 
+function GetBestMatchingLeafMeasure(rReferenceNode, rTestTree)
+{
+	var aTestTreeNodes = rTestTree.GetNodeList();
+	var fMaximum = 0;
+	
+	for(var i = 0; i < aTestTreeNodes.length; i++)
+	{
+		var fMeasure = GetLeafMeasure(rReferenceNode, aTestTreeNodes[i]);
+		if(fMeasure > fMaximum)
+			fMaximum = fMeasure;
+	}
+	
+	return fMaximum;
+}
+
 /**
  * This method calculates the leaf measures for the given test tree,
  * tested against the reference tree
