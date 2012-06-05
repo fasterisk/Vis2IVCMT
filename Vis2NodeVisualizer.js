@@ -67,11 +67,17 @@ function Vis2NodeVisualizer(rNode) {
 		return Node;
 	};
 
-	this.Draw = function(context, sMeasureString, currX, currY, bSelected) {
+	this.Draw = function(context, sMeasureString, currX, currY, bInitialDrawCall) {
 		var nodeRadius = 5;
 		var aRenderedNodes = new Array();
 
 		var sMeasureColor = undefined;
+		
+		if(bInitialDrawCall)
+		{
+			var fXDiff = this.GetRightSpaceNeeded() - this.GetLeftSpaceNeeded();
+			currX -= fXDiff*5;
+		}
 
 		// Draw node as a circle
 
@@ -132,7 +138,6 @@ function Vis2NodeVisualizer(rNode) {
 
 			if(Node.bIsSelected) {
 				context.strokeStyle = "#F0F";
-				//bSelected = true;
 			} else
 				context.strokeStyle = "#000";
 
@@ -161,10 +166,10 @@ function Vis2NodeVisualizer(rNode) {
 			context.stroke();
 
 			// render left children and store returned information about rendered nodes
-			var aRenderedNodesLeft = LeftChildVisualizer.Draw(context, sMeasureString, currX - nLeftLineLength * 10, currY + LeftChildVisualizer.GetNode().edgeweight * 10, bSelected);
+			var aRenderedNodesLeft = LeftChildVisualizer.Draw(context, sMeasureString, currX - nLeftLineLength * 10, currY + LeftChildVisualizer.GetNode().edgeweight * 10, false);
 
 			// render right children and store returned information abour rendered nodes
-			var aRenderedNodesRight = RightChildVisualizer.Draw(context, sMeasureString, currX + nRightLineLength * 10, currY + RightChildVisualizer.GetNode().edgeweight * 10, bSelected);
+			var aRenderedNodesRight = RightChildVisualizer.Draw(context, sMeasureString, currX + nRightLineLength * 10, currY + RightChildVisualizer.GetNode().edgeweight * 10, false);
 
 			// concat arrays to get 1 array containing the currently rendered node and all rendered child nodes
 			aRenderedNodes = aRenderedNodes.concat(aRenderedNodesLeft, aRenderedNodesRight);

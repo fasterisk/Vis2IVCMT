@@ -37,7 +37,7 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 			}
 
 			// call visualizer
-			rTreeVisualizer.Draw(context, window.TreeManager.GetGlobalMeasure(), CanvasElement.width / 2, 20);
+			rTreeVisualizer.Draw(context, window.TreeManager.GetGlobalMeasure(), CanvasElement.width / 2, 20, true);
 		}
 	};
 }

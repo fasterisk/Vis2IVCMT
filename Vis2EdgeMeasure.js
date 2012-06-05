@@ -164,7 +164,6 @@ function ed(Node1, Node2)
 		debugstr1 += vLeavesOfNode1[i].name;
 	for(var i = 0; i < vLeavesOfNode2.length; i++)
 		debugstr2 += vLeavesOfNode2[i].name;
-	Debugger.log("#VIS2EDGEMEASURE.JS# Comparing Node 1("+debugstr1+") with Node 2("+debugstr2+")");
 	
 	//assert (vLeavesOfNode1.length == vLeavesOfNode2.length, 'Trees must have the same structure');
 	
@@ -175,7 +174,6 @@ function ed(Node1, Node2)
 		for(var j = i+1; j < vLeavesOfNode2.length; j++)
 		{
 			var fWD1 = wd(vLeavesOfNode2[i], vLeavesOfNode2[j]);
-			Debugger.log("#VIS2EDGEMEASURE.JS# Node 2: WD("+vLeavesOfNode2[i].name+vLeavesOfNode2[j].name+ ") = "+fWD1);
 			
 			var node1;
 			var node2;
@@ -188,14 +186,12 @@ function ed(Node1, Node2)
 			}
 			
 			var fWD2 = wd(node1, node2);
-			Debugger.log("#VIS2EDGEMEASURE.JS# Node 1: WD("+node1.name+node2.name+ ") = "+fWD2);
 			
 			var fDiff = fWD1 - fWD2;
 			
 			fSquaredSum += fDiff*fDiff;	
 		}
 	}
-	Debugger.log("#VIS2EDGEMEASURE.JS# SquaredSum = "+fSquaredSum);
 	return Math.sqrt(fSquaredSum);
 }
 
@@ -203,9 +199,6 @@ function s(Node1, Node2)
 {
 	var fMax = wd_max(Node1, Node2);
 	var fED = ed(Node1, Node2);
-	
-	Debugger.log("#VIS2EDGEMEASURE.JS# wd_max = "+fMax);
-	Debugger.log("#VIS2EDGEMEASURE.JS# ed = "+ fED);
 	
 	var fMeasure = 1.0 - fED / fMax;
 	if(fMeasure < 0)
@@ -231,7 +224,6 @@ function Vis2EdgeMeasure(rReferenceTree, rTestTree)
 	for ( var iNode = 0; iNode < rNodesTestTree.length; iNode++)
 	{
 		rNodesTestTree[iNode].edgemeasure = GetEdgeMeasure(rReferenceTree, rNodesTestTree[iNode]);
-		Debugger.log("#VIS2EDGEMEASURE.JS# rTestTree.node"+iNode+".edgemeasure = "+rNodesTestTree[iNode].edgemeasure);
 	}
 
 	
