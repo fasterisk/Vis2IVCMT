@@ -79,7 +79,7 @@ function Vis2TreeManager(sFilename) {
 						fMeasure = resultTree.elementmeasure;
 					} else if(m_sGlobalMeasure == "edge") {
 						resultTree = Vis2EdgeMeasure(m_aLoadedTrees[nReferenceTree], aNodeList[nCompareNode]);
-						fMeasure = GetEdgeMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
+						fMeasure = resultTree.edgemeasure;
 					} else
 						assert(false, "no valid measure selected!");
 
@@ -111,6 +111,8 @@ function Vis2TreeManager(sFilename) {
 					} else
 						assert(false, "no valid measure selected!");
 					
+					
+					Debugger.log("CURRENT OVERVIEW MEASURE("+nCompareTree+"|"+nReferenceTree+"): "+fMeasure);
 					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = fMeasure;
 				} else {
 					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = 1.0;
@@ -149,6 +151,8 @@ function Vis2TreeManager(sFilename) {
 	};
 
 	this.UpdateAllMeasures = function() {
+		Debugger.log("UPDATING ALL MEASURES");
+		
 		// update comparison measures, score distribution measures, ...
 		UpdateOverviewMeasures();
 
@@ -176,7 +180,7 @@ function Vis2TreeManager(sFilename) {
 				if(j != nReferenceTree) {
 					aNodeList[i].averageleafmeasure += GetLeafMeasure(aNodeList[i], m_aLoadedTrees[j]);
 					aNodeList[i].averageelementmeasure += GetElementMeasure(aNodeList[i], m_aLoadedTrees[j]);
-					aNodeList[i].averageedgemeasure += GetEdgeMeasure(aNodeList[i], m_aLoadedTrees[j]);
+					aNodeList[i].averageedgemeasure += GetEdgeMeasure(m_aLoadedTrees[j], aNodeList[i]);
 				}
 			}
 			aNodeList[i].averageleafmeasure /= m_aLoadedTrees.length - 1;

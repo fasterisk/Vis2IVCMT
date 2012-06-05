@@ -11,7 +11,7 @@ function Vis2ColorMap() {
 	var m_sOriginalColorMap_C9 = '#3877c0';
 
 	this.GetColor = function(fValue) {
-		assert(fValue >= 0.0 && fValue <= 1.0, "fValue out of bounds");
+		assert(fValue >= 0.0 && fValue <= 1.0, "ColorMap: fValue out of bounds("+fValue+")");
 
 		if (fValue <= 0.11111)
 			return m_sOriginalColorMap_C1;
