@@ -95,11 +95,11 @@ function Vis2TreeManager(sFilename) {
 				m_aAverageScore[nReferenceTree][nCompareTree] /= aNodeList.length;
 
 				if(nCompareTree != nReferenceTree) {
-				
+
 					//calculate comparison overview measure
-					
+
 					var fMeasure = undefined;
-					
+
 					assert(m_sGlobalMeasure == "leaf" || m_sGlobalMeasure == "element" || m_sGlobalMeasure == "edge", "Wrong measure set");
 
 					if(m_sGlobalMeasure == "leaf") {
@@ -110,9 +110,8 @@ function Vis2TreeManager(sFilename) {
 						fMeasure = GetEdgeMeasure(m_aLoadedTrees[nReferenceTree], m_aLoadedTrees[nCompareTree]);
 					} else
 						assert(false, "no valid measure selected!");
-					
-					
-					Debugger.log("CURRENT OVERVIEW MEASURE("+nCompareTree+"|"+nReferenceTree+"): "+fMeasure);
+
+					Debugger.log("CURRENT OVERVIEW MEASURE(" + nCompareTree + "|" + nReferenceTree + "): " + fMeasure);
 					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = fMeasure;
 				} else {
 					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = 1.0;
@@ -128,8 +127,8 @@ function Vis2TreeManager(sFilename) {
 
 	this.GetComparisonOverviewMeasure = function(nReferenceTree, nCompareTree) {
 		assert(m_aComparisonOverviewMeasures != undefined, 'Trees not loaded correctly');
-		assert(nReferenceTree < m_aComparisonOverviewMeasures.length, "array index out of bounds: m_aComparisonOverviewMeasures.length("+m_aComparisonOverviewMeasures.length+") <= nReferenceTree("+nReferenceTree+")");
-		assert(nCompareTree < m_aComparisonOverviewMeasures[nReferenceTree].length, "array index out of bounds: m_aComparisonOverviewMeasures[nReferenceTree].length("+m_aComparisonOverviewMeasures[nReferenceTree].length+") <= nCompareTree("+nCompareTree+")");
+		assert(nReferenceTree < m_aComparisonOverviewMeasures.length, "array index out of bounds: m_aComparisonOverviewMeasures.length(" + m_aComparisonOverviewMeasures.length + ") <= nReferenceTree(" + nReferenceTree + ")");
+		assert(nCompareTree < m_aComparisonOverviewMeasures[nReferenceTree].length, "array index out of bounds: m_aComparisonOverviewMeasures[nReferenceTree].length(" + m_aComparisonOverviewMeasures[nReferenceTree].length + ") <= nCompareTree(" + nCompareTree + ")");
 
 		return m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree];
 	};
@@ -152,7 +151,7 @@ function Vis2TreeManager(sFilename) {
 
 	this.UpdateAllMeasures = function() {
 		Debugger.log("UPDATING ALL MEASURES");
-		
+
 		// update comparison measures, score distribution measures, ...
 		UpdateOverviewMeasures();
 
@@ -241,6 +240,30 @@ function Vis2TreeManager(sFilename) {
 			ClearSelectedNode(m_aLoadedTrees[nTree]);
 		}
 	}
+	/**
+	 * This method strips the leaves of a node as a string, including the structure by using "(" and ")"
+	 *
+	 * @param {Vis2Node} rNode A Node
+	 * @return {string} Returns a (simple) string
+	 */
+	function GetLeavesAsString(rNode) {
+		var sReturn = "";
+
+		// return name, if this is a leaf
+		if(rNode.isleaf == true)
+			sReturn = "('" + rNode.name + "')";
+		else {
+			// collect leaves under child nodes, if this is not a leaf
+			for(var i = 0; i < rNode.GetChildrenCount(); i++) {
+				var sLeavesAsStringFromChildNode = GetLeavesAsString(rNode.children[i]);
+
+				sReturn += "(" + sLeavesAsStringFromChildNode + ")";
+			}
+		}
+
+		return sReturn;
+	}
+
 	function SetRecursiveSelectedNodes(rNode) {
 		rNode.bIsSelected = true;
 
@@ -254,15 +277,10 @@ function Vis2TreeManager(sFilename) {
 		if(rStart != rNode) {
 			var bNodesEqual = true;
 
-			var aNodeList1 = GetLeaves(rStart);
-			var aNodeList2 = GetLeaves(rNode);
+			var sNodeList1 = GetLeavesAsString(rStart);
+			var sNodeList2 = GetLeavesAsString(rNode);
 
-			bNodesEqual = (aNodeList1.length == aNodeList2.length);
-
-			if(bNodesEqual)
-				for(var i = 0; i < aNodeList1.length; i++)
-					if(aNodeList1[i] != aNodeList2[i])
-						bNodesEqual = false;
+			bNodesEqual = (sNodeList1 == sNodeList2);
 
 			if(bNodesEqual) {
 				rStart.bIsSelected = true;
@@ -284,9 +302,8 @@ function Vis2TreeManager(sFilename) {
 		for(var nTree = 0; nTree < m_aLoadedTrees.length; nTree++) {
 			SearchForSameNodes(m_aLoadedTrees[nTree], rNode);
 		}
-		
-		if (rNode.isleaf == false)
-		{
+
+		if(rNode.isleaf == false) {
 			for(var i = 0; i < rNode.GetChildrenCount(); i++)
 				this.SetSelectedNode(rNode.children[i]);
 		}

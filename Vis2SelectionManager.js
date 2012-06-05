@@ -5,6 +5,8 @@ function Vis2SelectionManager()
 	
 	var TreesToCompare = new Array();
 	var aTreeSelections = new Array();
+
+
 	/**
 	 * Sets the reference tree for the tree comparison
 	 * 
