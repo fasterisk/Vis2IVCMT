@@ -54,5 +54,10 @@ function canvasSizeChanged(e)
 {
 	Debugger.log("Canvas resized");
 	
+	$("#help").css("left", $("#docking").offset().left);
+	$("#help").css("top", $("#docking").offset().top);
+	$("#help").width($("#docking").width());
+	$("#help").height($("#docking").height());
+		
 	window.ViewManager.UpdateViews();
 }

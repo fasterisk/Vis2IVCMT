@@ -9,6 +9,8 @@ function Vis2ViewManager() {
 		ComparisonOverview = new Vis2ComparisonOverview("ComparisonOverviewPane");
 		ReferenceTreeView = new Vis2ReferenceTreeView("ReferenceTreePane");
 		ScoreDistributionView = new Vis2ScoreDistributionView("ScoreDistributionPane");
+		
+		setTimeout("window.ViewManager.ShowHelpWindow()", 100);
 	};
 
 	this.UpdateViews = function() {
@@ -40,9 +42,16 @@ function Vis2ViewManager() {
 			$("#show_help_link").show('normal');
 	}
 
-	this.ShowHelpWindow = function() {
+	this.ShowHelpWindow = function() {	
 		$("#help").show('normal');
+
+		$("#help").css("left", $("#docking").offset().left);
+		$("#help").css("top", $("#docking").offset().top);
+		$("#help").width($("#docking").width());
+		$("#help").height($("#docking").height());
+		
 		$("#show_help_link").hide('normal');
+
 	}
 
 	this.OnCloseWindow = function(sWindowID_HTML) {

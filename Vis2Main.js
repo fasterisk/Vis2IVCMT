@@ -9,6 +9,8 @@ function OnWindowLoaded() {
 
 	// update views
 	window.ViewManager.UpdateViews();
+	
+	canvasSizeChanged();
 }
 
 function PrepareMainPage() {
@@ -35,6 +37,7 @@ function PrepareMainPage() {
 
 	$('#jqxSplitter').bind('resize', canvasSizeChanged);
 	$('#jqxSplitter2').bind('resize', canvasSizeChanged);
+	window.onresize = canvasSizeChanged;
 
 
 	// this class is a "model" in a ModelView-Pattern, used with knockout.js
@@ -130,8 +133,7 @@ function PrepareMainPage() {
 	// close the dummy windows, which were added to make the sections working (they must be existing at the docking-construction-time) 		
 	$('#docking').jqxDocking('closeWindow', 'knockout-window-1');
 	$('#docking').jqxDocking('closeWindow', 'knockout-window-2');
-		
-
+	
 }
 
 // attach OnWindowLoadedEvent
