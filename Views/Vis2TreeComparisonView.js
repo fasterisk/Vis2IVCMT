@@ -21,6 +21,9 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 		CanvasElement.width = DivElement.offsetWidth - 18;
 		CanvasElement.height = DivElement.offsetHeight - 18;
 
+		// get context
+		context = CanvasElement.getContext("2d");
+		
 		// get reference tree
 		nComparisonTree = m_nTreeToCompare;
 
@@ -32,9 +35,11 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 			if(rTreeVisualizer == undefined || rTreeVisualizer.GetNode() != rTree) {
 				rTreeVisualizer = new Vis2NodeVisualizer(rTree);
 			}
+			
+			CanvasElement.height = rTreeVisualizer.GetHeightNeeded() + 50;
 
 			// call visualizer
-			rTreeVisualizer.Draw(CanvasElement, window.TreeManager.GetGlobalMeasure(), CanvasElement.width / 2, 20, true);
+			rTreeVisualizer.Draw(context, window.TreeManager.GetGlobalMeasure(), CanvasElement.width / 2, 20, true);
 		}
 	};
 }

@@ -23,17 +23,19 @@ function Vis2ReferenceTreeView(divID) {
 		ReferenceTree = window.SelectionManager.GetReferenceTree();
 
 		if(ReferenceTree != undefined) {
-			// print legend (tree index)
-			context.font = "16px sans-serif";
-			context.fillText("Tree " + (window.TreeManager.GetIndexOfTree(ReferenceTree)+1), 0, 25);
-
 			// create visualizer, if undefined or for wrong tree (selected tree may have changed)
 			if(rTreeVisualizer == undefined || rTreeVisualizer.GetNode() != ReferenceTree) {
 				rTreeVisualizer = new Vis2NodeVisualizer(ReferenceTree);
 			}
 
+			CanvasElement.height = rTreeVisualizer.GetHeightNeeded() + 50;
+			
+			// print legend (tree index)
+			context.font = "16px sans-serif";
+			context.fillText("Tree " + (window.TreeManager.GetIndexOfTree(ReferenceTree)+1), 0, 25);
+			
 			// call visualizer
-			aRenderedNodes = rTreeVisualizer.Draw(CanvasElement, window.TreeManager.GetGlobalMeasure() + 'average', CanvasElement.width / 2, 10, true);
+			aRenderedNodes = rTreeVisualizer.Draw(context, window.TreeManager.GetGlobalMeasure() + 'average', CanvasElement.width / 2, 10, true);
 			
 			Debugger.log("rendered " + aRenderedNodes.length + " nodes");
 		}

@@ -80,22 +80,17 @@ function Vis2NodeVisualizer(rNode) {
 		return Node;
 	};
 
-	this.Draw = function(CanvasElement, sMeasureString, currX, currY, bInitialDrawCall) {
+	this.Draw = function(context, sMeasureString, currX, currY, bInitialDrawCall) {
 		var nodeRadius = 5;
 		var aRenderedNodes = new Array();
 
 		var sMeasureColor = undefined;
 		
-		var context = CanvasElement.getContext("2d");
-		
 		if(bInitialDrawCall)
 		{
 			var fXDiff = this.GetRightSpaceNeeded() - this.GetLeftSpaceNeeded();
 			currX -= fXDiff*5;
-			
-			CanvasElement.height = this.GetHeightNeeded() + 50;
 		}
-
 
 		// Draw node as a circle
 
@@ -184,10 +179,10 @@ function Vis2NodeVisualizer(rNode) {
 			context.stroke();
 
 			// render left children and store returned information about rendered nodes
-			var aRenderedNodesLeft = LeftChildVisualizer.Draw(CanvasElement, sMeasureString, currX - nLeftLineLength * 10, currY + LeftChildVisualizer.GetNode().edgeweight * 10, false);
+			var aRenderedNodesLeft = LeftChildVisualizer.Draw(context, sMeasureString, currX - nLeftLineLength * 10, currY + LeftChildVisualizer.GetNode().edgeweight * 10, false);
 
 			// render right children and store returned information about rendered nodes
-			var aRenderedNodesRight = RightChildVisualizer.Draw(CanvasElement, sMeasureString, currX + nRightLineLength * 10, currY + RightChildVisualizer.GetNode().edgeweight * 10, false);
+			var aRenderedNodesRight = RightChildVisualizer.Draw(context, sMeasureString, currX + nRightLineLength * 10, currY + RightChildVisualizer.GetNode().edgeweight * 10, false);
 
 			// concat arrays to get 1 array containing the currently rendered node and all rendered child nodes
 			aRenderedNodes = aRenderedNodes.concat(aRenderedNodesLeft, aRenderedNodesRight);
