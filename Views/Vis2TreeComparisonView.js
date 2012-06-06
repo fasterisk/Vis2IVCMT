@@ -18,7 +18,7 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 
 	this.Update = function() {
 		// set canvas size to div size
-		CanvasElement.width = DivElement.offsetWidth - 18;
+		CanvasElement.width = DivElement.offsetWidth - 28;
 		CanvasElement.height = DivElement.offsetHeight - 18;
 
 		// get context
@@ -36,6 +36,9 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 				rTreeVisualizer = new Vis2NodeVisualizer(rTree);
 			}
 			
+			var nSpaceNeeded = (rTreeVisualizer.GetLeftSpaceNeeded() + rTreeVisualizer.GetRightSpaceNeeded())*10;
+			if(CanvasElement.width < nSpaceNeeded)
+				CanvasElement.width = nSpaceNeeded;
 			CanvasElement.height = rTreeVisualizer.GetHeightNeeded() + 50;
 
 			// call visualizer

@@ -129,6 +129,8 @@ function GetSampleTrees()
 	var sTree8 = '[2;"A"][2;"B"]';
 	var sTree9 = '[1;"A"][2;"B"]';
 	
+	var sTree10 = '[1;[1;[1;[1;[1;[1;[1;[1;[1;[1;[1;[1;"A"][1;"B"]][1;"C"]][1;"D"]][1;"E"]][1;"F"]][1;"G"]][1;"H"]][1;"I"]][1;"J"]][1;"K"]][1;"L"]][1;[1;"M"][1;[1;"N"][1;[1;"O"][1;[1;"P"][1;[1;"Q"][1;[1;"R"][1;[1;"S"][1;[1;"T"][1;[1;"U"][1;[1;"V"][1;[1;"W"][1;"X"]]]]]]]]]]]]';
+	
 	var aTrees = new Array();
 	
 	aTrees.push(CreateTreeFromString(sTree1));
@@ -143,6 +145,8 @@ function GetSampleTrees()
 	//aTrees.push(CreateTreeFromString(sTree8));
 	//aTrees.push(CreateTreeFromString(sTree9));
 	
+//	aTrees.push(CreateTreeFromString(sTree10));
+//	aTrees.push(CreateTreeFromString(sTree10));
 	
 	return aTrees;
 }
