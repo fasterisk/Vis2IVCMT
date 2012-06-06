@@ -21,9 +21,6 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 		CanvasElement.width = DivElement.offsetWidth - 18;
 		CanvasElement.height = DivElement.offsetHeight - 18;
 
-		// get context
-		context = CanvasElement.getContext("2d");
-
 		// get reference tree
 		nComparisonTree = m_nTreeToCompare;
 
@@ -37,7 +34,7 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 			}
 
 			// call visualizer
-			rTreeVisualizer.Draw(context, window.TreeManager.GetGlobalMeasure(), CanvasElement.width / 2, 20, true);
+			rTreeVisualizer.Draw(CanvasElement, window.TreeManager.GetGlobalMeasure(), CanvasElement.width / 2, 20, true);
 		}
 	};
 }

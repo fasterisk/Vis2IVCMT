@@ -18,6 +18,7 @@ function Vis2NodeVisualizer(rNode) {
 	var nRightSpaceNeeded = undefined;
 	var nLeftLineLength = undefined;
 	var nRightLineLength = undefined;
+	var nHeightNeeded = undefined;
 
 	/* private methods */
 	function ItlCalculateNeededSpace() {
@@ -26,6 +27,7 @@ function Vis2NodeVisualizer(rNode) {
 			nRightSpaceNeeded = 1;
 			nLeftLineLength = 0;
 			nRightLineLength = 0;
+			nHeightNeeded = Node.edgeweight * 10;
 		} else {
 			// children[0] is left child, children[1] is right child
 			LeftChildVisualizer = new Vis2NodeVisualizer(Node.children[0]);
@@ -36,6 +38,11 @@ function Vis2NodeVisualizer(rNode) {
 
 			nLeftLineLength = LeftChildVisualizer.GetRightSpaceNeeded();
 			nRightLineLength = RightChildVisualizer.GetLeftSpaceNeeded();
+			
+			if(Node.parent != undefined)
+				nHeightNeeded = Math.max(LeftChildVisualizer.GetHeightNeeded(), RightChildVisualizer.GetHeightNeeded()) + Node.edgeweight * 10;
+			else
+				nHeightNeeded = Math.max(LeftChildVisualizer.GetHeightNeeded(), RightChildVisualizer.GetHeightNeeded());
 		}
 	}
 
@@ -62,22 +69,33 @@ function Vis2NodeVisualizer(rNode) {
 
 		return nRightSpaceNeeded;
 	};
+	
+	this.GetHeightNeeded = function() {
+		assert(nHeightNeeded != undefined, "value not initialized");
+		
+		return nHeightNeeded;
+	};
 
 	this.GetNode = function() {
 		return Node;
 	};
 
-	this.Draw = function(context, sMeasureString, currX, currY, bInitialDrawCall) {
+	this.Draw = function(CanvasElement, sMeasureString, currX, currY, bInitialDrawCall) {
 		var nodeRadius = 5;
 		var aRenderedNodes = new Array();
 
 		var sMeasureColor = undefined;
 		
+		var context = CanvasElement.getContext("2d");
+		
 		if(bInitialDrawCall)
 		{
 			var fXDiff = this.GetRightSpaceNeeded() - this.GetLeftSpaceNeeded();
 			currX -= fXDiff*5;
+			
+			CanvasElement.height = this.GetHeightNeeded() + 50;
 		}
+
 
 		// Draw node as a circle
 
@@ -166,10 +184,10 @@ function Vis2NodeVisualizer(rNode) {
 			context.stroke();
 
 			// render left children and store returned information about rendered nodes
-			var aRenderedNodesLeft = LeftChildVisualizer.Draw(context, sMeasureString, currX - nLeftLineLength * 10, currY + LeftChildVisualizer.GetNode().edgeweight * 10, false);
+			var aRenderedNodesLeft = LeftChildVisualizer.Draw(CanvasElement, sMeasureString, currX - nLeftLineLength * 10, currY + LeftChildVisualizer.GetNode().edgeweight * 10, false);
 
-			// render right children and store returned information abour rendered nodes
-			var aRenderedNodesRight = RightChildVisualizer.Draw(context, sMeasureString, currX + nRightLineLength * 10, currY + RightChildVisualizer.GetNode().edgeweight * 10, false);
+			// render right children and store returned information about rendered nodes
+			var aRenderedNodesRight = RightChildVisualizer.Draw(CanvasElement, sMeasureString, currX + nRightLineLength * 10, currY + RightChildVisualizer.GetNode().edgeweight * 10, false);
 
 			// concat arrays to get 1 array containing the currently rendered node and all rendered child nodes
 			aRenderedNodes = aRenderedNodes.concat(aRenderedNodesLeft, aRenderedNodesRight);
