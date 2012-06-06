@@ -56,11 +56,13 @@ function Vis2ViewManager() {
 
 	this.OnCloseWindow = function(sWindowID_HTML) {
 		for(var i = 0; i < aCreatedWindows.length; i++) {
-			if(aCreatedWindows[i].windowID == sWindowID_HTML) {
+			if(aCreatedWindows[i].windowID == sWindowID_HTML) {			
+				window.SelectionManager.TreeSelectionRemoved(aCreatedWindows[i].nSelectedTree);
+				
 				aCreatedWindows[i].open = false;
 				aCreatedWindows[i].rViewObject = undefined;
-				
-				window.SelectionManager.TreeSelectionRemoved(aCreatedWindows[i].nSelectedTree);
+				aCreatedWindows[i].windowID = undefined;
+				aCreatedWindows[i].nSelectedTree = undefined;
 				
 				window.ViewManager.UpdateViews();
 			}
@@ -113,4 +115,17 @@ function Vis2ViewManager() {
 
 		return undefined;
 	};
+	
+	this.GetFirstWindowIDForTree = function(nTree)
+	{
+		for(var i = 0; i < aCreatedWindows.length; i++) {
+			if(aCreatedWindows[i].nSelectedTree == nTree) {
+				assert(aCreatedWindows[i].rViewObject != undefined, "view object doesn't exist anymore, window closed?");
+
+				return aCreatedWindows[i].windowID;
+			}
+		}
+
+		return undefined;		
+	}
 }

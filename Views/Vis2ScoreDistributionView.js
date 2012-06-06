@@ -13,10 +13,10 @@ function Vis2ScoreDistributionView(divID) {
 	var m_aDiagramInfos = new Array();
 
 	// construction code:
-	CanvasElement.addEventListener('dblclick', OnDoubleClick, false);
+	CanvasElement.addEventListener('click', OnClick, false);
 
 	// event handler
-	function OnDoubleClick(event) {
+	function OnClick(event) {
 		assert(m_bDivFilled, "click event called but div never filled");
 
 		var nX = event.offsetX;
@@ -41,11 +41,21 @@ function Vis2ScoreDistributionView(divID) {
 
 		// if a treeindex was found, create new comparison window
 		if(nTreeIndex != undefined) {
-			// add new tree comparison window
-			var nWindowIndex = window.ViewManager.AddTreeComparisonWindow(nTreeIndex);
+			if(window.SelectionManager.IsTreeSelected(nTreeIndex) == false) {
+				// add new tree comparison window
+				var nWindowIndex = window.ViewManager.AddTreeComparisonWindow(nTreeIndex);
 
-			// add tree to selection manager
-			window.SelectionManager.AddTreeToCompare(nTreeIndex, nWindowIndex);
+				// add tree to selection manager
+				window.SelectionManager.AddTreeToCompare(nTreeIndex, nWindowIndex);
+			} else {
+				var sWindowID = window.ViewManager.GetFirstWindowIDForTree(nTreeIndex);
+				assert (sWindowID != undefined, "windowID is undefined");
+				
+				$('#docking').jqxDocking('closeWindow', sWindowID);
+				
+				window.ViewManager.OnCloseWindow(sWindowID);
+			}
+
 		}
 	}
 
@@ -57,7 +67,7 @@ function Vis2ScoreDistributionView(divID) {
 		// Set canvas width to div width, also do the height
 		CanvasElement.width = DivElement.offsetWidth;
 		CanvasElement.height = DivElement.offsetHeight - 10;
-		
+
 		// Get context
 		var context = CanvasElement.getContext("2d");
 
@@ -67,30 +77,28 @@ function Vis2ScoreDistributionView(divID) {
 
 		// calculate necessary number of columns/rows
 		// lets say, width = 2*height
-		
+
 		var nCols = undefined;
 		var nRows = undefined;
 		var fDiagramWidth = undefined;
 		var fDiagramHeight = undefined;
-		
-		for (var i=0; i < 10; i+=1)
-		{
+
+		for(var i = 0; i < 10; i += 1) {
 			// TODO: make better algorithm which sets nCols/nRows in a more dynamic way
-			
+
 			nCols = i;
-			nRows = i*2;
-			
-			if (nCols * nRows >= nNumTrees)
+			nRows = i * 2;
+
+			if(nCols * nRows >= nNumTrees)
 				break;
 		}
-		
+
 		var fPadding = 4;
-		
+
 		// so we have the number of cols and rows
 		fDiagramWidth = CanvasElement.width / nCols - fPadding - 2;
 		fDiagramHeight = CanvasElement.height / nRows - fPadding;
-		
-		
+
 		//Get the reference tree
 		var rReferenceTree = window.SelectionManager.GetReferenceTree();
 		if(rReferenceTree == undefined)
@@ -114,46 +122,41 @@ function Vis2ScoreDistributionView(divID) {
 				var fAverage = window.TreeManager.GetAverageScore(nReferenceTree, nTreeIndex);
 				var bIsTreeSelected = window.SelectionManager.IsTreeSelected(nTreeIndex);
 
-				if (bIsTreeSelected == true)
-				{
+				if(bIsTreeSelected == true) {
 					context.strokeStyle = "rgb(255, 0, 0)";
-				}
-				else
-				{
+				} else {
 					context.strokeStyle = "rgb(0, 0, 0)";
 				}
-				
+
 				var fCellWidth = fDiagramWidth;
 				var fCellHeight = fDiagramHeight;
 
-				var currX = j * fCellWidth + fPadding * (j+1);
-				var currY = i * fCellHeight + fPadding * (i+1);
-				
-				
+				var currX = j * fCellWidth + fPadding * (j + 1);
+				var currY = i * fCellHeight + fPadding * (i + 1);
+
 				context.fillStyle = window.ColorMap.GetColor(fAverage);
 
 				//if(nTreeIndex == nReferenceTree)
-					//context.fillStyle = "rgb(255, 200, 200)";
+				//context.fillStyle = "rgb(255, 200, 200)";
 
 				context.lineWidth = 2;
 				context.strokeRect(currX, currY, fCellWidth, fCellHeight);
 				context.fillRect(currX, currY, fCellWidth, fCellHeight);
 
 				context.fillStyle = "rgb(0, 0, 0)";
-				context.fillText(nTreeIndex+1, currX, currY + 9);
+				context.fillText(nTreeIndex + 1, currX, currY + 9);
 
 				context.strokeStyle = "rgb(0, 0, 0)";
 				context.lineWidth = 1;
-				
+
 				for(var k = 0; k < 10; k++) {
 					var fBarHeight = fCellHeight * aScoreDistribution[k];
 					var fBarWidth = fCellWidth / 10;
-					
-					if (fBarHeight > 0)
-					{
-					context.fillStyle = window.ColorMap.GetColor(k / 10 + 0.05);
-					context.fillRect(currX + fBarWidth * k, currY + fCellHeight - fBarHeight, fBarWidth, fBarHeight);
-					context.strokeRect(currX + fBarWidth * k, currY + fCellHeight - fBarHeight, fBarWidth, fBarHeight);	
+
+					if(fBarHeight > 0) {
+						context.fillStyle = window.ColorMap.GetColor(k / 10 + 0.05);
+						context.fillRect(currX + fBarWidth * k, currY + fCellHeight - fBarHeight, fBarWidth, fBarHeight);
+						context.strokeRect(currX + fBarWidth * k, currY + fCellHeight - fBarHeight, fBarWidth, fBarHeight);
 					}
 				}
 
