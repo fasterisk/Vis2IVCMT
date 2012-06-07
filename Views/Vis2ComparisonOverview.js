@@ -19,6 +19,7 @@ function Vis2ComparisonOverview(divID) {
 
 	// attach event handler
 	CanvasElement.addEventListener('click', OnClick, false);
+	CanvasElement.addEventListener('mousemove', OnMouseOver, false);
 
 	function OnClick(event) {
 		assert(bDivFilled, "click event called but div never filled");
@@ -39,7 +40,7 @@ function Vis2ComparisonOverview(divID) {
 		// get height of each rectangle
 		nHeight = CanvasElement.height / (nNumTrees + 1);
 
-		// get height of each rectangle
+		// get width of each rectangle
 		nWidth = CanvasElement.width / (nNumTrees + 1);
 
 		// get selected tree in x direction
@@ -50,6 +51,54 @@ function Vis2ComparisonOverview(divID) {
 
 		// set reference tree
 		window.SelectionManager.SetReferenceTree(rTreeObject);
+	}
+	
+	function OnMouseOver(event) {
+		window.ViewManager.ComparisonOverview.Update();
+		
+		assert(bDivFilled, "mouseover-event called but div never filled");
+		
+		var nXinCanvas, nYinCanvas;
+
+		// assert that properties are available
+		assert(event.offsetX || event.offsetX == 0, "offsetX / offsetY not supported by this browser");
+
+		// Get the mouse position relative to the canvas element.
+		nXinCanvas = event.offsetX;
+		nYinCanvas = event.offsetY;
+		
+		// get number of trees
+		nNumTrees = window.TreeManager.GetNumTrees();
+		assert(nNumTrees > 0, "no trees loaded");
+
+		// get height of each rectangle
+		nHeight = CanvasElement.height / (nNumTrees + 1);
+
+		// get width of each rectangle
+		nWidth = CanvasElement.width / (nNumTrees + 1);
+		
+		// get tree in x direction
+		nTree1 = Math.floor(nXinCanvas / nWidth) - 1;
+		
+		// get tree inY direction
+		nTree2 = Math.floor(nYinCanvas / nHeight) - 1;
+		
+		if(nTree1 < 0 || nTree2 < 0)
+			return;
+		
+		// get measure value
+		fMeasure = window.TreeManager.GetComparisonOverviewMeasure(nTree1, nTree2);
+		
+		// get context
+		context = CanvasElement.getContext("2d");
+		
+		context.fillStyle = '#ff0';
+		context.strokeStyle = '#000';
+		context.fillRect(nXinCanvas - 30, nYinCanvas - 15, 30, 20);
+		context.strokeRect(nXinCanvas - 30, nYinCanvas - 15, 30, 20);
+		context.font = "10px sans-serif";
+	    context.fillStyle = '#000';
+	    context.fillText(fMeasure.toPrecision(2), nXinCanvas - 25, nYinCanvas - 2, 60);
 	}
 
 	/*

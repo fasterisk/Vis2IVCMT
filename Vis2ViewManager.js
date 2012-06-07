@@ -1,29 +1,29 @@
 function Vis2ViewManager() {
-	var ComparisonOverview = undefined;
-	var ReferenceTreeView = undefined;
-	var ScoreDistributionView = undefined;
+	this.ComparisonOverview = undefined;
+	this.ReferenceTreeView = undefined;
+	this.ScoreDistributionView = undefined;
 
 	var aCreatedWindows = new Array();
 
 	this.InitializeViews = function() {
-		ComparisonOverview = new Vis2ComparisonOverview("ComparisonOverviewPane");
-		ReferenceTreeView = new Vis2ReferenceTreeView("ReferenceTreePane");
-		ScoreDistributionView = new Vis2ScoreDistributionView("ScoreDistributionPane");
+		this.ComparisonOverview = new Vis2ComparisonOverview("ComparisonOverviewPane");
+		this.ReferenceTreeView = new Vis2ReferenceTreeView("ReferenceTreePane");
+		this.ScoreDistributionView = new Vis2ScoreDistributionView("ScoreDistributionPane");
 		
 		setTimeout("window.ViewManager.ShowHelpWindow()", 100);
 	};
 
 	this.UpdateViews = function() {
-		assert(ComparisonOverview != undefined && ReferenceTreeView != undefined, "Views not initialized yet!");
+		assert(this.ComparisonOverview != undefined && this.ReferenceTreeView != undefined, "Views not initialized yet!");
 
 		// update comparison overview
-		ComparisonOverview.Update();
+		this.ComparisonOverview.Update();
 
 		// update reference tree view
-		ReferenceTreeView.Update();
+		this.ReferenceTreeView.Update();
 
 		// update score distribution view
-		ScoreDistributionView.Update();
+		this.ScoreDistributionView.Update();
 
 		// update all tree comparison views
 		for(var i = 0; i < aCreatedWindows.length; i++) {
