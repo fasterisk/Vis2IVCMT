@@ -1,9 +1,8 @@
-<style type="text/css" media="all">
+a { text-decoration:none }
+
 html, body
 {
-	width: 100%;
-	height: 100%;
-	margin: 0;			/* Remove body margin/padding */
+	margin: 3;
 	padding: 0;
 	overflow: hidden;	/* Remove scroll bars on browser window */
 }
@@ -24,4 +23,38 @@ html, body
 	overflow-y: auto;
 }
 
-</style>
+div#settings {
+	font-family: verdana, arial;
+	font-size: 10pt;
+	border: 1px solid #BBB;
+	padding: 3px;
+	margin-bottom: 4px;
+	vertical-align: top;
+}
+
+table.settings_structure
+{
+	border-collapse:collapse;
+	
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+table.settings_structure h1
+{
+	font-family: verdana, arial;
+	font-size: 16pt;
+	font-weight: normal;
+	color: #003366;
+	line-height: 16pt;
+	padding: 0;
+	margin: 0;
+}
+
+span.info
+{
+	font-family: verdana, arial;
+	font-size: 8pt;
+	color: #666;	
+}

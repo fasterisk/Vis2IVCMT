@@ -8,6 +8,7 @@ function Vis2TreeManager(sFilename) {
 	var m_aAverageScore = undefined;
 
 	var m_sGlobalMeasure = "leaf";
+	var m_fGlobalThreshold = 0.0;
 
 	function LoadTrees() {
 		/* this only works, if the website is hosted by a webserver.
@@ -42,7 +43,36 @@ function Vis2TreeManager(sFilename) {
 
 		UpdateOverviewMeasures();
 	}
+	
+	function ItlAutoCollapseNodes()
+	{
+		for(var iIndex = 0; iIndex < m_aLoadedTrees.length; iIndex++) {
+			ItlAutoCollapseRecursive(m_aLoadedTrees[iIndex]);
+		}
+	}
+	
+	function ItlAutoCollapseRecursive(rNode)
+	{
+		assert(m_sGlobalMeasure == "leaf" || m_sGlobalMeasure == "element" || m_sGlobalMeasure == "edge", "Wrong measure set");
+		
+		if (m_sGlobalMeasure == "leaf" && rNode.leafmeasure < m_fGlobalThreshold)
+			rNode.bIsCollapsed = true;
+		else
+		if (m_sGlobalMeasure == "element" && rNode.elementmeasure < m_fGlobalThreshold)
+			rNode.bIsCollapsed = true;
+		else
+		if (m_sGlobalMeasure == "edge" && rNode.edgemeasure < m_fGlobalThreshold)
+			rNode.bIsCollapsed = true;
+		else
+			rNode.bIsCollapsed = false;
+			
+		if(rNode.isleaf == false) {
+			for(var i = 0; i < rNode.GetChildrenCount(); i++)
+				ItlAutoCollapseRecursive(rNode.children[i]);
+		}
+	}
 
+	
 	function UpdateOverviewMeasures() {
 		// calculate comparison measures for each pair of trees
 		m_aComparisonOverviewMeasures = new Array();
@@ -211,6 +241,18 @@ function Vis2TreeManager(sFilename) {
 	this.GetTrees = function() {
 		return m_aLoadedTrees;
 	};
+	
+	
+	this.SetThreshold = function (fThreshold)
+	{
+		assert (fThreshold >= 0.0 && fThreshold <= 1.0, "fThreshold out of range");
+		
+		m_fGlobalThreshold = fThreshold;
+		
+		ItlAutoCollapseNodes();
+		
+		window.ViewManager.UpdateViews();
+	}
 
 	// sets the global measure, must be "leaf", "element" or "edge"
 	this.SetGlobalMeasure = function(sMeasure) {
@@ -218,6 +260,9 @@ function Vis2TreeManager(sFilename) {
 
 		m_sGlobalMeasure = sMeasure;
 
+
+		ItlAutoCollapseNodes();
+		
 		this.UpdateAllMeasures();
 		window.ViewManager.UpdateViews();
 	}

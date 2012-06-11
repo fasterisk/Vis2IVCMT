@@ -36,10 +36,7 @@ function Vis2ViewManager() {
 	this.HideHelpWindow = function() {
 		$("#help").hide('normal');
 
-		if($("#show_help_link").length == 0)
-			$('body').prepend('<a id="show_help_link" href="javascript: window.ViewManager.ShowHelpWindow()">Show Help</a>');
-		else
-			$("#show_help_link").show('normal');
+		//$("#show_help_link").show('normal');
 	}
 
 	this.ShowHelpWindow = function() {	
@@ -50,7 +47,7 @@ function Vis2ViewManager() {
 		$("#help").width($("#docking").width());
 		$("#help").height($("#docking").height());
 		
-		$("#show_help_link").hide('normal');
+		//$("#show_help_link").hide('normal');
 
 	}
 

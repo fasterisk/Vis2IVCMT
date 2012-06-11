@@ -211,13 +211,15 @@ function Vis2NodeVisualizer(rNode) {
 		}
 		else
 		{
-		context.strokeStyle = "#999";
-		context.fillStyle = "#999";
+		context.strokeStyle = "#000";
+		context.fillStyle = "#0F0";
 				
 		// draw arc
 		context.beginPath();
-		
-		context.arc(currX, currY, nodeRadius, 0, Math.PI, true);
+		context.moveTo(currX - nodeRadius, currY - nodeRadius);
+		context.lineTo(currX + nodeRadius, currY - nodeRadius);
+		context.lineTo(currX + nodeRadius, currY + nodeRadius);
+		context.lineTo(currX - nodeRadius, currY + nodeRadius);
 		context.closePath();
 		context.fill();
 		context.stroke();	
