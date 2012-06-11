@@ -44,7 +44,9 @@ function Vis2Node()
 	this.averageelementmeasure;
 	this.averageedgemeasure;
 	
-	this.bIsSelected;
+	this.bIsSelected = false;
+	
+	this.bIsCollapsed = false;
 
 	/*
 	 * Functions

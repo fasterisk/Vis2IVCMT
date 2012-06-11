@@ -38,7 +38,7 @@ function Vis2NodeVisualizer(rNode) {
 
 			nLeftLineLength = LeftChildVisualizer.GetRightSpaceNeeded();
 			nRightLineLength = RightChildVisualizer.GetLeftSpaceNeeded();
-			
+
 			if(Node.parent != undefined)
 				nHeightNeeded = Math.max(LeftChildVisualizer.GetHeightNeeded(), RightChildVisualizer.GetHeightNeeded()) + Node.edgeweight * 10;
 			else
@@ -69,10 +69,10 @@ function Vis2NodeVisualizer(rNode) {
 
 		return nRightSpaceNeeded;
 	};
-	
+
 	this.GetHeightNeeded = function() {
 		assert(nHeightNeeded != undefined, "value not initialized");
-		
+
 		return nHeightNeeded;
 	};
 
@@ -85,11 +85,10 @@ function Vis2NodeVisualizer(rNode) {
 		var aRenderedNodes = new Array();
 
 		var sMeasureColor = undefined;
-		
-		if(bInitialDrawCall)
-		{
+
+		if(bInitialDrawCall) {
 			var fXDiff = this.GetRightSpaceNeeded() - this.GetLeftSpaceNeeded();
-			currX -= fXDiff*5;
+			currX -= fXDiff * 5;
 		}
 
 		// Draw node as a circle
@@ -121,6 +120,9 @@ function Vis2NodeVisualizer(rNode) {
 			context.fillStyle = sMeasureColor;
 			context.font = "10px sans-serif";
 			context.fillText(Node.name, currX - 5, currY + 15);
+		}
+		else if(Node.bIsCollapsed) {
+			// do nothing 
 		} else {
 			sMeasureColor = window.ColorMap.GetColor(fMeasure);
 
@@ -190,21 +192,37 @@ function Vis2NodeVisualizer(rNode) {
 
 		context.fillStyle = sMeasureColor;
 
-		if(Node.bIsSelected ) {
-			{
-			context.strokeStyle = "#F0F";
-			context.fillStyle = "#F0F";	
+		if(Node.bIsSelected) { {
+				context.strokeStyle = "#F0F";
+				context.fillStyle = "#F0F";
 			}
-			
+
 		} else
 			context.strokeStyle = "#000";
 
+		if (Node.bIsCollapsed == false || Node.isleaf)
+		{
 		// draw arc
 		context.beginPath();
 		context.arc(currX, currY, nodeRadius, 0, Math.PI * 2, true);
 		context.closePath();
 		context.fill();
-		context.stroke();
+		context.stroke();	
+		}
+		else
+		{
+		context.strokeStyle = "#999";
+		context.fillStyle = "#999";
+				
+		// draw arc
+		context.beginPath();
+		
+		context.arc(currX, currY, nodeRadius, 0, Math.PI, true);
+		context.closePath();
+		context.fill();
+		context.stroke();	
+		}
+		
 
 		if(fMeasure != undefined) {
 			sMeasureColor = window.ColorMap.GetColor(fMeasure);

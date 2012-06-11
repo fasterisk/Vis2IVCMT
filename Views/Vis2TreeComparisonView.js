@@ -10,7 +10,37 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 	var m_nTreeToCompare = nTreeToCompare;
 
 	var rTreeVisualizer = undefined;
+
+	var aRenderedNodes = new Array();
+
 	//var m_sMeasureString = 'element';
+
+	CanvasElement.addEventListener('mousedown', OnMouseDown, false);
+
+	function OnMouseDown(event) {
+
+		// get coordinates
+		var nX = event.offsetX;
+		var nY = event.offsetY;
+
+		for(var i = 0; i < aRenderedNodes.length; i++) {
+			var nDiffX = Math.abs(nX - aRenderedNodes[i].x);
+			var nDiffY = Math.abs(nY - aRenderedNodes[i].y);
+
+			var fDiff = Math.sqrt(nDiffX * nDiffX + nDiffY * nDiffY);
+
+			var fNodeRadius = aRenderedNodes[i].radius;
+
+			if(fDiff < fNodeRadius) {
+				// node selected!
+
+				// set reference node
+				aRenderedNodes[i].rNode.bIsCollapsed = !(aRenderedNodes[i].rNode.bIsCollapsed);
+
+				this.Update();
+			}
+		}
+	}
 
 	/*
 	 * Functions for public access
@@ -23,7 +53,7 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 
 		// get context
 		context = CanvasElement.getContext("2d");
-		
+
 		// get reference tree
 		nComparisonTree = m_nTreeToCompare;
 
@@ -35,14 +65,14 @@ function Vis2TreeComparisonView(divID, nTreeToCompare) {
 			if(rTreeVisualizer == undefined || rTreeVisualizer.GetNode() != rTree) {
 				rTreeVisualizer = new Vis2NodeVisualizer(rTree);
 			}
-			
-			var nSpaceNeeded = (rTreeVisualizer.GetLeftSpaceNeeded() + rTreeVisualizer.GetRightSpaceNeeded())*10;
+
+			var nSpaceNeeded = (rTreeVisualizer.GetLeftSpaceNeeded() + rTreeVisualizer.GetRightSpaceNeeded()) * 10;
 			if(CanvasElement.width < nSpaceNeeded)
 				CanvasElement.width = nSpaceNeeded;
 			CanvasElement.height = rTreeVisualizer.GetHeightNeeded() + 50;
 
 			// call visualizer
-			rTreeVisualizer.Draw(context, window.TreeManager.GetGlobalMeasure(), CanvasElement.width / 2, 20, true);
+			aRenderedNodes = rTreeVisualizer.Draw(context, window.TreeManager.GetGlobalMeasure(), CanvasElement.width / 2, 20, true);
 		}
 	};
 }
