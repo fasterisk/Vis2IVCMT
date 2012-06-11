@@ -81,7 +81,10 @@ function Vis2NodeVisualizer(rNode) {
 	};
 
 	this.Draw = function(context, sMeasureString, currX, currY, bInitialDrawCall) {
-		var nodeRadius = 5;
+		var nSizeMultiplier = 9;
+		var nLineWidth = 0.4 * nSizeMultiplier;
+		var nodeRadius = 0.5 * nSizeMultiplier;
+		
 		var aRenderedNodes = new Array();
 
 		var sMeasureColor = undefined;
@@ -118,8 +121,8 @@ function Vis2NodeVisualizer(rNode) {
 			sMeasureColor = "#000";
 
 			context.fillStyle = sMeasureColor;
-			context.font = "10px sans-serif";
-			context.fillText(Node.name, currX - 5, currY + 15);
+			context.font = nSizeMultiplier + "px sans-serif";
+			context.fillText(Node.name, currX - 0.5 * nSizeMultiplier, currY + 1.5 * nSizeMultiplier);
 		}
 		else if(Node.bIsCollapsed) {
 			// do nothing 
@@ -130,7 +133,9 @@ function Vis2NodeVisualizer(rNode) {
 			assert(RightChildVisualizer != undefined, "NodeVisualizer not correctly initialized");
 			assert(sMeasureColor != undefined, "sMeasureColor not defined");
 
-			var nLineWidth = 4;
+			
+			
+			
 			context.strokeStyle = sMeasureColor;
 
 			// draw thick lines
@@ -138,14 +143,14 @@ function Vis2NodeVisualizer(rNode) {
 
 			context.beginPath();
 			context.moveTo(currX, currY);
-			context.lineTo(currX - nLeftLineLength * 10, currY);
-			context.lineTo(currX - nLeftLineLength * 10, currY + LeftChildVisualizer.GetNode().edgeweight * 10);
+			context.lineTo(currX - nLeftLineLength * nSizeMultiplier, currY);
+			context.lineTo(currX - nLeftLineLength * nSizeMultiplier, currY + LeftChildVisualizer.GetNode().edgeweight * nSizeMultiplier);
 			context.stroke();
 
 			context.beginPath();
 			context.moveTo(currX, currY);
-			context.lineTo(currX + nRightLineLength * 10, currY);
-			context.lineTo(currX + nRightLineLength * 10, currY + RightChildVisualizer.GetNode().edgeweight * 10);
+			context.lineTo(currX + nRightLineLength * nSizeMultiplier, currY);
+			context.lineTo(currX + nRightLineLength * nSizeMultiplier, currY + RightChildVisualizer.GetNode().edgeweight * nSizeMultiplier);
 			context.stroke();
 
 			// draw thin lines
@@ -158,33 +163,33 @@ function Vis2NodeVisualizer(rNode) {
 
 			context.beginPath();
 			context.moveTo(currX, currY - nLineWidth / 2);
-			context.lineTo(currX - nLeftLineLength * 10 - nLineWidth / 2, currY - nLineWidth / 2);
-			context.lineTo(currX - nLeftLineLength * 10 - nLineWidth / 2, currY + LeftChildVisualizer.GetNode().edgeweight * 10);
+			context.lineTo(currX - nLeftLineLength * nSizeMultiplier - nLineWidth / 2, currY - nLineWidth / 2);
+			context.lineTo(currX - nLeftLineLength * nSizeMultiplier - nLineWidth / 2, currY + LeftChildVisualizer.GetNode().edgeweight * nSizeMultiplier);
 			context.stroke();
 
 			context.beginPath();
 			context.moveTo(currX, currY + nLineWidth / 2);
-			context.lineTo(currX - nLeftLineLength * 10 + nLineWidth / 2, currY + nLineWidth / 2);
-			context.lineTo(currX - nLeftLineLength * 10 + nLineWidth / 2, currY + LeftChildVisualizer.GetNode().edgeweight * 10);
+			context.lineTo(currX - nLeftLineLength * nSizeMultiplier + nLineWidth / 2, currY + nLineWidth / 2);
+			context.lineTo(currX - nLeftLineLength * nSizeMultiplier + nLineWidth / 2, currY + LeftChildVisualizer.GetNode().edgeweight * nSizeMultiplier);
 			context.stroke();
 
 			context.beginPath();
 			context.moveTo(currX, currY - nLineWidth / 2);
-			context.lineTo(currX + nRightLineLength * 10 + nLineWidth / 2, currY - nLineWidth / 2);
-			context.lineTo(currX + nRightLineLength * 10 + nLineWidth / 2, currY + RightChildVisualizer.GetNode().edgeweight * 10);
+			context.lineTo(currX + nRightLineLength * nSizeMultiplier + nLineWidth / 2, currY - nLineWidth / 2);
+			context.lineTo(currX + nRightLineLength * nSizeMultiplier + nLineWidth / 2, currY + RightChildVisualizer.GetNode().edgeweight * nSizeMultiplier);
 			context.stroke();
 
 			context.beginPath();
 			context.moveTo(currX, currY + nLineWidth / 2);
-			context.lineTo(currX + nRightLineLength * 10 - nLineWidth / 2, currY + nLineWidth / 2);
-			context.lineTo(currX + nRightLineLength * 10 - nLineWidth / 2, currY + RightChildVisualizer.GetNode().edgeweight * 10);
+			context.lineTo(currX + nRightLineLength * nSizeMultiplier - nLineWidth / 2, currY + nLineWidth / 2);
+			context.lineTo(currX + nRightLineLength * nSizeMultiplier - nLineWidth / 2, currY + RightChildVisualizer.GetNode().edgeweight * nSizeMultiplier);
 			context.stroke();
 
 			// render left children and store returned information about rendered nodes
-			var aRenderedNodesLeft = LeftChildVisualizer.Draw(context, sMeasureString, currX - nLeftLineLength * 10, currY + LeftChildVisualizer.GetNode().edgeweight * 10, false);
+			var aRenderedNodesLeft = LeftChildVisualizer.Draw(context, sMeasureString, currX - nLeftLineLength * nSizeMultiplier, currY + LeftChildVisualizer.GetNode().edgeweight * nSizeMultiplier, false);
 
 			// render right children and store returned information about rendered nodes
-			var aRenderedNodesRight = RightChildVisualizer.Draw(context, sMeasureString, currX + nRightLineLength * 10, currY + RightChildVisualizer.GetNode().edgeweight * 10, false);
+			var aRenderedNodesRight = RightChildVisualizer.Draw(context, sMeasureString, currX + nRightLineLength * nSizeMultiplier, currY + RightChildVisualizer.GetNode().edgeweight * nSizeMultiplier, false);
 
 			// concat arrays to get 1 array containing the currently rendered node and all rendered child nodes
 			aRenderedNodes = aRenderedNodes.concat(aRenderedNodesLeft, aRenderedNodesRight);
@@ -230,8 +235,8 @@ function Vis2NodeVisualizer(rNode) {
 			sMeasureColor = window.ColorMap.GetColor(fMeasure);
 
 			context.fillStyle = '#000';
-			context.font = "10px sans-serif";
-			context.fillText(fMeasure.toPrecision(2), currX + 5, currY - 4);
+			context.font = nSizeMultiplier + "px sans-serif";
+			context.fillText(fMeasure.toPrecision(2), currX + 0.5 * nSizeMultiplier, currY - 0.4 * nSizeMultiplier);
 		}
 
 		return aRenderedNodes;

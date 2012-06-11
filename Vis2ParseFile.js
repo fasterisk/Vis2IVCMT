@@ -123,13 +123,13 @@ function GetSampleTrees()
 	var sTree4 = '[4;[2;[6;"C"][2;"A"]][3;[4;"B"][5;"G"]]][3;[2;[6;"H"][2;"D"]][3;[4;"E"][4;"F"]]]';
 	var sTree5 = '[5;[6;[2;[3;"D"][4;"C"]][5;"B"]][4;"A"]][3;[2;"H"][6;[2;"E"][3;[4;"G"][5;"F"]]]]';
 	
-	var sTree6 = '[2;[2;"A"][2;"B"]][2;[2;"C"][2;"D"]]';
-	var sTree7 = '[2;[2;[2;"A"][2;"B"]][2;"C"]][2;"D"]';
+	var sTree6 = '[5;[6;[2;[3;"D"][4;"C"]][5;"B"]][4;"A"]][3;[2;"H"][6;[2;"E"][3;[4;"G"][2;"F"]]]]';	
+	var sTree7 = '[5;[6;[2;[3;"D"][4;"C"]][3;"B"]][2;"A"]][1;[2;"H"][8;[1;"E"][2;[1;"G"][5;"F"]]]]';
+	var sTree8 = '[3;[3;"B"][2;"A"]][2;[3;[6;[4;"D"][6;[6;"C"][4;"E"]]][5;[4;"F"][5;"H"]]][3;"G"]]';
+	var sTree9 = '[1;[1;[1;[1;"D"][10;"C"]][1;"B"]][2;"A"]][3;[2;"H"][6;[2;"E"][3;[4;"G"][5;"F"]]]]';
+	var sTree10 = '[1;[1;[1;[1;"D"][10;"B"]][1;"A"]][2;"C"]][3;[2;"H"][6;[2;"E"][3;[4;"G"][5;"F"]]]]';
 	
-	var sTree8 = '[2;"A"][2;"B"]';
-	var sTree9 = '[1;"A"][2;"B"]';
 	
-	var sTree10 = '[1;[1;[1;[1;[1;[1;[1;[1;[1;[1;[1;[1;"A"][1;"B"]][1;"C"]][1;"D"]][1;"E"]][1;"F"]][1;"G"]][1;"H"]][1;"I"]][1;"J"]][1;"K"]][1;"L"]][1;[1;"M"][1;[1;"N"][1;[1;"O"][1;[1;"P"][1;[1;"Q"][1;[1;"R"][1;[1;"S"][1;[1;"T"][1;[1;"U"][1;[1;"V"][1;[1;"W"][1;"X"]]]]]]]]]]]]';
 	
 	var aTrees = new Array();
 	
@@ -138,6 +138,11 @@ function GetSampleTrees()
 	aTrees.push(CreateTreeFromString(sTree3));
 	aTrees.push(CreateTreeFromString(sTree4));
 	aTrees.push(CreateTreeFromString(sTree5));
+	aTrees.push(CreateTreeFromString(sTree6));
+	aTrees.push(CreateTreeFromString(sTree7));
+	aTrees.push(CreateTreeFromString(sTree8));
+	aTrees.push(CreateTreeFromString(sTree9));
+	aTrees.push(CreateTreeFromString(sTree10));
 	
 	//aTrees.push(CreateTreeFromString(sTree6));
 	//aTrees.push(CreateTreeFromString(sTree7));

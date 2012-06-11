@@ -141,7 +141,7 @@ function Vis2TreeManager(sFilename) {
 					} else
 						assert(false, "no valid measure selected!");
 
-					Debugger.log("CURRENT OVERVIEW MEASURE(" + nCompareTree + "|" + nReferenceTree + "): " + fMeasure);
+					//Debugger.log("CURRENT OVERVIEW MEASURE(" + nCompareTree + "|" + nReferenceTree + "): " + fMeasure);
 					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = fMeasure;
 				} else {
 					m_aComparisonOverviewMeasures[nReferenceTree][nCompareTree] = 1.0;

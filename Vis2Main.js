@@ -137,7 +137,6 @@ function PrepareMainPage() {
 	// close the dummy windows, which were added to make the sections working (they must be existing at the docking-construction-time) 		
 	$('#docking').jqxDocking('closeWindow', 'knockout-window-1');
 	$('#docking').jqxDocking('closeWindow', 'knockout-window-2');
-	
 }
 
 // attach OnWindowLoadedEvent

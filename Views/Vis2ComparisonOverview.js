@@ -9,6 +9,8 @@ function Vis2ComparisonOverview(divID) {
 
 	var bDivFilled = false;
 
+	var m_nHoveredReferenceTree = undefined;
+	
 	/*
 	* code executed while construction
 	*/
@@ -83,9 +85,14 @@ function Vis2ComparisonOverview(divID) {
 		// get tree inY direction
 		nTree2 = Math.floor(nYinCanvas / nHeight) - 1;
 		
-		if(nTree1 < 0 || nTree2 < 0)
-			return;
+		// set hovered reference tree
+		m_nHoveredReferenceTree = nTree1+1;
 		
+		if(nTree1 < 0 || nTree2 < 0)
+		{		
+			return;
+		}
+					
 		// get measure value
 		fMeasure = window.TreeManager.GetComparisonOverviewMeasure(nTree1, nTree2);
 		
@@ -98,7 +105,8 @@ function Vis2ComparisonOverview(divID) {
 		context.strokeRect(nXinCanvas - 30, nYinCanvas - 15, 30, 20);
 		context.font = "10px sans-serif";
 	    context.fillStyle = '#000';
-	    context.fillText(fMeasure.toPrecision(2), nXinCanvas - 25, nYinCanvas - 2, 60);
+	    context.fillText(fMeasure.toPrecision(2), nXinCanvas - 25, nYinCanvas - 2, 60);	    
+	    
 	}
 
 	/*
@@ -146,6 +154,12 @@ function Vis2ComparisonOverview(divID) {
 					{
 						context.fillStyle = "rgb(255, 0, 0)";
 						context.fillRect(nIndexX * nWidth, nIndexY * nHeight, nWidth, nHeight);
+					}
+					
+					if(nIndexX == m_nHoveredReferenceTree) {
+							// draw black border
+							context.fillStyle = "rgb(100, 100, 100)";
+							context.fillRect(nIndexX * nWidth, nIndexY * nHeight, nWidth, nHeight);
 					}
 					
 					if(nIndexX == nReferenceTree) {
