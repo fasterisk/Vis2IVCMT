@@ -28,14 +28,10 @@ function Vis2ReferenceTreeView(divID) {
 				rTreeVisualizer = new Vis2NodeVisualizer(ReferenceTree);
 			}
 
-			CanvasElement.height = rTreeVisualizer.GetHeightNeeded() + 50;
-			
-			// print legend (tree index)
-			context.font = "16px sans-serif";
-			context.fillText("Tree " + (window.TreeManager.GetIndexOfTree(ReferenceTree)+1), 0, 25);
-			
+			CanvasElement.height = rTreeVisualizer.GetHeightNeeded();
+						
 			// call visualizer
-			aRenderedNodes = rTreeVisualizer.Draw(context, window.TreeManager.GetGlobalMeasure() + 'average', CanvasElement.width / 2, 10, true);
+			aRenderedNodes = rTreeVisualizer.Draw(context, window.TreeManager.GetGlobalMeasure() + 'average', CanvasElement.width / 2, 20, true);
 			
 			Debugger.log("rendered " + aRenderedNodes.length + " nodes");
 		}

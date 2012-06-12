@@ -22,9 +22,9 @@ function PrepareMainPage() {
 		theme : 'darkblue',
 		orientation : 'horizontal',
 		panels : [{
-			size : '200px'
+			size : '230px'
 		}, {
-			size : '200px'
+			size : '230px'
 		}, {
 			size : '500px'
 		}]
@@ -33,7 +33,7 @@ function PrepareMainPage() {
 	$("#jqxSplitter").jqxSplitter({
 		theme : 'darkblue',
 		panels : [{
-			size : '200px'
+			size : '230px'
 		}, {
 			size : '800px'
 		}]

@@ -35,6 +35,9 @@ function Vis2ViewManager() {
 
 	this.HideHelpWindow = function() {
 		$("#help").hide('normal');
+		
+		$("#show_help_link").attr("href", "javascript:window.ViewManager.ShowHelpWindow()");
+		$("#show_help_link").html("Show help window");
 
 		//$("#show_help_link").show('normal');
 	}
@@ -47,7 +50,8 @@ function Vis2ViewManager() {
 		$("#help").width($("#docking").width());
 		$("#help").height($("#docking").height());
 		
-		//$("#show_help_link").hide('normal');
+		$("#show_help_link").attr("href", "javascript:window.ViewManager.HideHelpWindow()");
+		$("#show_help_link").html("Hide help window");
 
 	}
 
