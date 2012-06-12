@@ -83,19 +83,28 @@
 			<div id='jqxSplitter' style="width: auto; height: auto; background-color: #FFFFFF">
 				<div id="jqxSplitter2" style="background-color: red; height: 100%">
 					<div id="ComparisonOverviewPane">
-						<canvas id="ComparisonOverviewCanvas">
-							One does not simply use HTML5 Canvas with this browser
-						</canvas>
+						<div class="titlebar">Comparison Overview</div>						
+						<div class="view">
+							<canvas id="ComparisonOverviewCanvas">
+								One does not simply use HTML5 Canvas with this browser
+							</canvas>
+						</div>
 					</div>
 					<div id="ScoreDistributionPane">
+						<div class="titlebar">Score Distribution View</div>						
+						<div class="view">
 						<canvas>
 							One does not simply use HTML5 Canvas with this browser
 						</canvas>
+						</div>
 					</div>
 					<div id="ReferenceTreePane">
+						<div class="titlebar">Reference Tree View</div>						
+						<div class="view">
 						<canvas>
 							One does not simply use HTML5 Canvas with this browser
 						</canvas>
+						</div>
 					</div>
 				</div>
 				<div id="docking" style="width: 100%" data-bind="template: { foreach: OpenViews, afterRender: buildWindow }">
@@ -119,28 +128,20 @@
 			<a href="javascript:window.ViewManager.HideHelpWindow()">Hide Help</a>
 			<h1>Help</h1>
 			<h2>How to use this program</h2>
+			<h3>Comparison Overview</h3>
+			On the left side, the upper view is the Comparison Overview. It contains one row,
+			and one column per tree, so that you get a quick overview of the measurement between the trees.<br/>
+			Within the Comparison Overview, you can select the reference tree by clicking on a column. If you select a reference tree,
+			all measures are recalculated and the views are updated.
+			<h3>Score Distribution Overview</h3>
 			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
 			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
 			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
+			<h3>Reference Tree View</h3>
 			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
 			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
 			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			<h2>Other blabla</h2>
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
-			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
+			<h3>Tree Comparison Views</h3>
 			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
 			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.
 			Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.

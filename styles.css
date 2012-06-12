@@ -6,6 +6,17 @@ html, body
 	padding: 0;
 	overflow: hidden;	/* Remove scroll bars on browser window */
 }
+
+div.titlebar
+{
+	text-align: center;
+	font-weight: bold;
+	font-size: 10pt;
+	font-family: verdana, arial;
+	border-bottom: 2px solid #003366;
+	background-color: #bbb;
+}
+
 #header { padding: 1em; }
 
 #ScoreDistributionPane {

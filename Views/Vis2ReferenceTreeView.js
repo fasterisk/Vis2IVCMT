@@ -14,7 +14,7 @@ function Vis2ReferenceTreeView(divID) {
 	function ItlUpdate() {
 		// set canvas size to div size
 		CanvasElement.width = DivElement.offsetWidth;
-		CanvasElement.height = DivElement.offsetHeight;
+		CanvasElement.height = DivElement.offsetHeight - 30;
 
 		// get context
 		context = CanvasElement.getContext("2d");

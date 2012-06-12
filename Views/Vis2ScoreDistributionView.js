@@ -66,7 +66,7 @@ function Vis2ScoreDistributionView(divID) {
 	this.Update = function() {
 		// Set canvas width to div width, also do the height
 		CanvasElement.width = DivElement.offsetWidth;
-		CanvasElement.height = DivElement.offsetHeight - 10;
+		CanvasElement.height = DivElement.offsetHeight - 30;
 
 		// Get context
 		var context = CanvasElement.getContext("2d");
@@ -93,7 +93,7 @@ function Vis2ScoreDistributionView(divID) {
 				break;
 		}
 
-		var fPadding = 4;
+		var fPadding = 6;
 
 		// so we have the number of cols and rows
 		fDiagramWidth = CanvasElement.width / nCols - fPadding - 2;
@@ -139,7 +139,7 @@ function Vis2ScoreDistributionView(divID) {
 				//if(nTreeIndex == nReferenceTree)
 				//context.fillStyle = "rgb(255, 200, 200)";
 
-				context.lineWidth = 2;
+				context.lineWidth = 3;
 				context.strokeRect(currX, currY, fCellWidth, fCellHeight);
 				context.fillRect(currX, currY, fCellWidth, fCellHeight);
 

@@ -19,7 +19,7 @@ function OnWindowLoaded() {
 
 function PrepareMainPage() {
 	$("#jqxSplitter2").jqxSplitter({
-		theme : 'summer',
+		theme : 'darkblue',
 		orientation : 'horizontal',
 		panels : [{
 			size : '200px'
@@ -31,7 +31,7 @@ function PrepareMainPage() {
 	});
 
 	$("#jqxSplitter").jqxSplitter({
-		theme : 'summer',
+		theme : 'darkblue',
 		panels : [{
 			size : '200px'
 		}, {
@@ -52,6 +52,7 @@ function PrepareMainPage() {
 		var self = this;
 		var nSections = 0;
 		var nWindows = 0;
+		var nWindowsCounter = 0;
 		var nMaxSections = 2;
 
 		//This method will handle the new added sections
@@ -67,9 +68,10 @@ function PrepareMainPage() {
 		function handleWindow(el) {
 			var nNewWindowIndex = nWindows+1;
 			var id = 'knockout-window-' + (nNewWindowIndex);		
-			var nSection = nWindows % nSections;
+			var nSection = nWindowsCounter % nSections;
 			
 			nWindows += 1;
+			nWindowsCounter += 1;
 			
 			$(el).attr('id', id);
 			$(el).css('min-height', '300px');
@@ -121,6 +123,14 @@ function PrepareMainPage() {
 			}
 		}
 		
+		this.closeWindow = function()
+		{
+			// decrement windows counter, necessary for placement of newly created windows
+			nWindowsCounter -= 1
+			
+			assert (nWindows >= 0, "nWindows became negative");
+		}
+		
 	};
 
 	window.DynamicWindowsModel = new DynamicWindowsModel();
@@ -129,7 +139,7 @@ function PrepareMainPage() {
 	ko.applyBindings(window.DynamicWindowsModel);
 	
 	$('#docking').jqxDocking({
-					theme : '',
+					theme : 'energyblue',
 					width: '700px',
 					panelsRoundedCorners : true
 				});

@@ -74,10 +74,10 @@ function Vis2ComparisonOverview(divID) {
 		assert(nNumTrees > 0, "no trees loaded");
 
 		// get height of each rectangle
-		nHeight = CanvasElement.height / (nNumTrees + 1);
+		nHeight = (CanvasElement.height - 10) / (nNumTrees + 1);
 
 		// get width of each rectangle
-		nWidth = CanvasElement.width / (nNumTrees + 1);
+		nWidth = (CanvasElement.width - 10) / (nNumTrees + 1);
 		
 		// get tree in x direction
 		nTree1 = Math.floor(nXinCanvas / nWidth) - 1;
@@ -88,8 +88,9 @@ function Vis2ComparisonOverview(divID) {
 		// set hovered reference tree
 		m_nHoveredReferenceTree = nTree1+1;
 		
-		if(nTree1 < 0 || nTree2 < 0)
-		{		
+		if(nTree1 < 0 || nTree2 < 0 || nTree1 >= nNumTrees || nTree2 >= nNumTrees)
+		{	
+			m_nHoveredReferenceTree = undefined;
 			return;
 		}
 					
@@ -116,7 +117,7 @@ function Vis2ComparisonOverview(divID) {
 	this.Update = function() {
 		// set canvas size to div size
 		CanvasElement.width = DivElement.offsetWidth;
-		CanvasElement.height = DivElement.offsetHeight;
+		CanvasElement.height = DivElement.offsetHeight - 20;
 
 		// get context
 		context = CanvasElement.getContext("2d");
@@ -126,10 +127,10 @@ function Vis2ComparisonOverview(divID) {
 		assert(nNumTrees > 0, "no trees loaded");
 
 		// get height of each rectangle
-		nHeight = CanvasElement.height / (nNumTrees + 1);
+		nHeight = (CanvasElement.height - 10) / (nNumTrees + 1);
 
 		// get height of each rectangle
-		nWidth = CanvasElement.width / (nNumTrees + 1);
+		nWidth = (CanvasElement.width - 10) / (nNumTrees + 1);
 
 		// get index of reference tree
 		nReferenceTree = window.TreeManager.GetIndexOfTree(window.SelectionManager.GetReferenceTree()) + 1;

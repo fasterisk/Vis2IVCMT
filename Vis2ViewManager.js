@@ -61,6 +61,7 @@ function Vis2ViewManager() {
 				aCreatedWindows[i].windowID = undefined;
 				aCreatedWindows[i].nSelectedTree = undefined;
 				
+				window.DynamicWindowsModel.closeWindow();
 				window.ViewManager.UpdateViews();
 			}
 		}
