@@ -106,7 +106,9 @@ function Vis2ComparisonOverview(divID) {
 		context.strokeRect(nXinCanvas - 30, nYinCanvas - 15, 30, 20);
 		context.font = "10px sans-serif";
 	    context.fillStyle = '#000';
-	    context.fillText(fMeasure.toPrecision(2), nXinCanvas - 25, nYinCanvas - 2, 60);	    
+	    context.fillText(fMeasure.toPrecision(2), nXinCanvas - 25, nYinCanvas - 2, 60);
+	    
+	    $("#ComparisonOverviewCanvas").attr("title", "Current value (Tree " + (nTree1+1) + " compared to " + (nTree2+1) + "): " + fMeasure.toPrecision(2) + "\n\n" + "Click to select reference tree");	    
 	    
 	}
 
