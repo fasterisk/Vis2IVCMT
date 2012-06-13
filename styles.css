@@ -24,6 +24,23 @@ div.titlebar
 	overflow-y: auto;
 }
 
+div#help
+{
+	position: absolute; float: left;
+	font-size: 9pt;
+	font-family: verdana, arial;
+	background-color: white;
+	padding: 5px;
+}
+
+div#help h1, div#help h2, div#help h3
+{
+	font-weight: normal;
+	font-family: verdana, arial;
+}
+
+
+
 #show_help_link
 {
 	width: 110px;
