@@ -1,9 +1,10 @@
-function Vis2ScoreDistributionView(divID) {
+function Vis2ScoreDistributionView(divID)
+{
 	/*
-	* PRIVATE
-	*/
+	 * PRIVATE
+	 */
 
-	//canvas associated to this view
+	// canvas associated to this view
 	var DivElement = window.document.getElementById(divID);
 	var CanvasElement = GetCanvasWithinDiv(divID);
 
@@ -16,17 +17,22 @@ function Vis2ScoreDistributionView(divID) {
 	CanvasElement.addEventListener('click', OnClick, false);
 
 	// event handler
-	function OnClick(event) {
+	function OnClick(event)
+	{
 		assert(m_bDivFilled, "click event called but div never filled");
 
 		var nX = event.offsetX;
 		var nY = event.offsetY;
 		var nTreeIndex = undefined;
 
-		// go through the stored diagram infos, search a diagram where nX and nY lies between x1/x2 and y1/y2
-		for(var i = 0; i < m_aDiagramInfos.length; i++) {
-			if(nX >= m_aDiagramInfos[i].x1 && nX <= m_aDiagramInfos[i].x2) {
-				if(nY >= m_aDiagramInfos[i].y1 && nY <= m_aDiagramInfos[i].y2) {
+		// go through the stored diagram infos, search a diagram where nX and nY
+		// lies between x1/x2 and y1/y2
+		for ( var i = 0; i < m_aDiagramInfos.length; i++)
+		{
+			if (nX >= m_aDiagramInfos[i].x1 && nX <= m_aDiagramInfos[i].x2)
+			{
+				if (nY >= m_aDiagramInfos[i].y1 && nY <= m_aDiagramInfos[i].y2)
+				{
 					// found the diagram which is under the mouse cursor
 					// store tree index
 					nTreeIndex = m_aDiagramInfos[i].treeIndex;
@@ -40,19 +46,26 @@ function Vis2ScoreDistributionView(divID) {
 		}
 
 		// if a treeindex was found, create new comparison window
-		if(nTreeIndex != undefined) {
-			if(window.SelectionManager.IsTreeSelected(nTreeIndex) == false) {
+		if (nTreeIndex != undefined)
+		{
+			if (window.SelectionManager.IsTreeSelected(nTreeIndex) == false)
+			{
 				// add new tree comparison window
-				var nWindowIndex = window.ViewManager.AddTreeComparisonWindow(nTreeIndex);
+				var nWindowIndex = window.ViewManager
+						.AddTreeComparisonWindow(nTreeIndex);
 
 				// add tree to selection manager
-				window.SelectionManager.AddTreeToCompare(nTreeIndex, nWindowIndex);
-			} else {
-				var sWindowID = window.ViewManager.GetFirstWindowIDForTree(nTreeIndex);
-				assert (sWindowID != undefined, "windowID is undefined");
-				
+				window.SelectionManager.AddTreeToCompare(nTreeIndex,
+						nWindowIndex);
+			}
+			else
+			{
+				var sWindowID = window.ViewManager
+						.GetFirstWindowIDForTree(nTreeIndex);
+				assert(sWindowID != undefined, "windowID is undefined");
+
 				$('#docking').jqxDocking('closeWindow', sWindowID);
-				
+
 				window.ViewManager.OnCloseWindow(sWindowID);
 			}
 
@@ -63,10 +76,11 @@ function Vis2ScoreDistributionView(divID) {
 	 * PUBLIC
 	 */
 
-	this.Update = function() {
+	this.Update = function()
+	{
 		// Set canvas width to div width, also do the height
 		CanvasElement.width = DivElement.offsetWidth;
-		CanvasElement.height = DivElement.offsetHeight - 30;
+		CanvasElement.height = DivElement.offsetHeight - 20;
 
 		// Get context
 		var context = CanvasElement.getContext("2d");
@@ -83,13 +97,15 @@ function Vis2ScoreDistributionView(divID) {
 		var fDiagramWidth = undefined;
 		var fDiagramHeight = undefined;
 
-		for(var i = 0; i < 10; i += 1) {
-			// TODO: make better algorithm which sets nCols/nRows in a more dynamic way
+		for ( var i = 0; i < 10; i += 1)
+		{
+			// TODO: make better algorithm which sets nCols/nRows in a more
+			// dynamic way
 
 			nCols = i;
 			nRows = i * 2;
 
-			if(nCols * nRows >= nNumTrees)
+			if (nCols * nRows >= nNumTrees)
 				break;
 		}
 
@@ -97,11 +113,11 @@ function Vis2ScoreDistributionView(divID) {
 
 		// so we have the number of cols and rows
 		fDiagramWidth = CanvasElement.width / nCols - fPadding - 2;
-		fDiagramHeight = CanvasElement.height / nRows - fPadding;
+		fDiagramHeight = DivElement.offsetHeight / nRows;// - fPadding;
 
-		//Get the reference tree
+		// Get the reference tree
 		var rReferenceTree = window.SelectionManager.GetReferenceTree();
-		if(rReferenceTree == undefined)
+		if (rReferenceTree == undefined)
 			return;
 
 		var nReferenceTree = window.TreeManager.GetIndexOfTree(rReferenceTree);
@@ -114,17 +130,25 @@ function Vis2ScoreDistributionView(divID) {
 		// clear diagram infos (for selection)
 		m_aDiagramInfos = new Array();
 
-		//Draw the histograms
-		for(var i = 0; i < nRows; i++) {
-			for(var j = 0; j < nCols; j++) {
+		// Draw the histograms
+		for ( var i = 0; i < nRows; i++)
+		{
+			for ( var j = 0; j < nCols; j++)
+			{
 
-				var aScoreDistribution = window.TreeManager.GetScoreDistribution(nReferenceTree, nTreeIndex);
-				var fAverage = window.TreeManager.GetAverageScore(nReferenceTree, nTreeIndex);
-				var bIsTreeSelected = window.SelectionManager.IsTreeSelected(nTreeIndex);
+				var aScoreDistribution = window.TreeManager
+						.GetScoreDistribution(nReferenceTree, nTreeIndex);
+				var fAverage = window.TreeManager.GetAverageScore(
+						nReferenceTree, nTreeIndex);
+				var bIsTreeSelected = window.SelectionManager
+						.IsTreeSelected(nTreeIndex);
 
-				if(bIsTreeSelected == true) {
+				if (bIsTreeSelected == true)
+				{
 					context.strokeStyle = "rgb(255, 0, 0)";
-				} else {
+				}
+				else
+				{
 					context.strokeStyle = "rgb(0, 0, 0)";
 				}
 
@@ -136,8 +160,8 @@ function Vis2ScoreDistributionView(divID) {
 
 				context.fillStyle = window.ColorMap.GetColor(fAverage);
 
-				//if(nTreeIndex == nReferenceTree)
-				//context.fillStyle = "rgb(255, 200, 200)";
+				// if(nTreeIndex == nReferenceTree)
+				// context.fillStyle = "rgb(255, 200, 200)";
 
 				context.lineWidth = 3;
 				context.strokeRect(currX, currY, fCellWidth, fCellHeight);
@@ -149,14 +173,21 @@ function Vis2ScoreDistributionView(divID) {
 				context.strokeStyle = "rgb(0, 0, 0)";
 				context.lineWidth = 1;
 
-				for(var k = 0; k < 10; k++) {
+				for ( var k = 0; k < 10; k++)
+				{
 					var fBarHeight = fCellHeight * aScoreDistribution[k];
 					var fBarWidth = fCellWidth / 10;
 
-					if(fBarHeight > 0) {
-						context.fillStyle = window.ColorMap.GetColor(k / 10 + 0.05);
-						context.fillRect(currX + fBarWidth * k, currY + fCellHeight - fBarHeight, fBarWidth, fBarHeight);
-						context.strokeRect(currX + fBarWidth * k, currY + fCellHeight - fBarHeight, fBarWidth, fBarHeight);
+					if (fBarHeight > 0)
+					{
+						context.fillStyle = window.ColorMap
+								.GetColor(k / 10 + 0.05);
+						context.fillRect(currX + fBarWidth * k, currY
+								+ fCellHeight - fBarHeight, fBarWidth,
+								fBarHeight);
+						context.strokeRect(currX + fBarWidth * k, currY
+								+ fCellHeight - fBarHeight, fBarWidth,
+								fBarHeight);
 					}
 				}
 
@@ -169,7 +200,7 @@ function Vis2ScoreDistributionView(divID) {
 				});
 
 				nTreeIndex++;
-				if(nTreeIndex == nNumTrees)
+				if (nTreeIndex == nNumTrees)
 					return;
 			}
 
