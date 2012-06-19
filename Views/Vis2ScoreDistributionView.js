@@ -80,7 +80,7 @@ function Vis2ScoreDistributionView(divID)
 	{
 		// Set canvas width to div width, also do the height
 		CanvasElement.width = DivElement.offsetWidth;
-		CanvasElement.height = DivElement.offsetHeight - 20;
+		CanvasElement.height = DivElement.offsetHeight - 22;
 
 		// Get context
 		var context = CanvasElement.getContext("2d");
