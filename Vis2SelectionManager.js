@@ -16,7 +16,7 @@ function Vis2SelectionManager() {
 		// get the tree index in range 1..n
 		var nTreeIndexToDisplay = (window.TreeManager.GetIndexOfTree(ReferenceTree)+1);
 
-		$("#ReferenceTreePane").children("div.titlebar").html("Reference Tree View (Tree " + nTreeIndexToDisplay + ")");
+		$("#ReferenceTreePane").children("div.titlebar").html('Reference Tree View <br> (Tree ' + nTreeIndexToDisplay + ')');
 		
 		// clear selected node
 		this.SetSelectedNode(undefined);
